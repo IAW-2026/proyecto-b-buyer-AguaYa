@@ -1,0 +1,73 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../app/generated/prisma"
+}
+/*
+
+Pedidos (Partición de la tabla pedidos) (pedido - orden de compra)
+
+
+
+*/
+datasource db {
+  provider = "postgresql"
+}
+
+enum OrderStatus {
+  PENDING
+  CONFIRMED
+  READY
+  IN_DELIVERY
+  DELIVERED
+  CANCELLED
+}
+
+
+model Cliente {
+  id_usuario    Int    @id @default(autoincrement())
+  id_cliente Int  @default(autoincrement())
+  mail  String @unique
+  telefonos  String
+  direcciones String
+  nombre String
+}
+
+
+model Reclamos{
+  id_reclamo Int @id @default(autoincrement())
+  id_comprador Int //posiblemente fk
+  id_pedido Int  //posiblemente fk
+  id_vendedor Int //posiblemente fk
+  justificacion String
+  foto String //url de la foto
+  estado String
+  fecha DateTime  
+}
+
+model Pedidos{ //!! Describe la particion de pedidos.Posiblemente conflicto con pedido(order) original, sirve de mockup por ahora!!
+  id_pedido  Int      @id @default(autoincrement())
+  id_vendedor Int @default(autoincrement())
+  id_comprador  Int @default(autoincrement())
+  estado     OrderStatus @default(PENDING)
+  total      Float
+  fecha_creacion  DateTime    @default(now())
+  fecha_actualizacion  DateTime    @updatedAt
+  //items      OrderItem[] 
+}
+
+model Favoritos {
+  id_comprador Int 
+  id_vendedor  Int 
+  @@id([id_comprador, id_vendedor])
+}
+
+model AdminBuyer {
+  id_admin   Int    @id @default(autoincrement()) 
+  id_usuario Int    
+  nombre    String
+}
