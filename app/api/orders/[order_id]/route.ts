@@ -1,20 +1,22 @@
 import { NextRequest, NextResponse } from "next/server"
 import {OrderStatus,setOrderStatus} from "@/lib/orders"
 
-export async function PATCH(request:NextRequest,{ params }:{ params: { order_id: string } }) {
+export async function PATCH(request:NextRequest,{ params }:{ params: Promise<{ order_id: string }> }) {
     const body = await request.json();
-    if(!body.status){
+    const orderStatus = body.orderStatus as OrderStatus | undefined;
+
+    if (!orderStatus) {
         return NextResponse.json(
-            { error: "no se encuentra el campo de status" },
+            { error: "no se encuentra el campo de orderStatus" },
             { status: 400 }
         )
     }
-    if (!Object.values(OrderStatus).includes(body.orderStatus)) {
-        return Response.json({ error: "El Status enviado es inválido" }, { status: 400 });
+    if (!Object.values(OrderStatus).includes(orderStatus)) {
+        return NextResponse.json({ error: "El Status enviado es inválido" }, { status: 400 });
     }
     try {
-        const orderStatus = body.orderStatus as OrderStatus;
-        await setOrderStatus(params.order_id,orderStatus);
+        const { order_id } = await params;
+        await setOrderStatus(order_id, orderStatus);
         return NextResponse.json({ ok: true }, { status: 200 });
     }
     catch (error){
