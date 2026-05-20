@@ -37,7 +37,7 @@ model Address { //agregar a doc
   city     String
   zip      String
   buyer_id String
-  order_id String
+  order_id String @unique
   order Order @relation(fields: [order_id],references : [order_id])
   buyer Buyer  @relation(fields: [buyer_id], references: [buyer_id])
 }
