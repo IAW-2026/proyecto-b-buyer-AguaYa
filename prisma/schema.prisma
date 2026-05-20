@@ -6,20 +6,14 @@
 generator client {
   provider = "prisma-client-js"
 }
-/*
 
-Pedidos (Partición de la tabla pedidos) (pedido - orden de compra)
-
-
-
-*/
 datasource db {
   provider = "postgresql"
 }
 
 enum OrderStatus {
   PENDING
-  CONFIRMED
+  PAID
   READY
   IN_DELIVERY
   DELIVERED
@@ -27,36 +21,60 @@ enum OrderStatus {
 }
 
 
-model Cliente {
-  id_usuario    Int    @id @default(autoincrement())
-  id_cliente Int  @default(autoincrement())
+model Buyer {
+  user_id    String    @unique
+  buyer_id String  @id @default(cuid())
   mail  String @unique
-  telefonos  String
-  direcciones String
-  nombre String
+  phone_numbers  String //no  atomico?
+  addresses Address[]
+  name String
+  claims Claim[]
 }
 
-
-model Reclamos{
-  id_reclamo Int @id @default(autoincrement())
-  id_comprador Int //posiblemente fk
-  id_pedido Int  //posiblemente fk
-  id_vendedor Int //posiblemente fk
-  justificacion String
-  foto String //url de la foto
-  estado String
-  fecha DateTime  
+model Address { //agregar a doc
+  id       Int    @id @default(autoincrement())
+  street   String
+  city     String
+  zip      String
+  buyer_id String
+  order_id String
+  order Order @relation(fields: [order_id],references : [order_id])
+  buyer Buyer  @relation(fields: [buyer_id], references: [buyer_id])
 }
 
-model Pedidos{ //!! Describe la particion de pedidos.Posiblemente conflicto con pedido(order) original, sirve de mockup por ahora!!
-  id_pedido  Int      @id @default(autoincrement())
-  id_vendedor Int @default(autoincrement())
-  id_comprador  Int @default(autoincrement())
-  estado     OrderStatus @default(PENDING)
+model Claim{
+  claim_id String @id @default(cuid())
+  order_id String  //posiblemente fk
+  reason String //originalmente era justificacion
+  photo String //url de la foto
+  //status String
+  date DateTime  
+  order Order @relation(fields: [order_id], references: [order_id])
+
+}
+
+model Order {
+  order_id         String      @id @default(cuid())
+  externalId String     @unique
+  vendor_id   String @default(cuid())
+  buyer_id    String @default(cuid())
+  status     OrderStatus @default(PENDING)
   total      Float
-  fecha_creacion  DateTime    @default(now())
-  fecha_actualizacion  DateTime    @updatedAt
-  //items      OrderItem[] 
+  address    Address
+  created_at  DateTime    @default(now())
+  updated_at  DateTime    @updatedAt
+  items      OrderItem[]
+  claims Claim[]
+}
+
+model OrderItem { //relaciona order con products, potencialmente ayuda tener atributos adicionales por si el producto se pierde de la db de seller
+  id            String  @id @default(cuid())
+  order_id      String
+  product_id    String
+  product_name  String
+  product_price Float
+  quantity      Int
+  order         Order   @relation(fields: [order_id], references: [order_id])
 }
 
 model Favoritos {
@@ -66,7 +84,7 @@ model Favoritos {
 }
 
 model AdminBuyer {
-  id_admin   Int    @id @default(autoincrement()) 
-  id_usuario Int    
+  id_admin   String    @id @default(cuid()) 
+  id_usuario String  
   nombre    String
 }
