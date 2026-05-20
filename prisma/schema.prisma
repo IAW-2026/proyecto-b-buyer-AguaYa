@@ -31,7 +31,7 @@ model Buyer {
 }
 
 model Address { //agregar a doc
-  id       Int    @id @default(autoincrement())
+  id       String    @id @default(cuid())
   street   String
   city     String
   zip      String
