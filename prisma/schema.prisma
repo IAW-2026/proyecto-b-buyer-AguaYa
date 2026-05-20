@@ -36,7 +36,7 @@ model Address { //agregar a doc
   city     String
   zip      String
   buyer_id String
-  orders Order[]?
+  orders Order[]
   buyer Buyer  @relation(fields: [buyer_id], references: [buyer_id])
 }
 
