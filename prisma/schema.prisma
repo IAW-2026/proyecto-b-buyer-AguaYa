@@ -28,7 +28,6 @@ model Buyer {
   phone_numbers  String //no  atomico?
   addresses Address[]
   name String
-  claims Claim[]
 }
 
 model Address { //agregar a doc
