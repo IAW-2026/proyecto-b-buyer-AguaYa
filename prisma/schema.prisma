@@ -28,6 +28,7 @@ model Buyer {
   phone_numbers  String //no  atomico?
   addresses Address[]
   name String
+  favorites Favorite[]
 }
 
 model Address { //agregar a doc
@@ -76,14 +77,15 @@ model OrderItem { //relaciona order con products, potencialmente ayuda tener atr
   order         Order   @relation(fields: [order_id], references: [order_id])
 }
 
-model Favoritos {
-  id_comprador Int 
-  id_vendedor  Int 
-  @@id([id_comprador, id_vendedor])
+model Favorite {
+  buyer_id String 
+  vendor_id  String 
+  @@id([buyer_id, vendor_id])
+  buyer Buyer @relation(fields: [buyer_id],references:[buyer_id])
 }
 
 model AdminBuyer {
   id_admin   String    @id @default(cuid()) 
-  id_usuario String  
+  id_usuario String  @unique
   nombre    String
 }
