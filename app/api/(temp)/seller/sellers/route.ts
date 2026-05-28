@@ -1,23 +1,5 @@
 import { NextResponse,NextRequest } from "next/server";
 
-/*model Vendor {
-  id          String    @id @default(cuid())
-  userId      String    @unique
-  name        String
-  description String?
-  address     String
-  image       String?
-  cuil        String?
-  cuit        String?
-  reputation  Float     @default(0)
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-  deletedAt   DateTime? // Soft delete: vendedor desactivado, datos preservados
-
-  products    Product[]
-  orders      Order[]
-}*/
-
 const mockVendors = [
     {id:"1", name:"Vendedor1",address:"Buenos Aires"},
     {id:"2", name:"Vendedor2",address:"Bahia Blanca"},
