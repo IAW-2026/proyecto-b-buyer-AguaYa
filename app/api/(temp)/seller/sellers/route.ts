@@ -24,5 +24,5 @@ export async function GET(request: NextRequest) {
     if (address) {
         result = result.filter(p => p.address == address)
     }
-    return NextResponse.json;
+    return NextResponse.json(result);
 }
