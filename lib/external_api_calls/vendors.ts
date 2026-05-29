@@ -3,8 +3,12 @@
 
 
 
-export async function getVendors(){
-    const res = await fetch("http://localhost:3000/api/seller/sellers");
+export async function getVendors(id?: string){
+    let url = "http://localhost:3000/api/seller/sellers";
+    if (id) {
+        url += `?id=${encodeURIComponent(id)}`;
+    }
+    const res = await fetch(url);
     console.log(process.env.NEXT_PUBLIC_API_URL);
     if (!res.ok) throw new Error('Error al obtener productos');
     return res.json();

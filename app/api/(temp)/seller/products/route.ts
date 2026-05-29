@@ -47,5 +47,9 @@ export async function GET(request: NextRequest) {
     if (stock) {
         result = result.filter(p => p.stock == stockNumber)
     }
+    const vendorId = searchParams.get('vendorId') ?? searchParams.get('vendor_id');
+    if (vendorId) {
+        result = result.filter(p => p.vendorId === vendorId)
+    }
     return NextResponse.json(result);
 }

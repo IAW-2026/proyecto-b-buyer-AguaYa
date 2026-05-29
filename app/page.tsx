@@ -12,10 +12,10 @@ export default async function Home() {
           className="w-full px-4 py-2 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-[#4287f5] focus:border-transparent"
         />
         <div className="grid grid-cols-3 gap-4 p-4">
-        {vendors.map((vendor:Vendor) => (
-        <VendorCard key={vendor.id} vendor={vendor} />
-      ))}
-      </div>
+          {vendors.map((vendor:Vendor) => (
+          <VendorCard key={vendor.id} vendor={vendor} />
+          ))}
+        </div>
       </div>
     </div>
   );
