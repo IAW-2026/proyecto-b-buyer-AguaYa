@@ -1,10 +1,4 @@
-export interface Product {
-  id: string
-  vendorId:string
-  name: string
-  price: Number
-  stock: Number
-}
+import {Product} from "@/lib/external_api_calls/products";
 
 export default async function ProductCard({product}:{product: Product}){
     return (

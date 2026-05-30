@@ -1,6 +1,6 @@
 import React from "react";
-import{getProducts} from "@/lib/external_api_calls/products";
-import ProductCard,{Product} from "@/app/components/products/productCard";
+import{getProducts,getProductsByVendor,Product} from "@/lib/external_api_calls/products";
+import ProductCard from "@/app/components/products/productCard";
 
 type VendorPageProps = {
   params: Promise<{ vendor_id: string }>;
@@ -8,7 +8,7 @@ type VendorPageProps = {
 
 export default async function VendorPage({ params }: VendorPageProps) {
   const { vendor_id } = await params;
-  const products = await getProducts(vendor_id);
+  const products = await getProductsByVendor(vendor_id);
   return (
     <div>
       <div>

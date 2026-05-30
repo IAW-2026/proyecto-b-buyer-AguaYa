@@ -1,6 +1,6 @@
 import React from "react";
-import {getVendors} from "@/lib/external_api_calls/vendors";
-import VendorCard,{Vendor} from "@/app/components/vendors/vendorCard";
+import { getVendors, Vendor } from "@/lib/external_api_calls/vendors";
+import VendorCard from "@/app/components/vendors/vendorCard";
 export default async function Home() {
   const vendors = await getVendors();
   return (
