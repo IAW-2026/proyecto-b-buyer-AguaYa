@@ -1,0 +1,91 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma/client"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum OrderStatus {
+  PENDING
+  PAID
+  READY
+  IN_DELIVERY
+  DELIVERED
+  CANCELLED
+}
+
+model Buyer {
+  user_id       String     @unique
+  buyer_id      String     @id @default(cuid())
+  mail          String     @unique
+  phone_numbers String //no  atomico?
+  addresses     Address[]
+  name          String
+  favorites     Favorite[]
+}
+
+model Address {
+  id       String  @id @default(cuid())
+  street   String
+  city     String
+  zip      String
+  buyer_id String
+  orders   Order[]
+  buyer    Buyer   @relation(fields: [buyer_id], references: [buyer_id])
+}
+
+model Claim {
+  claim_id String   @id @default(cuid())
+  order_id String //posiblemente fk
+  reason   String //originalmente era justificacion
+  photo    String //url de la foto
+  //status String
+  date     DateTime
+  order    Order    @relation(fields: [order_id], references: [order_id])
+}
+
+model Order {
+  order_id   String      @id @default(cuid())
+  externalId String      @unique
+  vendor_id  String
+  buyer_id   String
+  status     OrderStatus @default(PENDING)
+  total      Float
+  address_id String
+  created_at DateTime    @default(now())
+  updated_at DateTime    @updatedAt
+  items      OrderItem[]
+  claims     Claim[]
+  address    Address     @relation(fields: [address_id], references: [id])
+}
+
+model OrderItem {
+  id            String @id @default(cuid())
+  order_id      String
+  product_id    String
+  product_name  String
+  product_price Float
+  quantity      Int
+  order         Order  @relation(fields: [order_id], references: [order_id])
+}
+
+model Favorite {
+  buyer_id  String
+  vendor_id String
+  buyer     Buyer  @relation(fields: [buyer_id], references: [buyer_id])
+
+  @@id([buyer_id, vendor_id])
+}
+
+model AdminBuyer {
+  id_admin   String @id @default(cuid())
+  id_usuario String @unique
+  nombre     String
+}

@@ -19,11 +19,19 @@ export async function PATCH(request:NextRequest,{ params }:{ params: Promise<{ o
         await setOrderStatus(order_id, orderStatus);
         return NextResponse.json({ ok: true }, { status: 200 });
     }
-    catch (error){
+    catch (error) {
+        if (error instanceof Error && error.message === 'Orden no encontrada') {
+            return NextResponse.json(
+                { error: 'Orden no encontrada' },
+                { status: 404 }
+            )
+        }
+
         return NextResponse.json(
-            { error: "Error interno del servidor" },
+            { error: 'Error interno del servidor' },
             { status: 500 }
-        ) 
+        )
     }
 }
+
 
