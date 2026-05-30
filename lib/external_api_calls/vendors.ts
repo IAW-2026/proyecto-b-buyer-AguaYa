@@ -12,6 +12,6 @@ export async function getVendors(id?: string){
     }
     const res = await fetch(url);
     console.log(process.env.NEXT_PUBLIC_API_URL);
-    if (!res.ok) throw new Error('Error al obtener productos');
+    if (!res.ok) throw new Error('Error al obtener vendedores');
     return res.json();
 }
