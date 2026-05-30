@@ -7,7 +7,7 @@ const mockProducts = [
     {id:"5", vendorId:"3", name:"Producto5", price:500, stock:50}
 ]
 
-export async function getProducts(vendorId?: string){
+export async function getProducts(vendorId?: string):Promise<typeof mockProducts[0] | typeof mockProducts> {
    /* let baseUrl = process.env.NEXT_PUBLIC_API_URL;
     let url= `${baseUrl}/seller/products`;
     if (vendorId) {

@@ -9,7 +9,7 @@ const mockVendors = [
 
 
 
-export async function getVendors(id?: string){
+export async function getVendors(id?: string): Promise<typeof mockVendors[0] | typeof mockVendors> {
 
    /* let baseUrl = process.env.NEXT_PUBLIC_API_URL;
     let url= `${baseUrl}/seller/sellers`;
