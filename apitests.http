@@ -1,1 +1,11 @@
-GET http://localhost:3000/api/feedback/faq
+
+@baseUrl = http://localhost:3000
+@order_id = cmprx9oul00024ov0eb5c385h
+
+### PATCH update order
+PATCH {{baseUrl}}/api/orders/{{order_id}}
+Content-Type: application/json
+
+{
+    "status": "shipped",
+}

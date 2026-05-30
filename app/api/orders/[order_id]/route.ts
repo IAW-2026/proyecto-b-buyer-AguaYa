@@ -5,7 +5,7 @@ export async function PATCH(request:NextRequest,{ params }:{ params: Promise<{ o
     const body = await request.json();
     const orderStatus = body.orderStatus as OrderStatus | undefined;
 
-    if (!orderStatus) {
+    if (orderStatus === undefined || orderStatus === null) {
         return NextResponse.json(
             { error: "no se encuentra el campo de orderStatus" },
             { status: 400 }
