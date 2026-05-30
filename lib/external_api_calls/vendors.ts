@@ -4,7 +4,9 @@
 
 
 export async function getVendors(id?: string){
-    let url = "http://localhost:3000/api/seller/sellers";
+
+    let baseUrl = process.env.NEXT_PUBLIC_API_URL;
+    let url= `${baseUrl}/seller/sellers`;
     if (id) {
         url += `?id=${encodeURIComponent(id)}`;
     }

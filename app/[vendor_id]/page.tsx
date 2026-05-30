@@ -16,7 +16,7 @@ export default async function VendorPage({ params }: VendorPageProps) {
       </div>
       <div className="grid grid-cols-3 gap-4 p-4">
         {products.map((product: Product) => (
-          <ProductCard key={product.vendorId} product={product} />
+          <ProductCard key={product.id} product={product} />
         ))}
       </div>
     </div>
