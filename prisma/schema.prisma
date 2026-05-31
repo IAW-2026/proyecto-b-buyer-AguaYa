@@ -61,12 +61,12 @@ model Order {
   buyer_id    String 
   status     OrderStatus @default(PENDING)
   total      Float
-  address_id String
+  address_id String?
   created_at  DateTime    @default(now())
   updated_at  DateTime    @updatedAt
   items      OrderItem[]
   claims Claim[]
-  address Address @relation(fields: [address_id], references : [id])
+  address Address ?@relation(fields: [address_id], references : [id])
 }
 
 model OrderItem { //relaciona order con products, potencialmente ayuda tener atributos adicionales por si el producto se pierde de la db de seller
