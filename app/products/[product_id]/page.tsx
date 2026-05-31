@@ -27,7 +27,7 @@ export default async function VendorPage({ params }: VendorPageProps) {
 
 import React from "react";
 import {Product,getProductById} from "@/lib/external_api_calls/products"
-
+import { AddToCartButton } from "@/app/components/cart/addToCartButton";
 type ProductPageProps = {
   params: Promise<{ product_id: string }>;
 };
@@ -38,6 +38,7 @@ export default async function ProductPage({params}:ProductPageProps){
     return (
         <div>
             <h1>{product.name}</h1>
+            <AddToCartButton productId={product.id} quantity={1}/>
         </div>
     );
 }
