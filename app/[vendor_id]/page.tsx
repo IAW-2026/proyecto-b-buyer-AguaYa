@@ -1,5 +1,7 @@
 import React from "react";
 import{getProducts,getProductsByVendor,Product} from "@/lib/external_api_calls/products";
+import { notFound } from "next/navigation";
+import {Vendor, getVendorById} from '@/lib/external_api_calls/vendors'
 import ProductCard from "@/app/components/products/productCard";
 
 type VendorPageProps = {
@@ -7,7 +9,11 @@ type VendorPageProps = {
 };
 
 export default async function VendorPage({ params }: VendorPageProps) {
+
   const { vendor_id } = await params;
+  const vendor = await getVendorById(vendor_id);
+  if (!vendor) 
+    return notFound();
   const products = await getProductsByVendor(vendor_id);
   return (
     <div>

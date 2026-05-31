@@ -18,9 +18,10 @@ export async function getVendors(): Promise<Vendor[]> {
     return mockVendors;
 }
 
-export async function getVendorById(id: string): Promise<Vendor> {
+export async function getVendorById(id: string): Promise<Vendor | null> {
     const vendor = mockVendors.find(v => v.id === id);
-    if (!vendor) throw new Error('Vendedor no encontrado');
+    if (!vendor) 
+        return null;
     return vendor;
 }
  /* let baseUrl = process.env.NEXT_PUBLIC_API_URL;
