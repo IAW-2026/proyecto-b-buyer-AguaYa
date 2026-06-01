@@ -1,9 +1,9 @@
-// app/favorites/page.tsx
+
 import { auth } from '@clerk/nextjs/server';
 import { getBuyerByUserId } from '@/lib/buyers';
 import { getFavoritesByBuyerId } from '@/lib/favorites';
 import { getVendors } from '@/lib/external_api_calls/vendors';
-import VendorCard from '@/app/components/vendors/vendorCard';
+import { FavoriteCard } from '@/app/components/favorites/favoriteCard';
 
 export default async function FavoritesPage() {
   const { userId } = await auth();
@@ -26,7 +26,7 @@ export default async function FavoritesPage() {
       ) : (
         <div className="grid grid-cols-3 gap-4">
           {favoriteVendors.map((vendor) => (
-            <VendorCard key={vendor.id} vendor={vendor} />
+            <FavoriteCard key={vendor.id} vendor={vendor} buyerId={buyer.buyer_id} />
           ))}
         </div>
       )}

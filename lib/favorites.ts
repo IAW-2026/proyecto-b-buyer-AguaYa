@@ -16,3 +16,14 @@ export async function getFavoritesByBuyerId(buyerId: string) {
     where: { buyer_id: buyerId },
   });
 }
+
+export async function deleteFavorite(buyerId: string, vendorId: string) {
+  return prisma.favorite.delete({
+    where: {
+      buyer_id_vendor_id: {
+        buyer_id: buyerId,
+        vendor_id: vendorId,
+      },
+    },
+  });
+}
