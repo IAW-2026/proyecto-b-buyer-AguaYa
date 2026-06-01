@@ -44,8 +44,17 @@ export async function getConfirmedOrders(buyerId: string) {
 }
 
 export async function deleteOrder(orderId : string){
+  return prisma.$transaction(async (tx) => {
+    await tx.orderItem.deleteMany({
+      where: { order_id: orderId },
+    });
 
+    await tx.order.delete({
+      where: { order_id: orderId },
+    });
+  });
 }
+
 // lib/orders.ts
 export async function deletePendingOrders(buyerId: string) {
   return prisma.$transaction(async (tx) => {
