@@ -9,7 +9,7 @@ export default async function ProductCard({product}:{product: Product}){
           {product.name}
         </Link>
         <ProductInfo product={product} />
-        <AddToCartButton productId={product.id} quantity={1}/>
+        <AddToCartButton productId={product.id}/>
     </div>
   )
 }
