@@ -1,4 +1,4 @@
-import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
+/*import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 
 const isPublicRoute = createRouteMatcher([
   "/signin(.*)",
@@ -32,5 +32,39 @@ export default clerkMiddleware(async (auth, request) => {
 
 export const config = {
   matcher: ["/((?!.*\\..*|_next).*)"],
-};
+};*/
 
+//Version para probar las paginas de admin
+import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
+
+const isPublicRoute = createRouteMatcher([
+  "/signin(.*)",
+  "/signup(.*)",
+  "/api(.*)",
+  "/"
+]);
+
+const isAdminRoute = createRouteMatcher(["/admin(.*)"]);
+const isAdminRoot = createRouteMatcher(["/admin"]);
+
+export default clerkMiddleware(async (auth, request) => {
+  if (isAdminRoot(request)) {
+    const { userId } = await auth.protect();
+    return Response.redirect(new URL(`/admin/${userId}`, request.url));
+  }
+
+  if (isAdminRoute(request)) {
+    await auth.protect();
+    // if (sessionClaims?.metadata?.role !== "admin") {
+    //   return Response.redirect(new URL("/", request.url));
+    // }
+  }
+
+  if (!isPublicRoute(request)) {
+    await auth.protect();
+  }
+});
+
+export const config = {
+  matcher: ["/((?!.*\\..*|_next).*)"],
+};

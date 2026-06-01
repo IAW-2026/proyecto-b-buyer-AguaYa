@@ -7,7 +7,8 @@ import { auth } from '@clerk/nextjs/server';
 
 export default async function Home() {
   const { sessionClaims } = await auth();
-  const isAdmin = sessionClaims?.metadata?.role === "admin";
+  //const isAdmin = sessionClaims?.metadata?.role === "admin"; Comentado para hacer pruebas en paginas admin
+  const isAdmin = true; //temporal
   const vendors = await getVendors();
   return (
     <div className="flex justify-center items-center p-4">
@@ -23,7 +24,7 @@ export default async function Home() {
           Favoritos
         </Link>
          {isAdmin && (
-        <Link href = "/admin">Panel de administración</Link>
+          <Link href = "/admin">Panel de administración</Link>
         )}
         <div className="grid grid-cols-3 gap-4 p-4">
           {vendors.map((vendor:Vendor) => (
