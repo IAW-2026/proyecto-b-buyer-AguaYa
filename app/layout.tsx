@@ -2,6 +2,8 @@ import type { Metadata } from 'next'
 import { ClerkProvider, Show, SignInButton, SignUpButton, UserButton } from '@clerk/nextjs'
 import { Geist, Geist_Mono } from 'next/font/google'
 import './globals.css'
+import { Logo } from "@/app/components/ui/logo"
+import Link from 'next/link'
 const geistSans = Geist({
   variable: '--font-geist-sans',
   subsets: ['latin'],
@@ -29,9 +31,8 @@ export default function RootLayout({
           <header className="flex justify-between items-center p-4 gap-4 h-16 bg-white shadow-sm">
             {/* Logo - Izquierda */}
             <div className="flex-shrink-0">
-              <h1 className="text-2xl font-bold text-[#4287f5]">AguaYa</h1>
+                <Logo/>
             </div>
-
             {/* Botones - Derecha */}
             <div className="flex items-center gap-4 flex-shrink-0">
               <Show when="signed-out">
