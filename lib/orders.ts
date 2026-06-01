@@ -77,3 +77,9 @@ export async function deletePendingOrders(buyerId: string) {
     });
   });
 }
+
+export async function getAllOrders() {
+  return prisma.order.findMany({
+    include: { items: true },
+  });
+}
