@@ -10,3 +10,9 @@ export async function getFavoriteByIDs(buyerId: string, vendorId: string) {
     },
   });
 }
+
+export async function getFavoritesByBuyerId(buyerId: string) {
+  return prisma.favorite.findMany({
+    where: { buyer_id: buyerId },
+  });
+}
