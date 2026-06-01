@@ -1,11 +1,12 @@
 
 @baseUrl = http://localhost:3000
-@order_id = cmprx9oul00024ov0eb5c385h
+@order_id = cmpulhi420001b8v0tytviem7
 
-### PATCH update order
-PATCH {{baseUrl}}/api/orders/{{order_id}}
+### Cambiar estado de orden
+PATCH http://localhost:3000/api/orders/{{order_id}}
 Content-Type: application/json
+x-api-key: u7xyd3wAgHZTsGKbwN3w8NvzNPouYxZYzGcvLVkfluk=
 
 {
-    "status": "shipped",
+  "orderStatus": "PAID"
 }

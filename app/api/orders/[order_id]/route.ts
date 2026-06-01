@@ -4,7 +4,10 @@ import {OrderStatus,setOrderStatus} from "@/lib/orders"
 export async function PATCH(request:NextRequest,{ params }:{ params: Promise<{ order_id: string }> }) {
     const body = await request.json();
     const orderStatus = body.orderStatus as OrderStatus | undefined;
-
+    const apiKey = request.headers.get("x-api-key");
+    if (apiKey !== process.env.BUYER_API_KEY) {
+        return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
     if (orderStatus === undefined || orderStatus === null) {
         return NextResponse.json(
             { error: "no se encuentra el campo de orderStatus" },

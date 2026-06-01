@@ -15,6 +15,9 @@ export default async function Home() {
         <Link href = "/cart">
           Carrito
         </Link>
+        <Link href = "/orders">
+          Pedidos
+        </Link>
         <div className="grid grid-cols-3 gap-4 p-4">
           {vendors.map((vendor:Vendor) => (
           <VendorCard key={vendor.id} vendor={vendor} />

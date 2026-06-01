@@ -10,7 +10,10 @@ DEVUELVE LOS  CLAIMS ASOCIADOS AL ORDER ID
 export async function GET(req:NextRequest){
 
     const orderIds = req.nextUrl.searchParams.get('order_id');
-
+    const apiKey = req.headers.get("x-api-key");
+    if (apiKey !== process.env.BUYER_API_KEY) {
+        return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
     if (!orderIds) {
         return NextResponse.json(
             { error: "order ids no fueron ingresados" },
