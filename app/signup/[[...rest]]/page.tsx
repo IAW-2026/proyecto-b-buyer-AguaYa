@@ -1,5 +1,7 @@
 import { SignUp } from "@clerk/nextjs";
 
 export default function SignUpPage() {
-  return <SignUp />;
+  const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+  return <SignUp forceRedirectUrl= {`${baseUrl}/auth/create-buyer` }/>;
 }
+

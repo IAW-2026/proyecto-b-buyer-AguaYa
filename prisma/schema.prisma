@@ -27,7 +27,7 @@ model Buyer {
   user_id    String    @unique
   buyer_id String  @id @default(cuid())
   mail  String @unique
-  phone_numbers  String //no  atomico?
+  phone_numbers   String? //no  atomico?
   addresses Address[]
   name String
   favorites Favorite[]
