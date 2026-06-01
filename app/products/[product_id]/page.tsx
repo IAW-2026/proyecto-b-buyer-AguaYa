@@ -38,7 +38,7 @@ export default async function ProductPage({params}:ProductPageProps){
     return (
         <div>
             <h1>{product.name}</h1>
-            <AddToCartButton productId={product.id} quantity={1}/>
+            <AddToCartButton productId={product.id}/>
         </div>
     );
 }

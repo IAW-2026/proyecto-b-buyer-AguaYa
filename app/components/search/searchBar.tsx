@@ -1,64 +1,39 @@
+// components/search/SearchBar.tsx
 "use client";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { SearchResults } from "@/lib/search";
+
+type SearchType = "products" | "vendors";
 
 export function SearchBar() {
   const [query, setQuery] = useState("");
-  const [results, setResults] = useState<SearchResults | null>(null);
-  const [loading, setLoading] = useState(false);
+  const [searchType, setSearchType] = useState<SearchType>("products");
+  const router = useRouter();
 
-  async function handleSearch(value: string) {
-    setQuery(value);
-    if (value.trim() === "") {
-      setResults(null);
-      return;
+  function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
+    if (e.key === "Enter" && query.trim() !== "") {
+      router.push(`/search/${searchType}?q=${encodeURIComponent(query.trim())}`);
     }
-    setLoading(true);
-    const res = await fetch(`/api/search?q=${encodeURIComponent(value)}`);
-    const data = await res.json();
-    setResults(data);
-    setLoading(false);
   }
 
   return (
-    <div>
+    <div className="flex gap-2">
+      <select
+        value={searchType}
+        onChange={(e) => setSearchType(e.target.value as SearchType)}
+        className="px-3 py-2 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-[#4287f5]"
+      >
+        <option value="products">Productos</option>
+        <option value="vendors">Vendedores</option>
+      </select>
       <input
         type="text"
         value={query}
-        onChange={(e) => handleSearch(e.target.value)}
-        placeholder="Buscar productos o vendedores..."
+        onChange={(e) => setQuery(e.target.value)}
+        onKeyDown={handleKeyDown}
+        placeholder={`Buscar ${searchType === "products" ? "productos" : "vendedores"}...`}
+        className="w-full px-4 py-2 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-[#4287f5] focus:border-transparent"
       />
-      {loading && <p>Buscando...</p>}
-      {results && (
-        <div>
-          <section>
-            <h2>Productos</h2>
-            {results.products.length === 0 ? (
-              <p>Sin resultados</p>
-            ) : (
-              results.products.map((p) => (
-                <div key={p.id}>
-                  <p>{p.name}</p>
-                  <p>${p.price}</p>
-                </div>
-              ))
-            )}
-          </section>
-          <section>
-            <h2>Vendedores</h2>
-            {results.vendors.length === 0 ? (
-              <p>Sin resultados</p>
-            ) : (
-              results.vendors.map((v) => (
-                <div key={v.id}>
-                  <p>{v.name}</p>
-                  <p>{v.address}</p>
-                </div>
-              ))
-            )}
-          </section>
-        </div>
-      )}
     </div>
   );
 }
