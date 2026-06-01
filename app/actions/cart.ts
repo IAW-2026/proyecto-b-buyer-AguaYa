@@ -4,6 +4,7 @@ import { auth } from '@clerk/nextjs/server'
 import { prisma } from '@/lib/prisma'
 import { getProductById } from '@/lib/external_api_calls/products'
 import { getBuyerByUserId } from '@/lib/buyers'
+import { deletePendingOrders } from '@/lib/orders'
 export async function addToCart(productId: string, quantity: number) {
     const { userId } = await auth()
     console.log('1. userId:', userId)
@@ -89,4 +90,16 @@ export async function addToCart(productId: string, quantity: number) {
 
     console.log('10. resultado final:', result)
     return { ok: true, order: result }
+}
+
+
+export async function clearCart() {
+  const { userId } = await auth();
+  if (!userId) return { ok: false, error: 'No autenticado.' }
+
+  const buyer = await getBuyerByUserId(userId);
+  if (!buyer) return { ok: false, error: 'Comprador no encontrado.' }
+
+  await deletePendingOrders(buyer.buyer_id);
+  return { ok: true }
 }
