@@ -3,6 +3,7 @@
 import { auth } from '@clerk/nextjs/server'
 import { prisma } from '@/lib/prisma'
 import { getProductById } from '@/lib/external_api_calls/products'
+import { getBuyerByUserId } from '@/lib/buyers'
 export async function addToCart(productId: string, quantity: number) {
     const { userId } = await auth()
     console.log('1. userId:', userId)
@@ -19,9 +20,7 @@ export async function addToCart(productId: string, quantity: number) {
         return { ok: false, error: 'Producto no encontrado.' }
     }
 
-    const buyer = await prisma.buyer.findFirst({
-        where: { user_id: userId },
-    });
+    const buyer = await getBuyerByUserId(userId);
     console.log('3. buyer:', buyer)
     if (!buyer) {
         return { ok: false, error: 'No hay buyer asociado al usuario.' }
