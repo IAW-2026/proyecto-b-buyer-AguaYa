@@ -1,6 +1,7 @@
 import React from "react";
 import { getVendors, Vendor } from "@/lib/external_api_calls/vendors";
 import VendorCard from "@/app/components/vendors/vendorCard";
+import Link from "next/link";
 export default async function Home() {
   const vendors = await getVendors();
   return (
@@ -11,6 +12,9 @@ export default async function Home() {
           placeholder="Buscar productos..."
           className="w-full px-4 py-2 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-[#4287f5] focus:border-transparent"
         />
+        <Link href = "/cart">
+          Carrito
+        </Link>
         <div className="grid grid-cols-3 gap-4 p-4">
           {vendors.map((vendor:Vendor) => (
           <VendorCard key={vendor.id} vendor={vendor} />

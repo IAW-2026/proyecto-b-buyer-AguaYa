@@ -2,6 +2,7 @@ import {OrderStatus} from '../generated/prisma/client';
 import {prisma} from './prisma'
 
 export {OrderStatus} from '../generated/prisma/client';
+export type { Order,OrderItem } from '../generated/prisma/client';
 
 export async function setOrderStatus(order_id: string, status: OrderStatus) {
   const order = await prisma.order.findUnique({
@@ -17,5 +18,16 @@ export async function setOrderStatus(order_id: string, status: OrderStatus) {
     data: {
       status: { set: status },
     },
+  });
+}
+
+export async function getOrdersByStatus(buyerId: string, status: OrderStatus) {
+  return prisma.order.findMany({
+    where: {
+      buyer_id: buyerId,
+      status,
+    },
+    include: { items: true },
+    orderBy: { created_at: "desc" },
   });
 }
