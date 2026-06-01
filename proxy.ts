@@ -1,12 +1,3 @@
-/*import { clerkMiddleware } from "@clerk/nextjs/server";
-
-export default clerkMiddleware();
-
-export const config = {
-  // exclude _next, static files and the Clerk auth routes (signin/callbacks)
-  matcher: ["/((?!.*\\..*|_next|signin).*)"],
-};*/
-
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 
 const isPublicRoute = createRouteMatcher([
@@ -16,12 +7,30 @@ const isPublicRoute = createRouteMatcher([
   "/"
 ]);
 
+const isAdminRoute = createRouteMatcher(["/admin(.*)"]);
+const isAdminRoot = createRouteMatcher(["/admin"]);
+
 export default clerkMiddleware(async (auth, request) => {
+ 
+  if (isAdminRoute(request)) {
+    const { sessionClaims } = await auth.protect();
+    if (sessionClaims?.metadata?.role !== "admin") {
+      return Response.redirect(new URL("/", request.url));
+    }
+    else{
+      if (isAdminRoot(request)) {
+        const { userId } = await auth.protect();
+        return Response.redirect(new URL(`/admin/${userId}`, request.url));
+      }
+    }
+  }
+
   if (!isPublicRoute(request)) {
     await auth.protect();
   }
 });
 
 export const config = {
-  matcher: ["/((?!.*\\..*|_next).*)"], 
+  matcher: ["/((?!.*\\..*|_next).*)"],
 };
+
