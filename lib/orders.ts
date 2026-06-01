@@ -31,3 +31,14 @@ export async function getOrdersByStatus(buyerId: string, status: OrderStatus) {
     orderBy: { created_at: "desc" },
   });
 }
+
+export async function getConfirmedOrders(buyerId: string) {
+  return prisma.order.findMany({
+    where: {
+      buyer_id: buyerId,
+      status: { not: OrderStatus.PENDING },
+    },
+    include: { items: true },
+    orderBy: { created_at: "desc" },
+  });
+}
