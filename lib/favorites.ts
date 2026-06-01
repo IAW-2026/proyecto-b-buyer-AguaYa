@@ -27,3 +27,7 @@ export async function deleteFavorite(buyerId: string, vendorId: string) {
     },
   });
 }
+
+export async function getAllFavorites() {
+  return prisma.favorite.findMany();
+}
