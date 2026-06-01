@@ -13,7 +13,6 @@ export default async function Home() {
   return (
     <div className="flex justify-center items-center p-4">
       <div className="w-full max-w-md">
-        <SearchBar/>
         <Link href = "/cart">
           Carrito
         </Link>
