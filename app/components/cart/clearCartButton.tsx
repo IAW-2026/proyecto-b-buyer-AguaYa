@@ -1,4 +1,3 @@
-// components/cart/ClearCartButton.tsx
 "use client";
 import { clearCart } from '@/app/actions/cart'
 import { useRouter } from 'next/navigation'
@@ -12,7 +11,10 @@ export function ClearCartButton() {
   }
 
   return (
-    <button onClick={handleClick}>
+    <button
+      onClick={handleClick}
+      className="border border-gray-300 bg-gray-100 text-gray-600 px-4 py-2 rounded-lg text-sm hover:bg-gray-200 hover:border-gray-400 transition-colors"
+    >
       Limpiar carrito
     </button>
   );

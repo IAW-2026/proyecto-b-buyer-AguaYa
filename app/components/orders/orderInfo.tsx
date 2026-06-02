@@ -10,15 +10,17 @@ type Props = {
 export function OrderInfo({ order, items }: Props) {
   return (
     <div className="border rounded-lg p-4">
-        <p className="text-sm text-gray-400 mb-2">Orden #{order.externalId}</p>
-        <div className="flex flex-col gap-3">
-            {items.map((item) => (
-            <OrderItemCard key={item.id} item={item} />
-            ))}
-        </div>
-        <div className="mt-4 pt-4 border-t flex justify-between items-center">
-            <p className="text-lg font-bold">Total: ${order.total.toFixed(2)}</p>
-        </div>
+      <p className="text-sm text-gray-400 mb-2">Vendedor #{order.vendor_id}</p>
+      <div className="flex flex-col divide-y divide-gray-200">
+        {items.map((item) => (
+          <div key={item.id} className="py-3">
+            <OrderItemCard item={item} />
+          </div>
+        ))}
+      </div>
+      <div className="mt-4 pt-4 border-t flex justify-between items-center">
+        <p className="text-lg font-bold">Precio Total: ${order.total.toFixed(2)}</p>
+      </div>
     </div>
-    );
+  );
 }

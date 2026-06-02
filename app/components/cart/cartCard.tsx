@@ -28,16 +28,16 @@ export function CartCard({ order, items }: Props) {
       <OrderInfo order={order} items={items} />
       <div className="flex gap-2">
         <button
+          onClick={handleConfirm}
+          className="w-full bg-blue-500 text-white px-4 py-2 rounded-lg hover:opacity-80"
+        >
+          Confirmar pedido
+        </button>
+        <button
           onClick={handleDelete}
           className="w-full bg-red-500 text-white px-4 py-2 rounded-lg hover:opacity-80"
         >
           Quitar del carrito
-        </button>
-        <button
-          onClick={handleConfirm}
-          className="w-full bg-black text-white px-4 py-2 rounded-lg hover:opacity-80"
-        >
-          Confirmar pedido
         </button>
       </div>
     </div>
