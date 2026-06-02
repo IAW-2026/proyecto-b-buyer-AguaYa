@@ -5,9 +5,9 @@ import { Vendor } from '@/lib/external_api_calls/vendors';
 export default function VendorCard({ vendor }: { vendor: Vendor }) {
   console.log(vendor.id);
   return (
-    <div className="border rounded p-4">
+    <div className="border-2 border-[#D5D5F6] rounded-lg p-6">
        <Link href={`/${vendor.id}`}>
-        {vendor.name}
+        <h1 className="text-xl font-bold text-[#070722]">{vendor.name}</h1>
        </Link>
       <VendorInfo vendor={vendor} />
     </div>

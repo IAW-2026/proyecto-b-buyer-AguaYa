@@ -31,14 +31,14 @@ export default async function Home() {
         </div>
       </nav>
 
-      {/* Contenido centrado */}
+     {/* Contenido centrado */}
       <div className="flex justify-center items-center p-4">
-        <div className="w-full max-w-md">
+        <div className="w-full max-w-4xl">
           <Suspense fallback={<div>Cargando vendedores...</div>}>
             <div className="grid grid-cols-3 gap-4 p-4">
-              {vendors.map((vendor: Vendor) => (
-                <VendorCard key={vendor.id} vendor={vendor} />
-              ))}
+            {vendors.map((vendor: Vendor) => (
+              <VendorCard key={vendor.id} vendor={vendor} />
+            ))}
             </div>
           </Suspense>
         </div>
