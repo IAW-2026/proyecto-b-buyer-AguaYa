@@ -9,15 +9,15 @@ const DEFAULT_IMAGE = "/botelladefecto.jpg";
 export default async function ProductCard({ product }: { product: Product }) {
   return (
     <div>
-      <Suspense fallback = {<div>Cargando imagen...</div>}>
-      <Image
-        src={product.imageUrl ?? DEFAULT_IMAGE}
-        alt={product.name}
-        width={200}
-        height={200}
-        className="rounded-lg object-cover"
-      />
-      </Suspense>
+      <div className="relative w-full h-48">
+        <Image
+          src={product.imageUrl ?? DEFAULT_IMAGE}
+          alt={product.name}
+          fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 25vw"
+          className="rounded-lg object-contain"
+        />
+      </div>
       <Link href={`/products/${product.id}`}>
         {product.name}
       </Link>
