@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { getVendors, Vendor } from "@/lib/external_api_calls/vendors";
 import VendorCard from "@/app/components/vendors/vendorCard";
 import Link from "next/link";
@@ -25,11 +25,13 @@ export default async function Home() {
          {isAdmin && (
           <Link href = "/admin">Panel de administración</Link>
         )}
-        <div className="grid grid-cols-3 gap-4 p-4">
-          {vendors.map((vendor:Vendor) => (
-          <VendorCard key={vendor.id} vendor={vendor} />
-          ))}
-        </div>
+        <Suspense fallback={<div>Cargando vendedores...</div>}>
+          <div className="grid grid-cols-3 gap-4 p-4">
+            {vendors.map((vendor:Vendor) => (
+            <VendorCard key={vendor.id} vendor={vendor} />
+            ))}
+          </div>
+        </Suspense>
       </div>
     </div>
   );
