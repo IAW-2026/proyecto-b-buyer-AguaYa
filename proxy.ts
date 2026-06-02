@@ -20,7 +20,7 @@ export default clerkMiddleware(async (auth, request) => {
   if (isAdminRoute(request)) {
     await auth.protect();
     const roles = await getAuthRoles();
-    const isAdmin = roles.includes('admin_seller');
+    const isAdmin = roles.includes('admin_buyer');
     if (!isAdmin) {
       return Response.redirect(new URL("/", request.url));
     }

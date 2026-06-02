@@ -7,7 +7,6 @@ import { getBuyerByUserId } from '@/lib/buyers'
 import { deletePendingOrders } from '@/lib/orders'
 export async function addToCart(productId: string, quantity: number) {
     const { userId } = await auth()
-    console.log('1. userId:', userId)
     if (!userId) {
         return { ok: false, error: 'Debés iniciar sesión para agregar productos.' }
     }
@@ -16,24 +15,20 @@ export async function addToCart(productId: string, quantity: number) {
     }
 
     const product = await getProductById(productId);
-    console.log('2. product:', product)
     if (!product) {
         return { ok: false, error: 'Producto no encontrado.' }
     }
 
     const buyer = await getBuyerByUserId(userId);
-    console.log('3. buyer:', buyer)
     if (!buyer) {
         return { ok: false, error: 'No hay buyer asociado al usuario.' }
     }
 
-    console.log('4. Entrando a la transacción')
     const result = await prisma.$transaction(async (tx) => {
 
         let order = await tx.order.findFirst({
             where: { buyer_id: buyer.buyer_id, vendor_id: product.vendorId, status: 'PENDING' },
         })
-        console.log('5. order existente:', order)
 
         if (!order) {
             order = await tx.order.create({
@@ -44,20 +39,17 @@ export async function addToCart(productId: string, quantity: number) {
                     total: 0,
                 },
             });
-            console.log('6. order creada:', order)
         }
 
         const existingItem = await tx.orderItem.findFirst({
             where: { order_id: order.order_id, product_id: productId },
         })
-        console.log('7. existingItem:', existingItem)
 
         if (existingItem) {
             await tx.orderItem.update({
                 where: { id: existingItem.id },
                 data: { quantity: existingItem.quantity + quantity },
             })
-            console.log('8a. item actualizado')
         } else {
             await tx.orderItem.create({
                 data: {
@@ -68,7 +60,6 @@ export async function addToCart(productId: string, quantity: number) {
                     quantity,
                 },
             })
-            console.log('8b. item creado')
         }
 
         const items = await tx.orderItem.findMany({
@@ -79,7 +70,6 @@ export async function addToCart(productId: string, quantity: number) {
             (sum, item) => sum + item.product_price * item.quantity,
             0
         )
-        console.log('9. total calculado:', total)
 
         return tx.order.update({
             where: { order_id: order.order_id },
@@ -87,8 +77,6 @@ export async function addToCart(productId: string, quantity: number) {
             include: { items: true },
         })
     })
-
-    console.log('10. resultado final:', result)
     return { ok: true, order: result }
 }
 

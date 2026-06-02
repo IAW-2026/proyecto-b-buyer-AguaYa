@@ -10,7 +10,6 @@ export default async function Home() {
   const { sessionClaims } = await auth();
   const roles = await getAuthRoles();
   const isAdmin = roles.includes('admin_buyer');
-  console.log(isAdmin);
   const vendors = await getVendors();
   return (
     <div>
