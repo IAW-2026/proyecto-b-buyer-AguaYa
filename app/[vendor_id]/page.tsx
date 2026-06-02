@@ -7,7 +7,7 @@ import AddToFavorites from "../components/vendors/addToFavorites";
 import { getFavoriteByIDs } from "@/lib/favorites";
 import { getBuyerByUserId } from "@/lib/buyers";
 import { auth } from '@clerk/nextjs/server';
-
+import Link from "next/link";
 type VendorPageProps = {
   params: Promise<{ vendor_id: string }>;
 };
@@ -30,16 +30,25 @@ export default async function VendorPage({ params }: VendorPageProps) {
 
   return (
     <div>
-      <div>
-        <h1>Vendor ID: {vendor_id}</h1>
-        <AddToFavorites vendorId={vendor_id} buyerId={buyer?.buyer_id ?? ""} isFavorite={isFavorite} />
+      <nav className="bg-white border-b border-gray-200 shadow-sm">
+        <div className="flex justify-between items-center divide-x divide-gray-200">
+          <Link href="/" className="flex-1 text-center py-3 text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors">
+            ← Volver
+          </Link>
+          <div className="flex-1 flex justify-center items-center py-2">
+            <AddToFavorites vendorId={vendor_id} buyerId={buyer?.buyer_id ?? ""} isFavorite={isFavorite} />
+          </div>
+        </div>
+      </nav>
+      <div className="max-w-4xl mx-auto px-6 pt-6 pb-2 flex flex-col gap-3 items-start">
+        <h1 className="text-2xl font-bold">{vendor.name}</h1>
       </div>
       <Suspense fallback= {<div>Cargando productos...</div>}>
-      <div className="grid grid-cols-3 gap-4 p-4">
-        {products.map((product: Product) => (
-          <ProductCard key={product.id} product={product} />
-        ))}
-      </div>
+        <div className="grid grid-cols-3 gap-4 p-4">
+          {products.map((product: Product) => (
+            <ProductCard key={product.id} product={product} />
+          ))}
+        </div>
       </Suspense>
     </div>
   );

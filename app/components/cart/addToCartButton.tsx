@@ -34,25 +34,28 @@ export function AddToCartButton({ productId }: Props) {
   }
 
   return (
-    <div>
-      <div>
-        <button onClick={() => setQuantity(q => Math.max(1, q - 1))} disabled={quantity <= 1}>
-          -
-        </button>
-        <input
-          type="number"
-          min={1}
-          value={quantity}
-          onChange={(e) => handleQuantityChange(e.target.value)}
-        />
-        <button onClick={() => setQuantity(q => q + 1)}>
-          +
-        </button>
-      </div>
-      <button onClick={handleClick} disabled={loading || added}>
+    <div className="flex flex-col gap-2 mt-2">
+      <input
+        type="number"
+        min={1}
+        value={quantity}
+        onChange={(e) => handleQuantityChange(e.target.value)}
+        className="w-full px-3 py-2 border border-gray-300 rounded-lg text-center focus:outline-none focus:ring-2 focus:ring-[#4287f5] focus:border-transparent"
+      />
+      <button
+        onClick={handleClick}
+        disabled={loading || added}
+        className={`w-full py-2 px-4 rounded-lg font-medium transition-colors
+          ${added
+            ? 'bg-green-500 text-white cursor-default'
+            : 'bg-[#4287f5] text-white hover:bg-blue-600 cursor-pointer'
+          }
+          ${loading ? 'opacity-60 cursor-not-allowed' : ''}
+        `}
+      >
         {loading ? 'Agregando...' : added ? '¡Agregado!' : 'Agregar al carrito'}
       </button>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+      {error && <p className="text-red-500 text-sm">{error}</p>}
     </div>
   )
 }
