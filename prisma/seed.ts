@@ -3,7 +3,6 @@ import { PrismaClient } from '../generated/prisma/client/index.js'
 import { PrismaNeon } from '@prisma/adapter-neon'
 
 
-console.log('DATABASE_URL:', process.env.DATABASE_URL)
 const connectionString = process.env.DATABASE_URL ;
 const prisma = new PrismaClient({ adapter: new PrismaNeon({ connectionString }) })
 
