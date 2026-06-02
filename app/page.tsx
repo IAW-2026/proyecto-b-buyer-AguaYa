@@ -7,31 +7,41 @@ import { auth } from '@clerk/nextjs/server';
 
 export default async function Home() {
   const { sessionClaims } = await auth();
-  //const isAdmin = sessionClaims?.metadata?.role === "admin"; Comentado para hacer pruebas en paginas admin
-  const isAdmin = true; //temporal
+  const isAdmin = true;
   const vendors = await getVendors();
   return (
-    <div className="flex justify-center items-center p-4">
-      <div className="w-full max-w-md">
-        <Link href = "/cart">
-          Carrito
-        </Link>
-        <Link href = "/orders">
-          Pedidos
-        </Link>
-        <Link href = "/favorites">
-          Favoritos
-        </Link>
-         {isAdmin && (
-          <Link href = "/admin">Panel de administración</Link>
-        )}
-        <Suspense fallback={<div>Cargando vendedores...</div>}>
-          <div className="grid grid-cols-3 gap-4 p-4">
-            {vendors.map((vendor:Vendor) => (
-            <VendorCard key={vendor.id} vendor={vendor} />
-            ))}
-          </div>
-        </Suspense>
+    <div>
+      {/* Barra de navegación - ancho completo */}
+      <nav className="bg-white border-b border-gray-200 shadow-sm">
+        <div className="flex divide-x divide-gray-200">
+          <Link href="/cart" className="flex-1 text-center py-3 text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors">
+            Carrito
+          </Link>
+          <Link href="/orders" className="flex-1 text-center py-3 text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors">
+            Pedidos
+          </Link>
+          <Link href="/favorites" className="flex-1 text-center py-3 text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors">
+            Favoritos
+          </Link>
+          {isAdmin && (
+            <Link href="/admin" className="flex-1 text-center py-3 text-sm font-medium text-red-500 hover:bg-gray-50 transition-colors">
+              Admin
+            </Link>
+          )}
+        </div>
+      </nav>
+
+      {/* Contenido centrado */}
+      <div className="flex justify-center items-center p-4">
+        <div className="w-full max-w-md">
+          <Suspense fallback={<div>Cargando vendedores...</div>}>
+            <div className="grid grid-cols-3 gap-4 p-4">
+              {vendors.map((vendor: Vendor) => (
+                <VendorCard key={vendor.id} vendor={vendor} />
+              ))}
+            </div>
+          </Suspense>
+        </div>
       </div>
     </div>
   );
