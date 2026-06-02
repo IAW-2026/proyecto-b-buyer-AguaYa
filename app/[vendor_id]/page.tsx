@@ -1,4 +1,4 @@
-import React from "react";
+import React,{Suspense} from "react";
 import { getProducts, getProductsByVendor, Product } from "@/lib/external_api_calls/products";
 import { notFound } from "next/navigation";
 import { Vendor, getVendorById } from '@/lib/external_api_calls/vendors'
@@ -34,11 +34,13 @@ export default async function VendorPage({ params }: VendorPageProps) {
         <h1>Vendor ID: {vendor_id}</h1>
         <AddToFavorites vendorId={vendor_id} buyerId={buyer?.buyer_id ?? ""} isFavorite={isFavorite} />
       </div>
+      <Suspense fallback= {<div>Cargando productos...</div>}>
       <div className="grid grid-cols-3 gap-4 p-4">
         {products.map((product: Product) => (
           <ProductCard key={product.id} product={product} />
         ))}
       </div>
+      </Suspense>
     </div>
   );
 }

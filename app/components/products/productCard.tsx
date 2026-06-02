@@ -3,12 +3,13 @@ import ProductInfo from "./productInfo";
 import Link from 'next/link';
 import Image from 'next/image';
 import { AddToCartButton } from '../cart/addToCartButton';
-
+import { Suspense } from "react";
 const DEFAULT_IMAGE = "/botelladefecto.jpg";
 
 export default async function ProductCard({ product }: { product: Product }) {
   return (
     <div>
+      <Suspense fallback = {<div>Cargando imagen...</div>}>
       <Image
         src={product.imageUrl ?? DEFAULT_IMAGE}
         alt={product.name}
@@ -16,6 +17,7 @@ export default async function ProductCard({ product }: { product: Product }) {
         height={200}
         className="rounded-lg object-cover"
       />
+      </Suspense>
       <Link href={`/products/${product.id}`}>
         {product.name}
       </Link>
