@@ -47,3 +47,29 @@ Esta app corresponde al rol del comprador en los proyectos de tipo **B (Delivery
 
 Enunciado completo: <https://iaw-2026.github.io/proyecto/>
 
+Con eso armo el README:
+
+BuyerApp — AguaYa
+Aplicación Buyer del Proyecto IAW 2026 — Tipo B (Delivery).
+Deploy
+https://proyecto-b-buyer-agua-ya-git-develop-elionalvino-2085s-projects.vercel.app/
+Instrucciones de uso
+
+Iniciar sesión — Usar Clerk con Gmail (proveedor por defecto).
+Exploración — Al entrar, el buyer ve el listado de vendedores disponibles. Puede buscar vendedores o productos por nombre usando la barra de búsqueda.
+Productos — Al ingresar a un vendedor, se muestran sus productos disponibles con nombre, precio y stock.
+Carrito — El buyer puede agregar productos al carrito, ver el resumen de su pedido y confirmarlo.
+Órdenes — El buyer puede ver el historial de sus pedidos confirmados.
+Favoritos — El buyer puede marcar vendedores como favoritos y consultarlos desde la sección correspondiente.
+Panel de administración (buyer_admin) — El admin tiene acceso a un panel donde puede ver todas las órdenes, compradores y favoritos del sistema.
+
+Descripción del proyecto
+AguaYa es una plataforma distribuida que centraliza la logística de compra, venta y distribución de agua de mesa (bidones), reemplazando la gestión informal actual basada en WhatsApp y Marketplace. El sistema está compuesto por cinco aplicaciones web independientes (SellerApp, BuyerApp, DeliveryApp, PaymentsApp, FeedbackApp) que se comunican entre sí mediante APIs REST.
+BuyerApp es la aplicación responsable del comprador. Permite explorar el catálogo de vendedores y sus productos, gestionar un carrito de compras, confirmar pedidos y hacer seguimiento del historial de órdenes. También incluye un sistema de favoritos para guardar vendedores frecuentes y una barra de búsqueda para encontrar vendedores y productos. El panel de administración permite al rol buyer_admin supervisar todas las órdenes, compradores y favoritos del sistema.
+El frontend está construido con Next.js App Router y React, con Server Components como default y Client Components solo donde se necesita interactividad. La autenticación se maneja con Clerk, la base de datos es PostgreSQL serverless (Neon) con Prisma ORM.
+
+Arquitectura de capas: Separación clara entre presentación (components/), lógica (lib/) y datos (lib/) con Prisma. Las Server Actions en app/actions/ orquestan las operaciones mutantes.
+Roles: El rol buyer_admin se configura en Clerk via publicMetadata y se valida tanto en middleware como en las páginas protegidas.
+Carrito: El carrito maneja órdenes con estado PENDING que al confirmarse transicionan a PAID.
+Búsqueda: La búsqueda de vendedores y productos funciona desde la barra del header y redirige a una página de resultados filtrados.
+Limitaciones conocidas: No se llegó a implementar el sistema de comentarios y claims.
