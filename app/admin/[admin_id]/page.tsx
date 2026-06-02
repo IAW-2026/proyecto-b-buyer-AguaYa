@@ -17,20 +17,20 @@ export default async function AdminPage({ params }: Props) {
           </Link>
         </div>
       </nav>
-    <main className="max-w-4xl mx-auto p-6">
-        <h1 className="text-2xl font-bold mb-6">Panel de administración</h1>
-        <div className="flex flex-col gap-4">
-          <Link href={`/admin/${admin_id}/orders`} className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded">
-            Ver y gestionar órdenes
-          </Link>
-          <Link href={`/admin/${admin_id}/favorites`} className="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded">
-            Ver y gestionar favoritos
-          </Link>
-          <Link href={`/admin/${admin_id}/buyers`} className="bg-purple-500 hover:bg-purple-600 text-white py-2 px-4 rounded">
-            Ver y gestionar compradores
-          </Link>
-        </div>
-      </main>
+   <main className="max-w-4xl mx-auto p-6">
+  <h1 className="text-2xl font-bold mb-6 text-center">Panel de administración</h1>
+  <div className="grid grid-cols-3 gap-4">
+    <Link href={`/admin/${admin_id}/orders`} className="bg-[#4287f5] hover:bg-blue-600 text-white text-center font-medium py-8 rounded-lg transition-colors">
+      Órdenes
+    </Link>
+    <Link href={`/admin/${admin_id}/favorites`} className="bg-[#4287f5] hover:bg-blue-600 text-white text-center font-medium py-8 rounded-lg transition-colors">
+      Favoritos
+    </Link>
+    <Link href={`/admin/${admin_id}/buyers`} className="bg-[#4287f5] hover:bg-blue-600 text-white text-center font-medium py-8 rounded-lg transition-colors">
+      Compradores
+    </Link>
+  </div>
+</main>
     </div>
   );
 }
