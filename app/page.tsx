@@ -4,10 +4,13 @@ import VendorCard from "@/app/components/vendors/vendorCard";
 import Link from "next/link";
 import { SearchBar } from "./components/search/searchBar";
 import { auth } from '@clerk/nextjs/server';
+import { getAuthRoles } from "@/lib/auth-custom";
 
 export default async function Home() {
   const { sessionClaims } = await auth();
-  const isAdmin = true;
+  const roles = await getAuthRoles();
+  const isAdmin = roles.includes('admin_buyer');
+  console.log(isAdmin);
   const vendors = await getVendors();
   return (
     <div>

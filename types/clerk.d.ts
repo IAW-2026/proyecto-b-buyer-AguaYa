@@ -1,9 +1,9 @@
-export {}
+export { }
 
 declare global {
-  interface CustomJwtSessionClaims {
-    metadata: {
-      role?: "admin" | "user";
-    };
-  }
+    interface CustomJwtSessionClaims {
+        public_metadata?: {
+            roles?: string[]
+        }
+    }
 }
