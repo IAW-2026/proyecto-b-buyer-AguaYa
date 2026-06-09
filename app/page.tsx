@@ -8,6 +8,7 @@ import { getAuthRoles } from "@/lib/auth-custom";
 
 export default async function Home() {
   const { sessionClaims } = await auth();
+  console.log(await auth());
   const roles = await getAuthRoles();
   const isAdmin = roles.includes('admin_buyer');
   const vendors = await getVendors();
