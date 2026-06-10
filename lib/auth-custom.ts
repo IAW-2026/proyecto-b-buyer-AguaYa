@@ -15,3 +15,8 @@ export async function isAdmin(): Promise<boolean> {
   return (await getAuthRole()) === 'admin'
 }
 
+export function isAdminFromSessionClaims(sessionClaims?: any): boolean {
+  const metadata = sessionClaims?.metadata as { role?: string } | undefined
+  return metadata?.role === 'admin'
+}
+

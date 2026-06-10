@@ -1,6 +1,7 @@
 
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
-import { isAdmin } from "./lib/auth-custom";
+import { isAdminFromSessionClaims } from "./lib/auth-custom";
+import { NextResponse } from "next/server";
 const isPublicRoute = createRouteMatcher([
   "/signin(.*)",
   "/signup(.*)",
@@ -15,13 +16,14 @@ export default clerkMiddleware(async (auth, request) => {
 
   if (isAdminRoot(request)) {
     const { userId } = await auth.protect();
-    return Response.redirect(new URL(`/admin/${userId}`, request.url));
+    return NextResponse.redirect(new URL(`/admin/${userId}`, request.url));
   }
 
   if (isAdminRoute(request)) {
     await auth.protect();
-    if (!(await isAdmin())) {
-      return Response.redirect(new URL("/", request.url));
+    const { sessionClaims } = await auth();
+    if (!isAdminFromSessionClaims(sessionClaims)) {
+      return NextResponse.redirect(new URL("/", request.url));
     }
   }
 //mensajes de prueba
@@ -30,7 +32,7 @@ export default clerkMiddleware(async (auth, request) => {
   console.log("===[ CLERK SESSION CLAIMS ]===", JSON.stringify(sessionClaims, null, 2));
   console.log("Roles detectados en servidor:", sessionClaims?.metadata.role);
   
-  console.log("el usuario es admin:",await isAdmin());
+  console.log("el usuario es admin:", isAdminFromSessionClaims(sessionClaims));
   //-------------------------------------------
   if (!isPublicRoute(request)) {
     await auth.protect();
