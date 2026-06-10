@@ -7,6 +7,7 @@ import { verifyWebhook } from '@clerk/nextjs/webhooks'
 import { prisma } from '@/lib/prisma'
 import { createBuyerWithID} from '@/lib/buyers'
 
+
 export async function POST(req: NextRequest) {
   try {
     const event = await verifyWebhook(req)
@@ -22,7 +23,7 @@ export async function POST(req: NextRequest) {
     }
 
     if (event.type === 'session.created') {
-      const userId = event.data?.user_id
+      const userId = event.data?.user?.id
       if (!userId) {
         console.warn('Webhook session.created sin user_id:', event)
         return new Response('Missing user id', { status: 400 })
