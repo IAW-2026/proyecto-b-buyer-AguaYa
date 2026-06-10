@@ -1,6 +1,6 @@
 import {prisma} from './prisma'
 import { Buyer } from "@/generated/prisma/client";
-
+import { clerkClient} from '@clerk/nextjs/server';
 export async function getBuyerByUserId(userId: string): Promise<Buyer | null> {
     return prisma.buyer.findUnique({
         where: { user_id: userId },
@@ -63,4 +63,23 @@ export async function createBuyerIfNotExists(userId: string, mail: string, name:
       name,
     }
   })
+}
+
+export async function createBuyerWithID(userId: string) {
+  const existing = await prisma.buyer.findUnique({
+    where: { user_id: userId }
+  })
+
+  if (!existing) {
+    const client = await clerkClient()
+    const user = await client.users.getUser(userId)
+    
+    await prisma.buyer.create({
+      data: {
+        user_id: userId,
+        mail: user.emailAddresses[0].emailAddress,
+        name: `${user.firstName ?? ""} ${user.lastName ?? ""}`.trim(),
+      }
+    })
+  }
 }
