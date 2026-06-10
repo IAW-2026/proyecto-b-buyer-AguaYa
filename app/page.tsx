@@ -5,13 +5,24 @@ import Link from "next/link";
 import { SearchBar } from "./components/search/searchBar";
 import { auth } from '@clerk/nextjs/server';
 import { getAuthRoles } from "@/lib/auth-custom";
+import { clerkClient} from "@clerk/nextjs/server";
+import { createBuyerIfNotExists } from "@/lib/buyers";
 
 export default async function Home() {
-  const { sessionClaims } = await auth();
+  const { userId,sessionClaims } = await auth();
   console.log(await auth());
   const roles = await getAuthRoles();
   const isAdmin = roles.includes('admin_buyer');
   const vendors = await getVendors();
+  if (userId) {
+  const client = await clerkClient()
+  const user = await client.users.getUser(userId)
+  await createBuyerIfNotExists(
+    userId,
+    user.emailAddresses[0].emailAddress,
+    `${user.firstName ?? ""} ${user.lastName ?? ""}`.trim(),
+  )
+  }
   return (
     <div>
       {/* Barra de navegación - ancho completo */}

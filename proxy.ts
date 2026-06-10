@@ -12,6 +12,7 @@ const isAdminRoute = createRouteMatcher(["/admin(.*)"]);
 const isAdminRoot = createRouteMatcher(["/admin"]);
 
 export default clerkMiddleware(async (auth, request) => {
+
   if (isAdminRoot(request)) {
     const { userId } = await auth.protect();
     return Response.redirect(new URL(`/admin/${userId}`, request.url));
