@@ -13,6 +13,15 @@ export default async function Home() {
   console.log(await auth());
   const isAdminUser = await isAdmin();
   const vendors = await getVendors();
+  if (userId) {
+    const client = await clerkClient()
+    const user = await client.users.getUser(userId)
+    await createBuyerIfNotExists(
+      userId,
+      user.emailAddresses[0].emailAddress,
+      `${user.firstName ?? ""} ${user.lastName ?? ""}`.trim(),
+    ) 
+  }
   return (
     <div>
       {/* Barra de navegación - ancho completo */}
