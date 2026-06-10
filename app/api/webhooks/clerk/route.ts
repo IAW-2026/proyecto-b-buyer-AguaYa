@@ -13,11 +13,21 @@ export async function POST(req: NextRequest) {
     console.log('Evento recibido:', event.type)
 
     if (event.type === 'user.created') {
-      await createBuyerWithID(event.data.id)
+      const userId = event.data?.id
+      if (!userId) {
+        console.warn('Webhook user.created sin user id:', event)
+        return new Response('Missing user id', { status: 400 })
+      }
+      await createBuyerWithID(userId)
     }
 
     if (event.type === 'session.created') {
-      await createBuyerWithID(event.data.user_id)
+      const userId = event.data?.user_id
+      if (!userId) {
+        console.warn('Webhook session.created sin user_id:', event)
+        return new Response('Missing user id', { status: 400 })
+      }
+      await createBuyerWithID(userId)
     }
 
     return new Response('OK', { status: 200 })

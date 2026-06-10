@@ -66,6 +66,10 @@ export async function createBuyerIfNotExists(userId: string, mail: string, name:
 }
 
 export async function createBuyerWithID(userId: string) {
+  if (!userId) {
+    throw new Error('createBuyerWithID called without a userId')
+  }
+
   const existing = await prisma.buyer.findUnique({
     where: { user_id: userId }
   })
