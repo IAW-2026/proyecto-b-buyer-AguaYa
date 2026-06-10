@@ -26,7 +26,13 @@ export default clerkMiddleware(async (auth, request) => {
       return Response.redirect(new URL("/", request.url));
     }
   }
+//mensajes de prueba
+  const sessionClaims = (await auth()).sessionClaims
 
+  console.log("===[ CLERK SESSION CLAIMS ]===", JSON.stringify(sessionClaims, null, 2));
+  console.log("Roles detectados en servidor:", sessionClaims?.public_metadata?.roles);
+  
+  //-------------------------------------------
   if (!isPublicRoute(request)) {
     await auth.protect();
   }
