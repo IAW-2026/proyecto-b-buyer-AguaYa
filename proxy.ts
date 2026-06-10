@@ -30,7 +30,7 @@ export default clerkMiddleware(async (auth, request) => {
   const sessionClaims = (await auth()).sessionClaims
 
   console.log("===[ CLERK SESSION CLAIMS ]===", JSON.stringify(sessionClaims, null, 2));
-  console.log("Roles detectados en servidor:", sessionClaims?.public_metadata?.roles);
+  console.log("Roles detectados en servidor:", sessionClaims?.metadata.role);
   
   //-------------------------------------------
   if (!isPublicRoute(request)) {
