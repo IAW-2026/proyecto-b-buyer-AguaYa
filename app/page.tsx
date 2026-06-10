@@ -4,15 +4,14 @@ import VendorCard from "@/app/components/vendors/vendorCard";
 import Link from "next/link";
 import { SearchBar } from "./components/search/searchBar";
 import { auth } from '@clerk/nextjs/server';
-import { getAuthRoles } from "@/lib/auth-custom";
+import { isAdmin } from "@/lib/auth-custom";
 import { clerkClient} from "@clerk/nextjs/server";
 import { createBuyerIfNotExists } from "@/lib/buyers";
 
 export default async function Home() {
-  const { userId,sessionClaims } = await auth();
+  const { userId } = await auth();
   console.log(await auth());
-  const roles = await getAuthRoles();
-  const isAdmin = roles.includes('admin_buyer');
+  const isAdminUser = await isAdmin();
   const vendors = await getVendors();
   if (userId) {
   const client = await clerkClient()
@@ -37,7 +36,7 @@ export default async function Home() {
           <Link href="/favorites" className="flex-1 text-center py-3 text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors">
             Favoritos
           </Link>
-          {isAdmin && (
+          {isAdminUser && (
             <Link href="/admin" className="flex-1 text-center py-3 text-sm font-medium text-red-500 hover:bg-gray-50 transition-colors">
               Admin
             </Link>
