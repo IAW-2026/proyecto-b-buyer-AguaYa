@@ -4,6 +4,7 @@ import { Geist, Geist_Mono } from 'next/font/google'
 import './globals.css'
 import { Logo } from "@/app/components/ui/logo"
 import { SearchBar } from "./components/search/searchBar";
+import { DarkModeToggle } from './components/ui/darkModeToggle'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -58,6 +59,9 @@ export default function RootLayout({
             </div>
           </header>
           {children}
+         <div className="fixed bottom-4 right-4">
+            <DarkModeToggle />
+          </div>
         </ClerkProvider>
       </body>
     </html>
