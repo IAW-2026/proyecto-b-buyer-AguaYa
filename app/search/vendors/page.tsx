@@ -1,5 +1,6 @@
 // app/search/vendors/page.tsx
 import { search } from "@/lib/search";
+import VendorCard from "@/app/components/vendors/vendorCard";
 
 type Props = {
   searchParams: Promise<{ q?: string }>;
@@ -17,12 +18,9 @@ export default async function VendorsSearchPage({ searchParams }: Props) {
       {vendors.length === 0 ? (
         <p className="text-gray-500">Sin resultados.</p>
       ) : (
-        <div className="grid grid-cols-3 gap-4">
-          {vendors.map((v) => (
-            <div key={v.id} className="border rounded-lg p-4">
-              <p className="font-medium">{v.name}</p>
-              <p className="text-gray-500">{v.address}</p>
-            </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {vendors.map((vendor) => (
+            <VendorCard key={vendor.id} vendor={vendor} />
           ))}
         </div>
       )}
