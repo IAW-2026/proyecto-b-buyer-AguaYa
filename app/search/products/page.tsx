@@ -1,5 +1,5 @@
-// app/search/products/page.tsx
 import { search } from "@/lib/search";
+import ProductCard from "@/app/components/products/productCard";
 
 type Props = {
   searchParams: { q?: string };
@@ -17,12 +17,9 @@ export default async function ProductsSearchPage({ searchParams }: Props) {
       {products.length === 0 ? (
         <p className="text-gray-500">Sin resultados.</p>
       ) : (
-        <div className="grid grid-cols-3 gap-4">
-          {products.map((p) => (
-            <div key={p.id} className="border rounded-lg p-4">
-              <p className="font-medium">{p.name}</p>
-              <p className="text-gray-500">${p.price}</p>
-            </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {products.map((product) => (
+            <ProductCard key={product.id} product={product} />
           ))}
         </div>
       )}
