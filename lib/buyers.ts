@@ -11,6 +11,12 @@ export async function getAllBuyers() {
   return prisma.buyer.findMany();
 }
 
+export async function getBuyerById(buyerId: string) {
+  return prisma.buyer.findUnique({
+    where: { buyer_id: buyerId },
+  });
+}
+
 export async function deleteBuyer(buyerId: string) {
   return prisma.$transaction(async (tx) => {
     const addresses = await tx.address.findMany({
