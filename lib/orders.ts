@@ -60,7 +60,6 @@ export async function deleteOrder(orderId : string){
   });
 }
 
-// lib/orders.ts
 export async function deletePendingOrders(buyerId: string) {
   return prisma.$transaction(async (tx) => {
     const pendingOrders = await tx.order.findMany({
@@ -85,6 +84,13 @@ export async function deletePendingOrders(buyerId: string) {
 
 export async function getAllOrders() {
   return prisma.order.findMany({
+    include: { items: true },
+  });
+}
+
+export async function getOrderById(orderId: string) {
+  return prisma.order.findUnique({
+    where: { order_id: orderId },
     include: { items: true },
   });
 }
