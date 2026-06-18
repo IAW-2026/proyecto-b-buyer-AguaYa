@@ -25,7 +25,7 @@ export async function confirmPayment(orderId : string ){
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'x-api-key': process.env.NEXT_PUBLIC_INTERNAL_API_KEY || '',
+                'x-api-key': process.env.PAYMENT_API_KEY || '',
             },
             body: JSON.stringify({
                 orderId: orderId,
