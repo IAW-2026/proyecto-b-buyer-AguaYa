@@ -3,7 +3,7 @@
 @order_id = cmpulhi420001b8v0tytviem7
 
 ### Cambiar estado de orden
-PATCH http://localhost:3000/api/orders/{{order_id}}
+PATCH https://proyecto-b-buyer-agua-ya.vercel.app/api/orders/{{order_id}}
 Content-Type: application/json
 x-api-key: u7xyd3wAgHZTsGKbwN3w8NvzNPouYxZYzGcvLVkfluk=
 
