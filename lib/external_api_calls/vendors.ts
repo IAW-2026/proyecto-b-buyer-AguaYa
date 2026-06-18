@@ -3,6 +3,21 @@ export type Vendor = {
   name: string
   address: string
 }
+
+interface VendorResponse {
+  id: string;
+  name: string;
+  description: string;
+  address: string;
+  image: string;
+  isActive: boolean;
+  clerkUserId: string;
+}
+
+interface VendorsListResponse {
+  success: boolean;
+  vendors: VendorResponse[];
+}
 const mockVendors: Vendor[] = [
     {id:"1", name:"AquaSur Distribuciones", address:"Buenos Aires"},
     {id:"2", name:"Manantial Azul", address:"Bahia Blanca"},
@@ -19,7 +34,12 @@ const mockVendors: Vendor[] = [
 ]
 
 export async function getVendors(): Promise<Vendor[]> {
-    return mockVendors;
+  const res = await fetch("https://proyecto-b-seller-agua-ya.vercel.app/api/vendors");
+
+  if (!res.ok) throw new Error("Error al obtener vendors");
+
+  const data: VendorsListResponse = await res.json();
+  return data.vendors;
 }
 
 export async function getVendorById(id: string): Promise<Vendor | null> {
