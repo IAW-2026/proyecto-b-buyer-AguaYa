@@ -94,3 +94,11 @@ export async function getOrderById(orderId: string) {
     include: { items: true },
   });
 }
+
+export async function getOrdersByBuyerId(buyerId: string) {
+  return prisma.order.findMany({
+    where: { buyer_id: buyerId },
+    include: { items: true },
+    orderBy: { created_at: "desc" },
+  });
+}

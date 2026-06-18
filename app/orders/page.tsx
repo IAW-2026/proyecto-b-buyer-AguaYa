@@ -1,4 +1,4 @@
-import { getConfirmedOrders } from "@/lib/orders";
+import { getConfirmedOrders, getOrdersByBuyerId } from "@/lib/orders";
 import { getBuyerByUserId } from "@/lib/buyers";
 import { auth } from "@clerk/nextjs/server";
 import { OrdersContainer } from "../components/orders/ordersContainer";
@@ -9,7 +9,7 @@ export default async function OrdersPage() {
   const buyer = await getBuyerByUserId(userId!);
   if (!buyer) throw new Error("no esta asociado un buyer al usuario");
 
-  const orders = await getConfirmedOrders(buyer.buyer_id);
+  const orders = await getOrdersByBuyerId(buyer.buyer_id);
 
   return (
     <div>
