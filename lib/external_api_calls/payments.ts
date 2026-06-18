@@ -35,7 +35,7 @@ export async function confirmPayment(orderId : string ){
                     email: buyer?.mail,
                     address: address?.street + ' ' + address?.city + ' ' + address?.zip
                 },
-                vendor: {
+                seller: {
                     id: vendor?.id,
                     name: vendor?.name
                 },
