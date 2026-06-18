@@ -34,7 +34,14 @@ const mockVendors: Vendor[] = [
 ]
 
 export async function getVendors(): Promise<Vendor[]> {
-  const res = await fetch("https://proyecto-b-seller-agua-ya.vercel.app/api/vendors");
+  const res = await fetch(`${process.env.API_BASE_URL}/vendors`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      "x-api-key": process.env.VENDOR_API_KEY!,
+    },
+    next: { revalidate: 60 }, 
+  });
 
   if (!res.ok) throw new Error("Error al obtener vendors");
 
