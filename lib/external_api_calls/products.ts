@@ -22,6 +22,9 @@ interface ProductsListResponse {
   products: ProductResponse[]
 }
 
+const BASE_URL = 'https://proyecto-b-seller-agua-ya.vercel.app/api'
+
+
 const mockProducts: Product[] = [ 
     {id:"1", vendorId:"1", name:"Bidón de Agua Mineral 20 L", price:100, stock:10, imageUrl:"https://res.cloudinary.com/deqelupbf/image/upload/f_auto,q_auto/png-transparent-bottled-water-graphy-water-bottle-plastic-bottle-drinking-water-lid-running-product-thumbnail_akhot7"},
     {id:"2", vendorId:"1", name:"Bidón de Agua Purificada 12 L", price:200, stock:20, imageUrl:"https://res.cloudinary.com/deqelupbf/image/upload/f_auto,q_auto/png-clipart-drinking-water-water-cooler-bottled-water-mineral-water-water-glass-plastic-bottle_hwrwt9"},
@@ -76,12 +79,24 @@ export async function getProducts(): Promise<Product[]> {
   return data.products
 }
 
+
 export async function getProductsByVendor(vendorId: string): Promise<Product[]> {
-    return mockProducts.filter(p => p.vendorId === vendorId);
+  const res = await fetch(`${BASE_URL}/products?vendorId=${encodeURIComponent(vendorId)}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      "x-api-key": process.env.VENDOR_API_KEY!,
+    },
+    next: { revalidate: 60 },
+  })
+  if (!res.ok) throw new Error("Error al obtener productos del vendedor")
+  const data: ProductsListResponse = await res.json()
+  return data.products
 }
 
 export async function getProductById(id: string): Promise<Product> {
-    const product = mockProducts.find(p => p.id === id);
-    if (!product) throw new Error('Producto no encontrado');
-    return product;
+  const products = await getProducts()
+  const product = products.find(p => p.id === id)
+  if (!product) throw new Error('Producto no encontrado')
+  return product
 }
