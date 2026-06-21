@@ -7,6 +7,21 @@ export type Product = {
   imageUrl?: string
 }
 
+interface ProductResponse {
+  id: string
+  vendorId: string
+  name: string
+  description: string
+  price: number
+  stock: number
+  image: string
+}
+
+interface ProductsListResponse {
+  success: boolean
+  products: ProductResponse[]
+}
+
 const mockProducts: Product[] = [ 
     {id:"1", vendorId:"1", name:"Bidón de Agua Mineral 20 L", price:100, stock:10, imageUrl:"https://res.cloudinary.com/deqelupbf/image/upload/f_auto,q_auto/png-transparent-bottled-water-graphy-water-bottle-plastic-bottle-drinking-water-lid-running-product-thumbnail_akhot7"},
     {id:"2", vendorId:"1", name:"Bidón de Agua Purificada 12 L", price:200, stock:20, imageUrl:"https://res.cloudinary.com/deqelupbf/image/upload/f_auto,q_auto/png-clipart-drinking-water-water-cooler-bottled-water-mineral-water-water-glass-plastic-bottle_hwrwt9"},
@@ -48,7 +63,17 @@ const mockProducts: Product[] = [
 ]
 
 export async function getProducts(): Promise<Product[]> {
-    return mockProducts;
+  const res = await fetch('https://proyecto-b-seller-agua-ya.vercel.app/api/products', {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      "x-api-key": process.env.VENDOR_API_KEY!,
+    },
+    next: { revalidate: 60 },
+  })
+  if (!res.ok) throw new Error("Error al obtener productos")
+  const data: ProductsListResponse = await res.json()
+  return data.products
 }
 
 export async function getProductsByVendor(vendorId: string): Promise<Product[]> {
