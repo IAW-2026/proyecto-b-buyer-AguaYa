@@ -18,6 +18,12 @@ interface VendorsListResponse {
   success: boolean;
   vendors: VendorResponse[];
 }
+
+interface VendorDetailResponse {
+  success: boolean
+  vendor: VendorResponse
+}
+
 const mockVendors: Vendor[] = [
     {id:"1", name:"AquaSur Distribuciones", address:"Buenos Aires"},
     {id:"2", name:"Manantial Azul", address:"Bahia Blanca"},
@@ -50,8 +56,18 @@ export async function getVendors(): Promise<Vendor[]> {
 }
 
 export async function getVendorById(id: string): Promise<Vendor | null> {
-    const vendor = mockVendors.find(v => v.id === id);
-    if (!vendor) 
-        return null;
-    return vendor;
+  const res = await fetch(`https://proyecto-b-seller-agua-ya.vercel.app/api/vendors/${encodeURIComponent(id)}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      "x-api-key": process.env.VENDOR_API_KEY!,
+    },
+    next: { revalidate: 60 },
+  })
+
+  if (res.status === 404) return null
+  if (!res.ok) throw new Error("Error al obtener vendor")
+
+  const data: VendorDetailResponse = await res.json()
+  return data.vendor
 }
