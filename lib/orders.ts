@@ -102,3 +102,18 @@ export async function getOrdersByBuyerId(buyerId: string) {
     orderBy: { created_at: "desc" },
   });
 }
+
+export async function assignAddressToOrder(orderId: string, addressId: string) {
+  const order = await prisma.order.findUnique({
+    where: { order_id: orderId },
+  });
+
+  if (!order) {
+    throw new Error('Orden no encontrada');
+  }
+
+  return prisma.order.update({
+    where: { order_id: orderId },
+    data: { address_id: addressId },
+  });
+}
