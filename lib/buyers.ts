@@ -55,7 +55,7 @@ export async function deleteBuyer(buyerId: string) {
   });
 }
 
-export async function updateBuyer(buyerId: string, data: { mail?: string; name?: string; phone_numbers?: string }) {
+export async function updateBuyer(buyerId: string, data: { mail?: string; name?: string; phone_numbers?: string; is_active?: boolean }) {
   return prisma.buyer.update({
     where: { buyer_id: buyerId },
     data,

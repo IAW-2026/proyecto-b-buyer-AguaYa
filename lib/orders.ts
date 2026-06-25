@@ -4,7 +4,7 @@ import {prisma} from './prisma'
 export {OrderStatus} from '../generated/prisma/client';
 export type { Order,OrderItem } from '../generated/prisma/client';
 
-export async function setOrderStatus(order_id: string, status: OrderStatus) {
+export async function setOrderStatus(order_id: string, status: OrderStatus, status_reason?: string) {
   const order = await prisma.order.findUnique({
     where: { order_id },
   });
@@ -17,6 +17,7 @@ export async function setOrderStatus(order_id: string, status: OrderStatus) {
     where: { order_id },
     data: {
       status: { set: status },
+      ...(status_reason !== undefined && { status_reason }),
     },
   });
 }

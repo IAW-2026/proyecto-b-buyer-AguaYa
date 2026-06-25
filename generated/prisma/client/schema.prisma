@@ -76,9 +76,3 @@ model Favorite {
 
   @@id([buyer_id, vendor_id])
 }
-
-model AdminBuyer {
-  id_admin   String @id @default(cuid())
-  id_usuario String @unique
-  nombre     String
-}

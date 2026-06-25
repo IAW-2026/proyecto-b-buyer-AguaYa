@@ -164,12 +164,6 @@ exports.Prisma.FavoriteScalarFieldEnum = {
   vendor_id: 'vendor_id'
 };
 
-exports.Prisma.AdminBuyerScalarFieldEnum = {
-  id_admin: 'id_admin',
-  id_usuario: 'id_usuario',
-  nombre: 'nombre'
-};
-
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -199,8 +193,7 @@ exports.Prisma.ModelName = {
   Address: 'Address',
   Order: 'Order',
   OrderItem: 'OrderItem',
-  Favorite: 'Favorite',
-  AdminBuyer: 'AdminBuyer'
+  Favorite: 'Favorite'
 };
 
 /**

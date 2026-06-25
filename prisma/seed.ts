@@ -15,7 +15,6 @@ async function main() {
 	await prisma.address.deleteMany()
 	await prisma.favorite.deleteMany()
 	await prisma.buyer.deleteMany()
-	await prisma.adminBuyer.deleteMany()
 
 	// Crear un comprador con dirección
 	const buyer1 = await prisma.buyer.create({
@@ -69,9 +68,6 @@ async function main() {
 
 	// Favorite
 	await prisma.favorite.create({ data: { buyer_id: buyer1.buyer_id, vendor_id: 'vendor_1' } })
-
-	// AdminBuyer
-	await prisma.adminBuyer.create({ data: { id_usuario: 'admin_user_1', nombre: 'Admin Uno' } })
 
 	// Crear un segundo comprador y un pedido mínimo
 	const buyer2 = await prisma.buyer.create({

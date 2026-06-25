@@ -75,9 +75,3 @@ model Favorite {
   @@id([buyer_id, vendor_id])
   buyer Buyer @relation(fields: [buyer_id],references:[buyer_id])
 }
-
-model AdminBuyer {
-  id_admin   String    @id @default(cuid()) 
-  id_usuario String  @unique
-  nombre    String
-}
