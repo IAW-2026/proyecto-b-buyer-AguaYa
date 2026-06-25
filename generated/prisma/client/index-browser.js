@@ -136,14 +136,6 @@ exports.Prisma.AddressScalarFieldEnum = {
   buyer_id: 'buyer_id'
 };
 
-exports.Prisma.ClaimScalarFieldEnum = {
-  claim_id: 'claim_id',
-  order_id: 'order_id',
-  reason: 'reason',
-  photo: 'photo',
-  date: 'date'
-};
-
 exports.Prisma.OrderScalarFieldEnum = {
   order_id: 'order_id',
   vendor_id: 'vendor_id',
@@ -203,7 +195,6 @@ exports.OrderStatus = exports.$Enums.OrderStatus = {
 exports.Prisma.ModelName = {
   Buyer: 'Buyer',
   Address: 'Address',
-  Claim: 'Claim',
   Order: 'Order',
   OrderItem: 'OrderItem',
   Favorite: 'Favorite',

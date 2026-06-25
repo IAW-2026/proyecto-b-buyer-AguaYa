@@ -11,7 +11,6 @@ async function main() {
 
 	// Eliminar datos existentes para permitir re-ejecuciones idempotentes
 	await prisma.orderItem.deleteMany()
-	await prisma.claim.deleteMany()
 	await prisma.order.deleteMany()
 	await prisma.address.deleteMany()
 	await prisma.favorite.deleteMany()
@@ -65,16 +64,6 @@ async function main() {
 			}
 		},
 		include: { items: true }
-	})
-
-	// Crear un reclamo asociado al pedido
-	await prisma.claim.create({
-		data: {
-			order_id: order1.order_id,
-			reason: 'Producto dañado',
-			photo: 'https://example.com/photo.jpg',
-			date: new Date()
-		}
 	})
 
 	// Favorite

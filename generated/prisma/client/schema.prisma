@@ -43,16 +43,6 @@ model Address {
   buyer    Buyer   @relation(fields: [buyer_id], references: [buyer_id])
 }
 
-model Claim {
-  claim_id String   @id @default(cuid())
-  order_id String //posiblemente fk
-  reason   String //originalmente era justificacion
-  photo    String //url de la foto
-  //status String
-  date     DateTime
-  order    Order    @relation(fields: [order_id], references: [order_id])
-}
-
 model Order {
   order_id      String      @id @default(cuid())
   vendor_id     String
@@ -64,7 +54,6 @@ model Order {
   created_at    DateTime    @default(now())
   updated_at    DateTime    @updatedAt
   items         OrderItem[]
-  claims        Claim[]
   address       Address?    @relation(fields: [address_id], references: [id])
 }
 

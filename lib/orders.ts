@@ -45,11 +45,6 @@ export async function getConfirmedOrders(buyerId: string) {
 
 export async function deleteOrder(orderId : string){
   return prisma.$transaction(async (tx) => {
-    // Eliminar claims asociados a esta orden
-    await tx.claim.deleteMany({
-      where: { order_id: orderId },
-    });
-
     await tx.orderItem.deleteMany({
       where: { order_id: orderId },
     });
@@ -91,7 +86,7 @@ export async function getAllOrders() {
 export async function getOrderById(orderId: string) {
   return prisma.order.findUnique({
     where: { order_id: orderId },
-    include: { items: true, claims: true, address: true },
+    include: { items: true, address: true },
   });
 }
 

@@ -33,10 +33,6 @@ export async function deleteBuyer(buyerId: string) {
 
     const orderIds = orders.map((o) => o.order_id);
 
-    await tx.claim.deleteMany({
-      where: { order_id: { in: orderIds } },
-    });
-
     await tx.orderItem.deleteMany({
       where: { order_id: { in: orderIds } },
     });

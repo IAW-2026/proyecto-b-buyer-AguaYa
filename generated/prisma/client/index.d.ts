@@ -24,11 +24,6 @@ export type Buyer = $Result.DefaultSelection<Prisma.$BuyerPayload>
  */
 export type Address = $Result.DefaultSelection<Prisma.$AddressPayload>
 /**
- * Model Claim
- * 
- */
-export type Claim = $Result.DefaultSelection<Prisma.$ClaimPayload>
-/**
  * Model Order
  * 
  */
@@ -211,16 +206,6 @@ export class PrismaClient<
     * ```
     */
   get address(): Prisma.AddressDelegate<ExtArgs, ClientOptions>;
-
-  /**
-   * `prisma.claim`: Exposes CRUD operations for the **Claim** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more Claims
-    * const claims = await prisma.claim.findMany()
-    * ```
-    */
-  get claim(): Prisma.ClaimDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.order`: Exposes CRUD operations for the **Order** model.
@@ -697,7 +682,6 @@ export namespace Prisma {
   export const ModelName: {
     Buyer: 'Buyer',
     Address: 'Address',
-    Claim: 'Claim',
     Order: 'Order',
     OrderItem: 'OrderItem',
     Favorite: 'Favorite',
@@ -717,7 +701,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "buyer" | "address" | "claim" | "order" | "orderItem" | "favorite" | "adminBuyer"
+      modelProps: "buyer" | "address" | "order" | "orderItem" | "favorite" | "adminBuyer"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -866,80 +850,6 @@ export namespace Prisma {
           count: {
             args: Prisma.AddressCountArgs<ExtArgs>
             result: $Utils.Optional<AddressCountAggregateOutputType> | number
-          }
-        }
-      }
-      Claim: {
-        payload: Prisma.$ClaimPayload<ExtArgs>
-        fields: Prisma.ClaimFieldRefs
-        operations: {
-          findUnique: {
-            args: Prisma.ClaimFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ClaimPayload> | null
-          }
-          findUniqueOrThrow: {
-            args: Prisma.ClaimFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ClaimPayload>
-          }
-          findFirst: {
-            args: Prisma.ClaimFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ClaimPayload> | null
-          }
-          findFirstOrThrow: {
-            args: Prisma.ClaimFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ClaimPayload>
-          }
-          findMany: {
-            args: Prisma.ClaimFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ClaimPayload>[]
-          }
-          create: {
-            args: Prisma.ClaimCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ClaimPayload>
-          }
-          createMany: {
-            args: Prisma.ClaimCreateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          createManyAndReturn: {
-            args: Prisma.ClaimCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ClaimPayload>[]
-          }
-          delete: {
-            args: Prisma.ClaimDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ClaimPayload>
-          }
-          update: {
-            args: Prisma.ClaimUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ClaimPayload>
-          }
-          deleteMany: {
-            args: Prisma.ClaimDeleteManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateMany: {
-            args: Prisma.ClaimUpdateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateManyAndReturn: {
-            args: Prisma.ClaimUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ClaimPayload>[]
-          }
-          upsert: {
-            args: Prisma.ClaimUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ClaimPayload>
-          }
-          aggregate: {
-            args: Prisma.ClaimAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateClaim>
-          }
-          groupBy: {
-            args: Prisma.ClaimGroupByArgs<ExtArgs>
-            result: $Utils.Optional<ClaimGroupByOutputType>[]
-          }
-          count: {
-            args: Prisma.ClaimCountArgs<ExtArgs>
-            result: $Utils.Optional<ClaimCountAggregateOutputType> | number
           }
         }
       }
@@ -1349,7 +1259,6 @@ export namespace Prisma {
   export type GlobalOmitConfig = {
     buyer?: BuyerOmit
     address?: AddressOmit
-    claim?: ClaimOmit
     order?: OrderOmit
     orderItem?: OrderItemOmit
     favorite?: FavoriteOmit
@@ -1506,12 +1415,10 @@ export namespace Prisma {
 
   export type OrderCountOutputType = {
     items: number
-    claims: number
   }
 
   export type OrderCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     items?: boolean | OrderCountOutputTypeCountItemsArgs
-    claims?: boolean | OrderCountOutputTypeCountClaimsArgs
   }
 
   // Custom InputTypes
@@ -1530,13 +1437,6 @@ export namespace Prisma {
    */
   export type OrderCountOutputTypeCountItemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: OrderItemWhereInput
-  }
-
-  /**
-   * OrderCountOutputType without action
-   */
-  export type OrderCountOutputTypeCountClaimsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: ClaimWhereInput
   }
 
 
@@ -3741,1069 +3641,6 @@ export namespace Prisma {
 
 
   /**
-   * Model Claim
-   */
-
-  export type AggregateClaim = {
-    _count: ClaimCountAggregateOutputType | null
-    _min: ClaimMinAggregateOutputType | null
-    _max: ClaimMaxAggregateOutputType | null
-  }
-
-  export type ClaimMinAggregateOutputType = {
-    claim_id: string | null
-    order_id: string | null
-    reason: string | null
-    photo: string | null
-    date: Date | null
-  }
-
-  export type ClaimMaxAggregateOutputType = {
-    claim_id: string | null
-    order_id: string | null
-    reason: string | null
-    photo: string | null
-    date: Date | null
-  }
-
-  export type ClaimCountAggregateOutputType = {
-    claim_id: number
-    order_id: number
-    reason: number
-    photo: number
-    date: number
-    _all: number
-  }
-
-
-  export type ClaimMinAggregateInputType = {
-    claim_id?: true
-    order_id?: true
-    reason?: true
-    photo?: true
-    date?: true
-  }
-
-  export type ClaimMaxAggregateInputType = {
-    claim_id?: true
-    order_id?: true
-    reason?: true
-    photo?: true
-    date?: true
-  }
-
-  export type ClaimCountAggregateInputType = {
-    claim_id?: true
-    order_id?: true
-    reason?: true
-    photo?: true
-    date?: true
-    _all?: true
-  }
-
-  export type ClaimAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which Claim to aggregate.
-     */
-    where?: ClaimWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Claims to fetch.
-     */
-    orderBy?: ClaimOrderByWithRelationInput | ClaimOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: ClaimWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Claims from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Claims.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned Claims
-    **/
-    _count?: true | ClaimCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: ClaimMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: ClaimMaxAggregateInputType
-  }
-
-  export type GetClaimAggregateType<T extends ClaimAggregateArgs> = {
-        [P in keyof T & keyof AggregateClaim]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateClaim[P]>
-      : GetScalarType<T[P], AggregateClaim[P]>
-  }
-
-
-
-
-  export type ClaimGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: ClaimWhereInput
-    orderBy?: ClaimOrderByWithAggregationInput | ClaimOrderByWithAggregationInput[]
-    by: ClaimScalarFieldEnum[] | ClaimScalarFieldEnum
-    having?: ClaimScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: ClaimCountAggregateInputType | true
-    _min?: ClaimMinAggregateInputType
-    _max?: ClaimMaxAggregateInputType
-  }
-
-  export type ClaimGroupByOutputType = {
-    claim_id: string
-    order_id: string
-    reason: string
-    photo: string
-    date: Date
-    _count: ClaimCountAggregateOutputType | null
-    _min: ClaimMinAggregateOutputType | null
-    _max: ClaimMaxAggregateOutputType | null
-  }
-
-  type GetClaimGroupByPayload<T extends ClaimGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<ClaimGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof ClaimGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], ClaimGroupByOutputType[P]>
-            : GetScalarType<T[P], ClaimGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type ClaimSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    claim_id?: boolean
-    order_id?: boolean
-    reason?: boolean
-    photo?: boolean
-    date?: boolean
-    order?: boolean | OrderDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["claim"]>
-
-  export type ClaimSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    claim_id?: boolean
-    order_id?: boolean
-    reason?: boolean
-    photo?: boolean
-    date?: boolean
-    order?: boolean | OrderDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["claim"]>
-
-  export type ClaimSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    claim_id?: boolean
-    order_id?: boolean
-    reason?: boolean
-    photo?: boolean
-    date?: boolean
-    order?: boolean | OrderDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["claim"]>
-
-  export type ClaimSelectScalar = {
-    claim_id?: boolean
-    order_id?: boolean
-    reason?: boolean
-    photo?: boolean
-    date?: boolean
-  }
-
-  export type ClaimOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"claim_id" | "order_id" | "reason" | "photo" | "date", ExtArgs["result"]["claim"]>
-  export type ClaimInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    order?: boolean | OrderDefaultArgs<ExtArgs>
-  }
-  export type ClaimIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    order?: boolean | OrderDefaultArgs<ExtArgs>
-  }
-  export type ClaimIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    order?: boolean | OrderDefaultArgs<ExtArgs>
-  }
-
-  export type $ClaimPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "Claim"
-    objects: {
-      order: Prisma.$OrderPayload<ExtArgs>
-    }
-    scalars: $Extensions.GetPayloadResult<{
-      claim_id: string
-      order_id: string
-      reason: string
-      photo: string
-      date: Date
-    }, ExtArgs["result"]["claim"]>
-    composites: {}
-  }
-
-  type ClaimGetPayload<S extends boolean | null | undefined | ClaimDefaultArgs> = $Result.GetResult<Prisma.$ClaimPayload, S>
-
-  type ClaimCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<ClaimFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: ClaimCountAggregateInputType | true
-    }
-
-  export interface ClaimDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Claim'], meta: { name: 'Claim' } }
-    /**
-     * Find zero or one Claim that matches the filter.
-     * @param {ClaimFindUniqueArgs} args - Arguments to find a Claim
-     * @example
-     * // Get one Claim
-     * const claim = await prisma.claim.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUnique<T extends ClaimFindUniqueArgs>(args: SelectSubset<T, ClaimFindUniqueArgs<ExtArgs>>): Prisma__ClaimClient<$Result.GetResult<Prisma.$ClaimPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find one Claim that matches the filter or throw an error with `error.code='P2025'`
-     * if no matches were found.
-     * @param {ClaimFindUniqueOrThrowArgs} args - Arguments to find a Claim
-     * @example
-     * // Get one Claim
-     * const claim = await prisma.claim.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUniqueOrThrow<T extends ClaimFindUniqueOrThrowArgs>(args: SelectSubset<T, ClaimFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ClaimClient<$Result.GetResult<Prisma.$ClaimPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first Claim that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {ClaimFindFirstArgs} args - Arguments to find a Claim
-     * @example
-     * // Get one Claim
-     * const claim = await prisma.claim.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirst<T extends ClaimFindFirstArgs>(args?: SelectSubset<T, ClaimFindFirstArgs<ExtArgs>>): Prisma__ClaimClient<$Result.GetResult<Prisma.$ClaimPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first Claim that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {ClaimFindFirstOrThrowArgs} args - Arguments to find a Claim
-     * @example
-     * // Get one Claim
-     * const claim = await prisma.claim.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirstOrThrow<T extends ClaimFindFirstOrThrowArgs>(args?: SelectSubset<T, ClaimFindFirstOrThrowArgs<ExtArgs>>): Prisma__ClaimClient<$Result.GetResult<Prisma.$ClaimPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find zero or more Claims that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {ClaimFindManyArgs} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all Claims
-     * const claims = await prisma.claim.findMany()
-     * 
-     * // Get first 10 Claims
-     * const claims = await prisma.claim.findMany({ take: 10 })
-     * 
-     * // Only select the `claim_id`
-     * const claimWithClaim_idOnly = await prisma.claim.findMany({ select: { claim_id: true } })
-     * 
-     */
-    findMany<T extends ClaimFindManyArgs>(args?: SelectSubset<T, ClaimFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ClaimPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
-
-    /**
-     * Create a Claim.
-     * @param {ClaimCreateArgs} args - Arguments to create a Claim.
-     * @example
-     * // Create one Claim
-     * const Claim = await prisma.claim.create({
-     *   data: {
-     *     // ... data to create a Claim
-     *   }
-     * })
-     * 
-     */
-    create<T extends ClaimCreateArgs>(args: SelectSubset<T, ClaimCreateArgs<ExtArgs>>): Prisma__ClaimClient<$Result.GetResult<Prisma.$ClaimPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Create many Claims.
-     * @param {ClaimCreateManyArgs} args - Arguments to create many Claims.
-     * @example
-     * // Create many Claims
-     * const claim = await prisma.claim.createMany({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     *     
-     */
-    createMany<T extends ClaimCreateManyArgs>(args?: SelectSubset<T, ClaimCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create many Claims and returns the data saved in the database.
-     * @param {ClaimCreateManyAndReturnArgs} args - Arguments to create many Claims.
-     * @example
-     * // Create many Claims
-     * const claim = await prisma.claim.createManyAndReturn({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Create many Claims and only return the `claim_id`
-     * const claimWithClaim_idOnly = await prisma.claim.createManyAndReturn({
-     *   select: { claim_id: true },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    createManyAndReturn<T extends ClaimCreateManyAndReturnArgs>(args?: SelectSubset<T, ClaimCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ClaimPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Delete a Claim.
-     * @param {ClaimDeleteArgs} args - Arguments to delete one Claim.
-     * @example
-     * // Delete one Claim
-     * const Claim = await prisma.claim.delete({
-     *   where: {
-     *     // ... filter to delete one Claim
-     *   }
-     * })
-     * 
-     */
-    delete<T extends ClaimDeleteArgs>(args: SelectSubset<T, ClaimDeleteArgs<ExtArgs>>): Prisma__ClaimClient<$Result.GetResult<Prisma.$ClaimPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Update one Claim.
-     * @param {ClaimUpdateArgs} args - Arguments to update one Claim.
-     * @example
-     * // Update one Claim
-     * const claim = await prisma.claim.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    update<T extends ClaimUpdateArgs>(args: SelectSubset<T, ClaimUpdateArgs<ExtArgs>>): Prisma__ClaimClient<$Result.GetResult<Prisma.$ClaimPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Delete zero or more Claims.
-     * @param {ClaimDeleteManyArgs} args - Arguments to filter Claims to delete.
-     * @example
-     * // Delete a few Claims
-     * const { count } = await prisma.claim.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-     */
-    deleteMany<T extends ClaimDeleteManyArgs>(args?: SelectSubset<T, ClaimDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Claims.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {ClaimUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many Claims
-     * const claim = await prisma.claim.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    updateMany<T extends ClaimUpdateManyArgs>(args: SelectSubset<T, ClaimUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Claims and returns the data updated in the database.
-     * @param {ClaimUpdateManyAndReturnArgs} args - Arguments to update many Claims.
-     * @example
-     * // Update many Claims
-     * const claim = await prisma.claim.updateManyAndReturn({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Update zero or more Claims and only return the `claim_id`
-     * const claimWithClaim_idOnly = await prisma.claim.updateManyAndReturn({
-     *   select: { claim_id: true },
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    updateManyAndReturn<T extends ClaimUpdateManyAndReturnArgs>(args: SelectSubset<T, ClaimUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ClaimPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Create or update one Claim.
-     * @param {ClaimUpsertArgs} args - Arguments to update or create a Claim.
-     * @example
-     * // Update or create a Claim
-     * const claim = await prisma.claim.upsert({
-     *   create: {
-     *     // ... data to create a Claim
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the Claim we want to update
-     *   }
-     * })
-     */
-    upsert<T extends ClaimUpsertArgs>(args: SelectSubset<T, ClaimUpsertArgs<ExtArgs>>): Prisma__ClaimClient<$Result.GetResult<Prisma.$ClaimPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-
-    /**
-     * Count the number of Claims.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {ClaimCountArgs} args - Arguments to filter Claims to count.
-     * @example
-     * // Count the number of Claims
-     * const count = await prisma.claim.count({
-     *   where: {
-     *     // ... the filter for the Claims we want to count
-     *   }
-     * })
-    **/
-    count<T extends ClaimCountArgs>(
-      args?: Subset<T, ClaimCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], ClaimCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a Claim.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {ClaimAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends ClaimAggregateArgs>(args: Subset<T, ClaimAggregateArgs>): Prisma.PrismaPromise<GetClaimAggregateType<T>>
-
-    /**
-     * Group by Claim.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {ClaimGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends ClaimGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: ClaimGroupByArgs['orderBy'] }
-        : { orderBy?: ClaimGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, ClaimGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetClaimGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the Claim model
-   */
-  readonly fields: ClaimFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for Claim.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__ClaimClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: "PrismaPromise"
-    order<T extends OrderDefaultArgs<ExtArgs> = {}>(args?: Subset<T, OrderDefaultArgs<ExtArgs>>): Prisma__OrderClient<$Result.GetResult<Prisma.$OrderPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
-  }
-
-
-
-
-  /**
-   * Fields of the Claim model
-   */
-  interface ClaimFieldRefs {
-    readonly claim_id: FieldRef<"Claim", 'String'>
-    readonly order_id: FieldRef<"Claim", 'String'>
-    readonly reason: FieldRef<"Claim", 'String'>
-    readonly photo: FieldRef<"Claim", 'String'>
-    readonly date: FieldRef<"Claim", 'DateTime'>
-  }
-    
-
-  // Custom InputTypes
-  /**
-   * Claim findUnique
-   */
-  export type ClaimFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Claim
-     */
-    select?: ClaimSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Claim
-     */
-    omit?: ClaimOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ClaimInclude<ExtArgs> | null
-    /**
-     * Filter, which Claim to fetch.
-     */
-    where: ClaimWhereUniqueInput
-  }
-
-  /**
-   * Claim findUniqueOrThrow
-   */
-  export type ClaimFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Claim
-     */
-    select?: ClaimSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Claim
-     */
-    omit?: ClaimOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ClaimInclude<ExtArgs> | null
-    /**
-     * Filter, which Claim to fetch.
-     */
-    where: ClaimWhereUniqueInput
-  }
-
-  /**
-   * Claim findFirst
-   */
-  export type ClaimFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Claim
-     */
-    select?: ClaimSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Claim
-     */
-    omit?: ClaimOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ClaimInclude<ExtArgs> | null
-    /**
-     * Filter, which Claim to fetch.
-     */
-    where?: ClaimWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Claims to fetch.
-     */
-    orderBy?: ClaimOrderByWithRelationInput | ClaimOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for Claims.
-     */
-    cursor?: ClaimWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Claims from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Claims.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Claims.
-     */
-    distinct?: ClaimScalarFieldEnum | ClaimScalarFieldEnum[]
-  }
-
-  /**
-   * Claim findFirstOrThrow
-   */
-  export type ClaimFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Claim
-     */
-    select?: ClaimSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Claim
-     */
-    omit?: ClaimOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ClaimInclude<ExtArgs> | null
-    /**
-     * Filter, which Claim to fetch.
-     */
-    where?: ClaimWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Claims to fetch.
-     */
-    orderBy?: ClaimOrderByWithRelationInput | ClaimOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for Claims.
-     */
-    cursor?: ClaimWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Claims from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Claims.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Claims.
-     */
-    distinct?: ClaimScalarFieldEnum | ClaimScalarFieldEnum[]
-  }
-
-  /**
-   * Claim findMany
-   */
-  export type ClaimFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Claim
-     */
-    select?: ClaimSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Claim
-     */
-    omit?: ClaimOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ClaimInclude<ExtArgs> | null
-    /**
-     * Filter, which Claims to fetch.
-     */
-    where?: ClaimWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Claims to fetch.
-     */
-    orderBy?: ClaimOrderByWithRelationInput | ClaimOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing Claims.
-     */
-    cursor?: ClaimWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Claims from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Claims.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Claims.
-     */
-    distinct?: ClaimScalarFieldEnum | ClaimScalarFieldEnum[]
-  }
-
-  /**
-   * Claim create
-   */
-  export type ClaimCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Claim
-     */
-    select?: ClaimSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Claim
-     */
-    omit?: ClaimOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ClaimInclude<ExtArgs> | null
-    /**
-     * The data needed to create a Claim.
-     */
-    data: XOR<ClaimCreateInput, ClaimUncheckedCreateInput>
-  }
-
-  /**
-   * Claim createMany
-   */
-  export type ClaimCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many Claims.
-     */
-    data: ClaimCreateManyInput | ClaimCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * Claim createManyAndReturn
-   */
-  export type ClaimCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Claim
-     */
-    select?: ClaimSelectCreateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the Claim
-     */
-    omit?: ClaimOmit<ExtArgs> | null
-    /**
-     * The data used to create many Claims.
-     */
-    data: ClaimCreateManyInput | ClaimCreateManyInput[]
-    skipDuplicates?: boolean
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ClaimIncludeCreateManyAndReturn<ExtArgs> | null
-  }
-
-  /**
-   * Claim update
-   */
-  export type ClaimUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Claim
-     */
-    select?: ClaimSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Claim
-     */
-    omit?: ClaimOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ClaimInclude<ExtArgs> | null
-    /**
-     * The data needed to update a Claim.
-     */
-    data: XOR<ClaimUpdateInput, ClaimUncheckedUpdateInput>
-    /**
-     * Choose, which Claim to update.
-     */
-    where: ClaimWhereUniqueInput
-  }
-
-  /**
-   * Claim updateMany
-   */
-  export type ClaimUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update Claims.
-     */
-    data: XOR<ClaimUpdateManyMutationInput, ClaimUncheckedUpdateManyInput>
-    /**
-     * Filter which Claims to update
-     */
-    where?: ClaimWhereInput
-    /**
-     * Limit how many Claims to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * Claim updateManyAndReturn
-   */
-  export type ClaimUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Claim
-     */
-    select?: ClaimSelectUpdateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the Claim
-     */
-    omit?: ClaimOmit<ExtArgs> | null
-    /**
-     * The data used to update Claims.
-     */
-    data: XOR<ClaimUpdateManyMutationInput, ClaimUncheckedUpdateManyInput>
-    /**
-     * Filter which Claims to update
-     */
-    where?: ClaimWhereInput
-    /**
-     * Limit how many Claims to update.
-     */
-    limit?: number
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ClaimIncludeUpdateManyAndReturn<ExtArgs> | null
-  }
-
-  /**
-   * Claim upsert
-   */
-  export type ClaimUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Claim
-     */
-    select?: ClaimSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Claim
-     */
-    omit?: ClaimOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ClaimInclude<ExtArgs> | null
-    /**
-     * The filter to search for the Claim to update in case it exists.
-     */
-    where: ClaimWhereUniqueInput
-    /**
-     * In case the Claim found by the `where` argument doesn't exist, create a new Claim with this data.
-     */
-    create: XOR<ClaimCreateInput, ClaimUncheckedCreateInput>
-    /**
-     * In case the Claim was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<ClaimUpdateInput, ClaimUncheckedUpdateInput>
-  }
-
-  /**
-   * Claim delete
-   */
-  export type ClaimDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Claim
-     */
-    select?: ClaimSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Claim
-     */
-    omit?: ClaimOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ClaimInclude<ExtArgs> | null
-    /**
-     * Filter which Claim to delete.
-     */
-    where: ClaimWhereUniqueInput
-  }
-
-  /**
-   * Claim deleteMany
-   */
-  export type ClaimDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which Claims to delete
-     */
-    where?: ClaimWhereInput
-    /**
-     * Limit how many Claims to delete.
-     */
-    limit?: number
-  }
-
-  /**
-   * Claim without action
-   */
-  export type ClaimDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Claim
-     */
-    select?: ClaimSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Claim
-     */
-    omit?: ClaimOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ClaimInclude<ExtArgs> | null
-  }
-
-
-  /**
    * Model Order
    */
 
@@ -5034,7 +3871,6 @@ export namespace Prisma {
     created_at?: boolean
     updated_at?: boolean
     items?: boolean | Order$itemsArgs<ExtArgs>
-    claims?: boolean | Order$claimsArgs<ExtArgs>
     address?: boolean | Order$addressArgs<ExtArgs>
     _count?: boolean | OrderCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["order"]>
@@ -5080,7 +3916,6 @@ export namespace Prisma {
   export type OrderOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"order_id" | "vendor_id" | "buyer_id" | "status" | "status_reason" | "total" | "address_id" | "created_at" | "updated_at", ExtArgs["result"]["order"]>
   export type OrderInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     items?: boolean | Order$itemsArgs<ExtArgs>
-    claims?: boolean | Order$claimsArgs<ExtArgs>
     address?: boolean | Order$addressArgs<ExtArgs>
     _count?: boolean | OrderCountOutputTypeDefaultArgs<ExtArgs>
   }
@@ -5095,7 +3930,6 @@ export namespace Prisma {
     name: "Order"
     objects: {
       items: Prisma.$OrderItemPayload<ExtArgs>[]
-      claims: Prisma.$ClaimPayload<ExtArgs>[]
       address: Prisma.$AddressPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -5503,7 +4337,6 @@ export namespace Prisma {
   export interface Prisma__OrderClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     items<T extends Order$itemsArgs<ExtArgs> = {}>(args?: Subset<T, Order$itemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OrderItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    claims<T extends Order$claimsArgs<ExtArgs> = {}>(args?: Subset<T, Order$claimsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ClaimPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     address<T extends Order$addressArgs<ExtArgs> = {}>(args?: Subset<T, Order$addressArgs<ExtArgs>>): Prisma__AddressClient<$Result.GetResult<Prisma.$AddressPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -5965,30 +4798,6 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: OrderItemScalarFieldEnum | OrderItemScalarFieldEnum[]
-  }
-
-  /**
-   * Order.claims
-   */
-  export type Order$claimsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Claim
-     */
-    select?: ClaimSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Claim
-     */
-    omit?: ClaimOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ClaimInclude<ExtArgs> | null
-    where?: ClaimWhereInput
-    orderBy?: ClaimOrderByWithRelationInput | ClaimOrderByWithRelationInput[]
-    cursor?: ClaimWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: ClaimScalarFieldEnum | ClaimScalarFieldEnum[]
   }
 
   /**
@@ -9177,17 +7986,6 @@ export namespace Prisma {
   export type AddressScalarFieldEnum = (typeof AddressScalarFieldEnum)[keyof typeof AddressScalarFieldEnum]
 
 
-  export const ClaimScalarFieldEnum: {
-    claim_id: 'claim_id',
-    order_id: 'order_id',
-    reason: 'reason',
-    photo: 'photo',
-    date: 'date'
-  };
-
-  export type ClaimScalarFieldEnum = (typeof ClaimScalarFieldEnum)[keyof typeof ClaimScalarFieldEnum]
-
-
   export const OrderScalarFieldEnum: {
     order_id: 'order_id',
     vendor_id: 'vendor_id',
@@ -9276,20 +8074,6 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'DateTime'
-   */
-  export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
-    
-
-
-  /**
-   * Reference to a field of type 'DateTime[]'
-   */
-  export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
-    
-
-
-  /**
    * Reference to a field of type 'OrderStatus'
    */
   export type EnumOrderStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'OrderStatus'>
@@ -9314,6 +8098,20 @@ export namespace Prisma {
    * Reference to a field of type 'Float[]'
    */
   export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'DateTime'
+   */
+  export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
+    
+
+
+  /**
+   * Reference to a field of type 'DateTime[]'
+   */
+  export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
     
 
 
@@ -9450,61 +8248,6 @@ export namespace Prisma {
     buyer_id?: StringWithAggregatesFilter<"Address"> | string
   }
 
-  export type ClaimWhereInput = {
-    AND?: ClaimWhereInput | ClaimWhereInput[]
-    OR?: ClaimWhereInput[]
-    NOT?: ClaimWhereInput | ClaimWhereInput[]
-    claim_id?: StringFilter<"Claim"> | string
-    order_id?: StringFilter<"Claim"> | string
-    reason?: StringFilter<"Claim"> | string
-    photo?: StringFilter<"Claim"> | string
-    date?: DateTimeFilter<"Claim"> | Date | string
-    order?: XOR<OrderScalarRelationFilter, OrderWhereInput>
-  }
-
-  export type ClaimOrderByWithRelationInput = {
-    claim_id?: SortOrder
-    order_id?: SortOrder
-    reason?: SortOrder
-    photo?: SortOrder
-    date?: SortOrder
-    order?: OrderOrderByWithRelationInput
-  }
-
-  export type ClaimWhereUniqueInput = Prisma.AtLeast<{
-    claim_id?: string
-    AND?: ClaimWhereInput | ClaimWhereInput[]
-    OR?: ClaimWhereInput[]
-    NOT?: ClaimWhereInput | ClaimWhereInput[]
-    order_id?: StringFilter<"Claim"> | string
-    reason?: StringFilter<"Claim"> | string
-    photo?: StringFilter<"Claim"> | string
-    date?: DateTimeFilter<"Claim"> | Date | string
-    order?: XOR<OrderScalarRelationFilter, OrderWhereInput>
-  }, "claim_id">
-
-  export type ClaimOrderByWithAggregationInput = {
-    claim_id?: SortOrder
-    order_id?: SortOrder
-    reason?: SortOrder
-    photo?: SortOrder
-    date?: SortOrder
-    _count?: ClaimCountOrderByAggregateInput
-    _max?: ClaimMaxOrderByAggregateInput
-    _min?: ClaimMinOrderByAggregateInput
-  }
-
-  export type ClaimScalarWhereWithAggregatesInput = {
-    AND?: ClaimScalarWhereWithAggregatesInput | ClaimScalarWhereWithAggregatesInput[]
-    OR?: ClaimScalarWhereWithAggregatesInput[]
-    NOT?: ClaimScalarWhereWithAggregatesInput | ClaimScalarWhereWithAggregatesInput[]
-    claim_id?: StringWithAggregatesFilter<"Claim"> | string
-    order_id?: StringWithAggregatesFilter<"Claim"> | string
-    reason?: StringWithAggregatesFilter<"Claim"> | string
-    photo?: StringWithAggregatesFilter<"Claim"> | string
-    date?: DateTimeWithAggregatesFilter<"Claim"> | Date | string
-  }
-
   export type OrderWhereInput = {
     AND?: OrderWhereInput | OrderWhereInput[]
     OR?: OrderWhereInput[]
@@ -9519,7 +8262,6 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"Order"> | Date | string
     updated_at?: DateTimeFilter<"Order"> | Date | string
     items?: OrderItemListRelationFilter
-    claims?: ClaimListRelationFilter
     address?: XOR<AddressNullableScalarRelationFilter, AddressWhereInput> | null
   }
 
@@ -9534,7 +8276,6 @@ export namespace Prisma {
     created_at?: SortOrder
     updated_at?: SortOrder
     items?: OrderItemOrderByRelationAggregateInput
-    claims?: ClaimOrderByRelationAggregateInput
     address?: AddressOrderByWithRelationInput
   }
 
@@ -9552,7 +8293,6 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"Order"> | Date | string
     updated_at?: DateTimeFilter<"Order"> | Date | string
     items?: OrderItemListRelationFilter
-    claims?: ClaimListRelationFilter
     address?: XOR<AddressNullableScalarRelationFilter, AddressWhereInput> | null
   }, "order_id">
 
@@ -9856,61 +8596,6 @@ export namespace Prisma {
     buyer_id?: StringFieldUpdateOperationsInput | string
   }
 
-  export type ClaimCreateInput = {
-    claim_id?: string
-    reason: string
-    photo: string
-    date: Date | string
-    order: OrderCreateNestedOneWithoutClaimsInput
-  }
-
-  export type ClaimUncheckedCreateInput = {
-    claim_id?: string
-    order_id: string
-    reason: string
-    photo: string
-    date: Date | string
-  }
-
-  export type ClaimUpdateInput = {
-    claim_id?: StringFieldUpdateOperationsInput | string
-    reason?: StringFieldUpdateOperationsInput | string
-    photo?: StringFieldUpdateOperationsInput | string
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
-    order?: OrderUpdateOneRequiredWithoutClaimsNestedInput
-  }
-
-  export type ClaimUncheckedUpdateInput = {
-    claim_id?: StringFieldUpdateOperationsInput | string
-    order_id?: StringFieldUpdateOperationsInput | string
-    reason?: StringFieldUpdateOperationsInput | string
-    photo?: StringFieldUpdateOperationsInput | string
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type ClaimCreateManyInput = {
-    claim_id?: string
-    order_id: string
-    reason: string
-    photo: string
-    date: Date | string
-  }
-
-  export type ClaimUpdateManyMutationInput = {
-    claim_id?: StringFieldUpdateOperationsInput | string
-    reason?: StringFieldUpdateOperationsInput | string
-    photo?: StringFieldUpdateOperationsInput | string
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type ClaimUncheckedUpdateManyInput = {
-    claim_id?: StringFieldUpdateOperationsInput | string
-    order_id?: StringFieldUpdateOperationsInput | string
-    reason?: StringFieldUpdateOperationsInput | string
-    photo?: StringFieldUpdateOperationsInput | string
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
   export type OrderCreateInput = {
     order_id?: string
     vendor_id: string
@@ -9921,7 +8606,6 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     items?: OrderItemCreateNestedManyWithoutOrderInput
-    claims?: ClaimCreateNestedManyWithoutOrderInput
     address?: AddressCreateNestedOneWithoutOrdersInput
   }
 
@@ -9936,7 +8620,6 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     items?: OrderItemUncheckedCreateNestedManyWithoutOrderInput
-    claims?: ClaimUncheckedCreateNestedManyWithoutOrderInput
   }
 
   export type OrderUpdateInput = {
@@ -9949,7 +8632,6 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     items?: OrderItemUpdateManyWithoutOrderNestedInput
-    claims?: ClaimUpdateManyWithoutOrderNestedInput
     address?: AddressUpdateOneWithoutOrdersNestedInput
   }
 
@@ -9964,7 +8646,6 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     items?: OrderItemUncheckedUpdateManyWithoutOrderNestedInput
-    claims?: ClaimUncheckedUpdateManyWithoutOrderNestedInput
   }
 
   export type OrderCreateManyInput = {
@@ -10294,60 +8975,6 @@ export namespace Prisma {
     buyer_id?: SortOrder
   }
 
-  export type DateTimeFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
-  }
-
-  export type OrderScalarRelationFilter = {
-    is?: OrderWhereInput
-    isNot?: OrderWhereInput
-  }
-
-  export type ClaimCountOrderByAggregateInput = {
-    claim_id?: SortOrder
-    order_id?: SortOrder
-    reason?: SortOrder
-    photo?: SortOrder
-    date?: SortOrder
-  }
-
-  export type ClaimMaxOrderByAggregateInput = {
-    claim_id?: SortOrder
-    order_id?: SortOrder
-    reason?: SortOrder
-    photo?: SortOrder
-    date?: SortOrder
-  }
-
-  export type ClaimMinOrderByAggregateInput = {
-    claim_id?: SortOrder
-    order_id?: SortOrder
-    reason?: SortOrder
-    photo?: SortOrder
-    date?: SortOrder
-  }
-
-  export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedDateTimeFilter<$PrismaModel>
-    _max?: NestedDateTimeFilter<$PrismaModel>
-  }
-
   export type EnumOrderStatusFilter<$PrismaModel = never> = {
     equals?: $Enums.OrderStatus | EnumOrderStatusFieldRefInput<$PrismaModel>
     in?: $Enums.OrderStatus[] | ListEnumOrderStatusFieldRefInput<$PrismaModel>
@@ -10366,16 +8993,21 @@ export namespace Prisma {
     not?: NestedFloatFilter<$PrismaModel> | number
   }
 
+  export type DateTimeFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  }
+
   export type OrderItemListRelationFilter = {
     every?: OrderItemWhereInput
     some?: OrderItemWhereInput
     none?: OrderItemWhereInput
-  }
-
-  export type ClaimListRelationFilter = {
-    every?: ClaimWhereInput
-    some?: ClaimWhereInput
-    none?: ClaimWhereInput
   }
 
   export type AddressNullableScalarRelationFilter = {
@@ -10384,10 +9016,6 @@ export namespace Prisma {
   }
 
   export type OrderItemOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type ClaimOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -10461,6 +9089,20 @@ export namespace Prisma {
     _max?: NestedFloatFilter<$PrismaModel>
   }
 
+  export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
   export type IntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -10470,6 +9112,11 @@ export namespace Prisma {
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
     not?: NestedIntFilter<$PrismaModel> | number
+  }
+
+  export type OrderScalarRelationFilter = {
+    is?: OrderWhereInput
+    isNot?: OrderWhereInput
   }
 
   export type OrderItemCountOrderByAggregateInput = {
@@ -10711,36 +9358,11 @@ export namespace Prisma {
     deleteMany?: OrderScalarWhereInput | OrderScalarWhereInput[]
   }
 
-  export type OrderCreateNestedOneWithoutClaimsInput = {
-    create?: XOR<OrderCreateWithoutClaimsInput, OrderUncheckedCreateWithoutClaimsInput>
-    connectOrCreate?: OrderCreateOrConnectWithoutClaimsInput
-    connect?: OrderWhereUniqueInput
-  }
-
-  export type DateTimeFieldUpdateOperationsInput = {
-    set?: Date | string
-  }
-
-  export type OrderUpdateOneRequiredWithoutClaimsNestedInput = {
-    create?: XOR<OrderCreateWithoutClaimsInput, OrderUncheckedCreateWithoutClaimsInput>
-    connectOrCreate?: OrderCreateOrConnectWithoutClaimsInput
-    upsert?: OrderUpsertWithoutClaimsInput
-    connect?: OrderWhereUniqueInput
-    update?: XOR<XOR<OrderUpdateToOneWithWhereWithoutClaimsInput, OrderUpdateWithoutClaimsInput>, OrderUncheckedUpdateWithoutClaimsInput>
-  }
-
   export type OrderItemCreateNestedManyWithoutOrderInput = {
     create?: XOR<OrderItemCreateWithoutOrderInput, OrderItemUncheckedCreateWithoutOrderInput> | OrderItemCreateWithoutOrderInput[] | OrderItemUncheckedCreateWithoutOrderInput[]
     connectOrCreate?: OrderItemCreateOrConnectWithoutOrderInput | OrderItemCreateOrConnectWithoutOrderInput[]
     createMany?: OrderItemCreateManyOrderInputEnvelope
     connect?: OrderItemWhereUniqueInput | OrderItemWhereUniqueInput[]
-  }
-
-  export type ClaimCreateNestedManyWithoutOrderInput = {
-    create?: XOR<ClaimCreateWithoutOrderInput, ClaimUncheckedCreateWithoutOrderInput> | ClaimCreateWithoutOrderInput[] | ClaimUncheckedCreateWithoutOrderInput[]
-    connectOrCreate?: ClaimCreateOrConnectWithoutOrderInput | ClaimCreateOrConnectWithoutOrderInput[]
-    createMany?: ClaimCreateManyOrderInputEnvelope
-    connect?: ClaimWhereUniqueInput | ClaimWhereUniqueInput[]
   }
 
   export type AddressCreateNestedOneWithoutOrdersInput = {
@@ -10756,13 +9378,6 @@ export namespace Prisma {
     connect?: OrderItemWhereUniqueInput | OrderItemWhereUniqueInput[]
   }
 
-  export type ClaimUncheckedCreateNestedManyWithoutOrderInput = {
-    create?: XOR<ClaimCreateWithoutOrderInput, ClaimUncheckedCreateWithoutOrderInput> | ClaimCreateWithoutOrderInput[] | ClaimUncheckedCreateWithoutOrderInput[]
-    connectOrCreate?: ClaimCreateOrConnectWithoutOrderInput | ClaimCreateOrConnectWithoutOrderInput[]
-    createMany?: ClaimCreateManyOrderInputEnvelope
-    connect?: ClaimWhereUniqueInput | ClaimWhereUniqueInput[]
-  }
-
   export type EnumOrderStatusFieldUpdateOperationsInput = {
     set?: $Enums.OrderStatus
   }
@@ -10773,6 +9388,10 @@ export namespace Prisma {
     decrement?: number
     multiply?: number
     divide?: number
+  }
+
+  export type DateTimeFieldUpdateOperationsInput = {
+    set?: Date | string
   }
 
   export type OrderItemUpdateManyWithoutOrderNestedInput = {
@@ -10787,20 +9406,6 @@ export namespace Prisma {
     update?: OrderItemUpdateWithWhereUniqueWithoutOrderInput | OrderItemUpdateWithWhereUniqueWithoutOrderInput[]
     updateMany?: OrderItemUpdateManyWithWhereWithoutOrderInput | OrderItemUpdateManyWithWhereWithoutOrderInput[]
     deleteMany?: OrderItemScalarWhereInput | OrderItemScalarWhereInput[]
-  }
-
-  export type ClaimUpdateManyWithoutOrderNestedInput = {
-    create?: XOR<ClaimCreateWithoutOrderInput, ClaimUncheckedCreateWithoutOrderInput> | ClaimCreateWithoutOrderInput[] | ClaimUncheckedCreateWithoutOrderInput[]
-    connectOrCreate?: ClaimCreateOrConnectWithoutOrderInput | ClaimCreateOrConnectWithoutOrderInput[]
-    upsert?: ClaimUpsertWithWhereUniqueWithoutOrderInput | ClaimUpsertWithWhereUniqueWithoutOrderInput[]
-    createMany?: ClaimCreateManyOrderInputEnvelope
-    set?: ClaimWhereUniqueInput | ClaimWhereUniqueInput[]
-    disconnect?: ClaimWhereUniqueInput | ClaimWhereUniqueInput[]
-    delete?: ClaimWhereUniqueInput | ClaimWhereUniqueInput[]
-    connect?: ClaimWhereUniqueInput | ClaimWhereUniqueInput[]
-    update?: ClaimUpdateWithWhereUniqueWithoutOrderInput | ClaimUpdateWithWhereUniqueWithoutOrderInput[]
-    updateMany?: ClaimUpdateManyWithWhereWithoutOrderInput | ClaimUpdateManyWithWhereWithoutOrderInput[]
-    deleteMany?: ClaimScalarWhereInput | ClaimScalarWhereInput[]
   }
 
   export type AddressUpdateOneWithoutOrdersNestedInput = {
@@ -10825,20 +9430,6 @@ export namespace Prisma {
     update?: OrderItemUpdateWithWhereUniqueWithoutOrderInput | OrderItemUpdateWithWhereUniqueWithoutOrderInput[]
     updateMany?: OrderItemUpdateManyWithWhereWithoutOrderInput | OrderItemUpdateManyWithWhereWithoutOrderInput[]
     deleteMany?: OrderItemScalarWhereInput | OrderItemScalarWhereInput[]
-  }
-
-  export type ClaimUncheckedUpdateManyWithoutOrderNestedInput = {
-    create?: XOR<ClaimCreateWithoutOrderInput, ClaimUncheckedCreateWithoutOrderInput> | ClaimCreateWithoutOrderInput[] | ClaimUncheckedCreateWithoutOrderInput[]
-    connectOrCreate?: ClaimCreateOrConnectWithoutOrderInput | ClaimCreateOrConnectWithoutOrderInput[]
-    upsert?: ClaimUpsertWithWhereUniqueWithoutOrderInput | ClaimUpsertWithWhereUniqueWithoutOrderInput[]
-    createMany?: ClaimCreateManyOrderInputEnvelope
-    set?: ClaimWhereUniqueInput | ClaimWhereUniqueInput[]
-    disconnect?: ClaimWhereUniqueInput | ClaimWhereUniqueInput[]
-    delete?: ClaimWhereUniqueInput | ClaimWhereUniqueInput[]
-    connect?: ClaimWhereUniqueInput | ClaimWhereUniqueInput[]
-    update?: ClaimUpdateWithWhereUniqueWithoutOrderInput | ClaimUpdateWithWhereUniqueWithoutOrderInput[]
-    updateMany?: ClaimUpdateManyWithWhereWithoutOrderInput | ClaimUpdateManyWithWhereWithoutOrderInput[]
-    deleteMany?: ClaimScalarWhereInput | ClaimScalarWhereInput[]
   }
 
   export type OrderCreateNestedOneWithoutItemsInput = {
@@ -10961,31 +9552,6 @@ export namespace Prisma {
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
-  export type NestedDateTimeFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
-  }
-
-  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedDateTimeFilter<$PrismaModel>
-    _max?: NestedDateTimeFilter<$PrismaModel>
-  }
-
   export type NestedEnumOrderStatusFilter<$PrismaModel = never> = {
     equals?: $Enums.OrderStatus | EnumOrderStatusFieldRefInput<$PrismaModel>
     in?: $Enums.OrderStatus[] | ListEnumOrderStatusFieldRefInput<$PrismaModel>
@@ -11002,6 +9568,17 @@ export namespace Prisma {
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
     not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
+  export type NestedDateTimeFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
   export type NestedEnumOrderStatusWithAggregatesFilter<$PrismaModel = never> = {
@@ -11028,6 +9605,20 @@ export namespace Prisma {
     _sum?: NestedFloatFilter<$PrismaModel>
     _min?: NestedFloatFilter<$PrismaModel>
     _max?: NestedFloatFilter<$PrismaModel>
+  }
+
+  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
@@ -11151,7 +9742,6 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     items?: OrderItemCreateNestedManyWithoutOrderInput
-    claims?: ClaimCreateNestedManyWithoutOrderInput
   }
 
   export type OrderUncheckedCreateWithoutAddressInput = {
@@ -11164,7 +9754,6 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     items?: OrderItemUncheckedCreateNestedManyWithoutOrderInput
-    claims?: ClaimUncheckedCreateNestedManyWithoutOrderInput
   }
 
   export type OrderCreateOrConnectWithoutAddressInput = {
@@ -11260,74 +9849,6 @@ export namespace Prisma {
     favorites?: FavoriteUncheckedUpdateManyWithoutBuyerNestedInput
   }
 
-  export type OrderCreateWithoutClaimsInput = {
-    order_id?: string
-    vendor_id: string
-    buyer_id: string
-    status?: $Enums.OrderStatus
-    status_reason?: string | null
-    total: number
-    created_at?: Date | string
-    updated_at?: Date | string
-    items?: OrderItemCreateNestedManyWithoutOrderInput
-    address?: AddressCreateNestedOneWithoutOrdersInput
-  }
-
-  export type OrderUncheckedCreateWithoutClaimsInput = {
-    order_id?: string
-    vendor_id: string
-    buyer_id: string
-    status?: $Enums.OrderStatus
-    status_reason?: string | null
-    total: number
-    address_id?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
-    items?: OrderItemUncheckedCreateNestedManyWithoutOrderInput
-  }
-
-  export type OrderCreateOrConnectWithoutClaimsInput = {
-    where: OrderWhereUniqueInput
-    create: XOR<OrderCreateWithoutClaimsInput, OrderUncheckedCreateWithoutClaimsInput>
-  }
-
-  export type OrderUpsertWithoutClaimsInput = {
-    update: XOR<OrderUpdateWithoutClaimsInput, OrderUncheckedUpdateWithoutClaimsInput>
-    create: XOR<OrderCreateWithoutClaimsInput, OrderUncheckedCreateWithoutClaimsInput>
-    where?: OrderWhereInput
-  }
-
-  export type OrderUpdateToOneWithWhereWithoutClaimsInput = {
-    where?: OrderWhereInput
-    data: XOR<OrderUpdateWithoutClaimsInput, OrderUncheckedUpdateWithoutClaimsInput>
-  }
-
-  export type OrderUpdateWithoutClaimsInput = {
-    order_id?: StringFieldUpdateOperationsInput | string
-    vendor_id?: StringFieldUpdateOperationsInput | string
-    buyer_id?: StringFieldUpdateOperationsInput | string
-    status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
-    status_reason?: NullableStringFieldUpdateOperationsInput | string | null
-    total?: FloatFieldUpdateOperationsInput | number
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    items?: OrderItemUpdateManyWithoutOrderNestedInput
-    address?: AddressUpdateOneWithoutOrdersNestedInput
-  }
-
-  export type OrderUncheckedUpdateWithoutClaimsInput = {
-    order_id?: StringFieldUpdateOperationsInput | string
-    vendor_id?: StringFieldUpdateOperationsInput | string
-    buyer_id?: StringFieldUpdateOperationsInput | string
-    status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
-    status_reason?: NullableStringFieldUpdateOperationsInput | string | null
-    total?: FloatFieldUpdateOperationsInput | number
-    address_id?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    items?: OrderItemUncheckedUpdateManyWithoutOrderNestedInput
-  }
-
   export type OrderItemCreateWithoutOrderInput = {
     id?: string
     product_id: string
@@ -11351,30 +9872,6 @@ export namespace Prisma {
 
   export type OrderItemCreateManyOrderInputEnvelope = {
     data: OrderItemCreateManyOrderInput | OrderItemCreateManyOrderInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type ClaimCreateWithoutOrderInput = {
-    claim_id?: string
-    reason: string
-    photo: string
-    date: Date | string
-  }
-
-  export type ClaimUncheckedCreateWithoutOrderInput = {
-    claim_id?: string
-    reason: string
-    photo: string
-    date: Date | string
-  }
-
-  export type ClaimCreateOrConnectWithoutOrderInput = {
-    where: ClaimWhereUniqueInput
-    create: XOR<ClaimCreateWithoutOrderInput, ClaimUncheckedCreateWithoutOrderInput>
-  }
-
-  export type ClaimCreateManyOrderInputEnvelope = {
-    data: ClaimCreateManyOrderInput | ClaimCreateManyOrderInput[]
     skipDuplicates?: boolean
   }
 
@@ -11427,33 +9924,6 @@ export namespace Prisma {
     quantity?: IntFilter<"OrderItem"> | number
   }
 
-  export type ClaimUpsertWithWhereUniqueWithoutOrderInput = {
-    where: ClaimWhereUniqueInput
-    update: XOR<ClaimUpdateWithoutOrderInput, ClaimUncheckedUpdateWithoutOrderInput>
-    create: XOR<ClaimCreateWithoutOrderInput, ClaimUncheckedCreateWithoutOrderInput>
-  }
-
-  export type ClaimUpdateWithWhereUniqueWithoutOrderInput = {
-    where: ClaimWhereUniqueInput
-    data: XOR<ClaimUpdateWithoutOrderInput, ClaimUncheckedUpdateWithoutOrderInput>
-  }
-
-  export type ClaimUpdateManyWithWhereWithoutOrderInput = {
-    where: ClaimScalarWhereInput
-    data: XOR<ClaimUpdateManyMutationInput, ClaimUncheckedUpdateManyWithoutOrderInput>
-  }
-
-  export type ClaimScalarWhereInput = {
-    AND?: ClaimScalarWhereInput | ClaimScalarWhereInput[]
-    OR?: ClaimScalarWhereInput[]
-    NOT?: ClaimScalarWhereInput | ClaimScalarWhereInput[]
-    claim_id?: StringFilter<"Claim"> | string
-    order_id?: StringFilter<"Claim"> | string
-    reason?: StringFilter<"Claim"> | string
-    photo?: StringFilter<"Claim"> | string
-    date?: DateTimeFilter<"Claim"> | Date | string
-  }
-
   export type AddressUpsertWithoutOrdersInput = {
     update: XOR<AddressUpdateWithoutOrdersInput, AddressUncheckedUpdateWithoutOrdersInput>
     create: XOR<AddressCreateWithoutOrdersInput, AddressUncheckedCreateWithoutOrdersInput>
@@ -11490,7 +9960,6 @@ export namespace Prisma {
     total: number
     created_at?: Date | string
     updated_at?: Date | string
-    claims?: ClaimCreateNestedManyWithoutOrderInput
     address?: AddressCreateNestedOneWithoutOrdersInput
   }
 
@@ -11504,7 +9973,6 @@ export namespace Prisma {
     address_id?: string | null
     created_at?: Date | string
     updated_at?: Date | string
-    claims?: ClaimUncheckedCreateNestedManyWithoutOrderInput
   }
 
   export type OrderCreateOrConnectWithoutItemsInput = {
@@ -11532,7 +10000,6 @@ export namespace Prisma {
     total?: FloatFieldUpdateOperationsInput | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    claims?: ClaimUpdateManyWithoutOrderNestedInput
     address?: AddressUpdateOneWithoutOrdersNestedInput
   }
 
@@ -11546,7 +10013,6 @@ export namespace Prisma {
     address_id?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    claims?: ClaimUncheckedUpdateManyWithoutOrderNestedInput
   }
 
   export type BuyerCreateWithoutFavoritesInput = {
@@ -11668,7 +10134,6 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     items?: OrderItemUpdateManyWithoutOrderNestedInput
-    claims?: ClaimUpdateManyWithoutOrderNestedInput
   }
 
   export type OrderUncheckedUpdateWithoutAddressInput = {
@@ -11681,7 +10146,6 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     items?: OrderItemUncheckedUpdateManyWithoutOrderNestedInput
-    claims?: ClaimUncheckedUpdateManyWithoutOrderNestedInput
   }
 
   export type OrderUncheckedUpdateManyWithoutAddressInput = {
@@ -11701,13 +10165,6 @@ export namespace Prisma {
     product_name: string
     product_price: number
     quantity: number
-  }
-
-  export type ClaimCreateManyOrderInput = {
-    claim_id?: string
-    reason: string
-    photo: string
-    date: Date | string
   }
 
   export type OrderItemUpdateWithoutOrderInput = {
@@ -11732,27 +10189,6 @@ export namespace Prisma {
     product_name?: StringFieldUpdateOperationsInput | string
     product_price?: FloatFieldUpdateOperationsInput | number
     quantity?: IntFieldUpdateOperationsInput | number
-  }
-
-  export type ClaimUpdateWithoutOrderInput = {
-    claim_id?: StringFieldUpdateOperationsInput | string
-    reason?: StringFieldUpdateOperationsInput | string
-    photo?: StringFieldUpdateOperationsInput | string
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type ClaimUncheckedUpdateWithoutOrderInput = {
-    claim_id?: StringFieldUpdateOperationsInput | string
-    reason?: StringFieldUpdateOperationsInput | string
-    photo?: StringFieldUpdateOperationsInput | string
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type ClaimUncheckedUpdateManyWithoutOrderInput = {
-    claim_id?: StringFieldUpdateOperationsInput | string
-    reason?: StringFieldUpdateOperationsInput | string
-    photo?: StringFieldUpdateOperationsInput | string
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 
