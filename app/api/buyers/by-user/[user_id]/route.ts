@@ -19,7 +19,7 @@ export async function GET(
         { status: 404 }
       )
     }
-    return NextResponse.json({ buyer_id: buyer.buyer_id })
+    return NextResponse.json({ buyer_id: buyer.buyer_id, name: buyer.name })
   } catch (error) {
     return NextResponse.json(
       { error: "Error interno del servidor" },
