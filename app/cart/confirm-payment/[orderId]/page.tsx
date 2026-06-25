@@ -7,17 +7,18 @@ import { ConfirmPaymentForm } from "@/app/components/cart/confirmPaymentForm";
 import Link from "next/link";
 
 type Props = {
-  params: { orderId: string };
+  params: Promise<{ orderId: string }>;
 };
 
 export default async function ConfirmPaymentPage({ params }: Props) {
+  const { orderId } = await params;
   const { userId } = await auth();
   if (!userId) notFound();
 
   const buyer = await getBuyerByUserId(userId);
   if (!buyer) notFound();
 
-  const order = await getOrderById(params.orderId);
+  const order = await getOrderById(orderId);
   if (!order || order.buyer_id !== buyer.buyer_id) notFound(); //evitamos que se acceda a un confirm payment que no le corresponde a ese usuario
 
   const addresses = await getAddressesByBuyerId(buyer.buyer_id);
