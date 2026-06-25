@@ -19,6 +19,7 @@ enum OrderStatus {
   READY
   IN_DELIVERY
   DELIVERED
+  IN_REVISION
   CANCELLED
 }
 

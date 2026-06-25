@@ -196,6 +196,7 @@ exports.OrderStatus = exports.$Enums.OrderStatus = {
   READY: 'READY',
   IN_DELIVERY: 'IN_DELIVERY',
   DELIVERED: 'DELIVERED',
+  IN_REVISION: 'IN_REVISION',
   CANCELLED: 'CANCELLED'
 };
 
