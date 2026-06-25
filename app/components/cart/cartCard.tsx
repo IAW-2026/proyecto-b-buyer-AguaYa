@@ -2,6 +2,7 @@
 import { Order, OrderItem } from "@/lib/orders";
 import { OrderInfo } from "../orders/orderInfo";
 import { deleteOrderAction } from "@/app/actions/orders";
+import { checkBuyerActive } from "@/app/actions/cart";
 import { useRouter } from "next/navigation";
 type Props = {
   order: Order;
@@ -11,7 +12,12 @@ type Props = {
 export function CartCard({ order, items }: Props) {
   const router = useRouter();
 
-  function handleConfirm() {
+  async function handleConfirm() {
+    const { active } = await checkBuyerActive();
+    if (!active) {
+      router.push('/inactive-user');
+      return;
+    }
     router.push("/cart/confirm-payment/" + order.order_id);
   }
 

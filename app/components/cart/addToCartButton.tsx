@@ -2,12 +2,14 @@
 
 import { addToCart } from '@/app/actions/cart'
 import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 
 interface Props {
   productId: string
 }
 
 export function AddToCartButton({ productId }: Props) {
+  const router = useRouter()
   const [quantity, setQuantity] = useState(1)
   const [loading, setLoading] = useState(false)
   const [added, setAdded] = useState(false)
@@ -28,6 +30,10 @@ export function AddToCartButton({ productId }: Props) {
       setAdded(true)
       setTimeout(() => setAdded(false), 2000)
     } else {
+      if ('inactive' in result && result.inactive) {
+        router.push('/inactive-user')
+        return
+      }
       setError(result.error ?? 'Ocurrió un error inesperado.')
       setTimeout(() => setError(null), 3000)
     }

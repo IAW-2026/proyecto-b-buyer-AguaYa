@@ -2,7 +2,7 @@ import { auth } from "@clerk/nextjs/server";
 import { getOrderById } from "@/lib/orders";
 import { getBuyerByUserId } from "@/lib/buyers";
 import { getAddressesByBuyerId } from "@/lib/address";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { ConfirmPaymentForm } from "@/app/components/cart/confirmPaymentForm";
 import Link from "next/link";
 
@@ -17,6 +17,7 @@ export default async function ConfirmPaymentPage({ params }: Props) {
 
   const buyer = await getBuyerByUserId(userId);
   if (!buyer) notFound();
+  if (!buyer.is_active) redirect('/inactive-user');
 
   const order = await getOrderById(orderId);
   if (!order || order.buyer_id !== buyer.buyer_id) notFound(); //evitamos que se acceda a un confirm payment que no le corresponde a ese usuario

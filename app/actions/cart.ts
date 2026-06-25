@@ -23,6 +23,9 @@ export async function addToCart(productId: string, quantity: number) {
     if (!buyer) {
         return { ok: false, error: 'No hay buyer asociado al usuario.' }
     }
+    if (!buyer.is_active) {
+        return { ok: false, error: 'Tu cuenta no está activa.', inactive: true }
+    }
 
     const result = await prisma.$transaction(async (tx) => {
 
@@ -80,6 +83,13 @@ export async function addToCart(productId: string, quantity: number) {
     return { ok: true, order: result }
 }
 
+
+export async function checkBuyerActive() {
+    const { userId } = await auth()
+    if (!userId) return { active: false }
+    const buyer = await getBuyerByUserId(userId)
+    return { active: buyer?.is_active ?? false }
+}
 
 export async function clearCart() {
   const { userId } = await auth();
