@@ -20,19 +20,21 @@ export function ConfirmPaymentForm({ order, addresses: initialAddresses, buyerId
   const [checkoutUrl, setCheckoutUrl] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
-  const [newStreet, setNewStreet] = useState("");
+  const [newStreetName, setNewStreetName] = useState("");
+  const [newStreetNumber, setNewStreetNumber] = useState("");
   const [newCity, setNewCity] = useState("");
   const [newZip, setNewZip] = useState("");
 
   async function handleCreateAddress() {
-    if (!newStreet.trim() || !newCity.trim() || !newZip.trim()) return;
+    if (!newStreetName.trim() || !newStreetNumber.trim() || !newCity.trim() || !newZip.trim()) return;
     setLoading(true);
     try {
-      const newAddress = await createAddressAction(newStreet, newCity, newZip);
+      const newAddress = await createAddressAction(`${newStreetName} ${newStreetNumber}`, newCity, newZip);
       setAddresses((prev) => [...prev, newAddress]);
       setSelectedAddressId(newAddress.id);
       setShowNewForm(false);
-      setNewStreet("");
+      setNewStreetName("");
+      setNewStreetNumber("");
       setNewCity("");
       setNewZip("");
     } catch (e) {
@@ -123,13 +125,22 @@ export function ConfirmPaymentForm({ order, addresses: initialAddresses, buyerId
 
         {showNewForm && (
           <div className="mt-4 p-4 border border-dashed border-gray-300 rounded-lg flex flex-col gap-3">
-            <input
-              type="text"
-              placeholder="Calle y número"
-              value={newStreet}
-              onChange={(e) => setNewStreet(e.target.value)}
-              className="border border-gray-300 rounded px-3 py-2 text-sm"
-            />
+            <div className="flex gap-3">
+              <input
+                type="text"
+                placeholder="Calle"
+                value={newStreetName}
+                onChange={(e) => setNewStreetName(e.target.value)}
+                className="flex-1 border border-gray-300 rounded px-3 py-2 text-sm"
+              />
+              <input
+                type="text"
+                placeholder="Número"
+                value={newStreetNumber}
+                onChange={(e) => setNewStreetNumber(e.target.value)}
+                className="w-24 border border-gray-300 rounded px-3 py-2 text-sm"
+              />
+            </div>
             <div className="flex gap-3">
               <input
                 type="text"
@@ -149,7 +160,7 @@ export function ConfirmPaymentForm({ order, addresses: initialAddresses, buyerId
             <div className="flex gap-2">
               <button
                 onClick={handleCreateAddress}
-                disabled={loading || !newStreet.trim() || !newCity.trim() || !newZip.trim()}
+                disabled={loading || !newStreetName.trim() || !newStreetNumber.trim() || !newCity.trim() || !newZip.trim()}
                 className="bg-blue-500 text-white px-4 py-2 rounded-lg text-sm hover:opacity-80 disabled:opacity-50"
               >
                 {loading ? "Guardando..." : "Guardar dirección"}
@@ -157,7 +168,8 @@ export function ConfirmPaymentForm({ order, addresses: initialAddresses, buyerId
               <button
                 onClick={() => {
                   setShowNewForm(false);
-                  setNewStreet("");
+                  setNewStreetName("");
+                  setNewStreetNumber("");
                   setNewCity("");
                   setNewZip("");
                 }}
