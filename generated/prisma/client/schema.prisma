@@ -54,18 +54,19 @@ model Claim {
 }
 
 model Order {
-  order_id   String      @id @default(cuid())
-  externalId String      @unique
-  vendor_id  String
-  buyer_id   String
-  status     OrderStatus @default(PENDING)
-  total      Float
-  address_id String?
-  created_at DateTime    @default(now())
-  updated_at DateTime    @updatedAt
-  items      OrderItem[]
-  claims     Claim[]
-  address    Address?    @relation(fields: [address_id], references: [id])
+  order_id      String      @id @default(cuid())
+  externalId    String      @unique
+  vendor_id     String
+  buyer_id      String
+  status        OrderStatus @default(PENDING)
+  status_reason String?
+  total         Float
+  address_id    String?
+  created_at    DateTime    @default(now())
+  updated_at    DateTime    @updatedAt
+  items         OrderItem[]
+  claims        Claim[]
+  address       Address?    @relation(fields: [address_id], references: [id])
 }
 
 model OrderItem {

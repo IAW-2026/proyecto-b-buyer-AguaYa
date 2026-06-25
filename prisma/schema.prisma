@@ -60,8 +60,9 @@ model Order {
   externalId String     @unique
   vendor_id   String
   buyer_id    String 
-  status     OrderStatus @default(PENDING)
-  total      Float
+  status           OrderStatus @default(PENDING)
+  status_reason    String?
+  total            Float
   address_id String?
   created_at  DateTime    @default(now())
   updated_at  DateTime    @updatedAt

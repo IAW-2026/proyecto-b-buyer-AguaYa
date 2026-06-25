@@ -150,6 +150,7 @@ exports.Prisma.OrderScalarFieldEnum = {
   vendor_id: 'vendor_id',
   buyer_id: 'buyer_id',
   status: 'status',
+  status_reason: 'status_reason',
   total: 'total',
   address_id: 'address_id',
   created_at: 'created_at',

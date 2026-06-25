@@ -4829,6 +4829,7 @@ export namespace Prisma {
     vendor_id: string | null
     buyer_id: string | null
     status: $Enums.OrderStatus | null
+    status_reason: string | null
     total: number | null
     address_id: string | null
     created_at: Date | null
@@ -4841,6 +4842,7 @@ export namespace Prisma {
     vendor_id: string | null
     buyer_id: string | null
     status: $Enums.OrderStatus | null
+    status_reason: string | null
     total: number | null
     address_id: string | null
     created_at: Date | null
@@ -4853,6 +4855,7 @@ export namespace Prisma {
     vendor_id: number
     buyer_id: number
     status: number
+    status_reason: number
     total: number
     address_id: number
     created_at: number
@@ -4875,6 +4878,7 @@ export namespace Prisma {
     vendor_id?: true
     buyer_id?: true
     status?: true
+    status_reason?: true
     total?: true
     address_id?: true
     created_at?: true
@@ -4887,6 +4891,7 @@ export namespace Prisma {
     vendor_id?: true
     buyer_id?: true
     status?: true
+    status_reason?: true
     total?: true
     address_id?: true
     created_at?: true
@@ -4899,6 +4904,7 @@ export namespace Prisma {
     vendor_id?: true
     buyer_id?: true
     status?: true
+    status_reason?: true
     total?: true
     address_id?: true
     created_at?: true
@@ -4998,6 +5004,7 @@ export namespace Prisma {
     vendor_id: string
     buyer_id: string
     status: $Enums.OrderStatus
+    status_reason: string | null
     total: number
     address_id: string | null
     created_at: Date
@@ -5029,6 +5036,7 @@ export namespace Prisma {
     vendor_id?: boolean
     buyer_id?: boolean
     status?: boolean
+    status_reason?: boolean
     total?: boolean
     address_id?: boolean
     created_at?: boolean
@@ -5045,6 +5053,7 @@ export namespace Prisma {
     vendor_id?: boolean
     buyer_id?: boolean
     status?: boolean
+    status_reason?: boolean
     total?: boolean
     address_id?: boolean
     created_at?: boolean
@@ -5058,6 +5067,7 @@ export namespace Prisma {
     vendor_id?: boolean
     buyer_id?: boolean
     status?: boolean
+    status_reason?: boolean
     total?: boolean
     address_id?: boolean
     created_at?: boolean
@@ -5071,13 +5081,14 @@ export namespace Prisma {
     vendor_id?: boolean
     buyer_id?: boolean
     status?: boolean
+    status_reason?: boolean
     total?: boolean
     address_id?: boolean
     created_at?: boolean
     updated_at?: boolean
   }
 
-  export type OrderOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"order_id" | "externalId" | "vendor_id" | "buyer_id" | "status" | "total" | "address_id" | "created_at" | "updated_at", ExtArgs["result"]["order"]>
+  export type OrderOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"order_id" | "externalId" | "vendor_id" | "buyer_id" | "status" | "status_reason" | "total" | "address_id" | "created_at" | "updated_at", ExtArgs["result"]["order"]>
   export type OrderInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     items?: boolean | Order$itemsArgs<ExtArgs>
     claims?: boolean | Order$claimsArgs<ExtArgs>
@@ -5104,6 +5115,7 @@ export namespace Prisma {
       vendor_id: string
       buyer_id: string
       status: $Enums.OrderStatus
+      status_reason: string | null
       total: number
       address_id: string | null
       created_at: Date
@@ -5539,6 +5551,7 @@ export namespace Prisma {
     readonly vendor_id: FieldRef<"Order", 'String'>
     readonly buyer_id: FieldRef<"Order", 'String'>
     readonly status: FieldRef<"Order", 'OrderStatus'>
+    readonly status_reason: FieldRef<"Order", 'String'>
     readonly total: FieldRef<"Order", 'Float'>
     readonly address_id: FieldRef<"Order", 'String'>
     readonly created_at: FieldRef<"Order", 'DateTime'>
@@ -9194,6 +9207,7 @@ export namespace Prisma {
     vendor_id: 'vendor_id',
     buyer_id: 'buyer_id',
     status: 'status',
+    status_reason: 'status_reason',
     total: 'total',
     address_id: 'address_id',
     created_at: 'created_at',
@@ -9514,6 +9528,7 @@ export namespace Prisma {
     vendor_id?: StringFilter<"Order"> | string
     buyer_id?: StringFilter<"Order"> | string
     status?: EnumOrderStatusFilter<"Order"> | $Enums.OrderStatus
+    status_reason?: StringNullableFilter<"Order"> | string | null
     total?: FloatFilter<"Order"> | number
     address_id?: StringNullableFilter<"Order"> | string | null
     created_at?: DateTimeFilter<"Order"> | Date | string
@@ -9529,6 +9544,7 @@ export namespace Prisma {
     vendor_id?: SortOrder
     buyer_id?: SortOrder
     status?: SortOrder
+    status_reason?: SortOrderInput | SortOrder
     total?: SortOrder
     address_id?: SortOrderInput | SortOrder
     created_at?: SortOrder
@@ -9547,6 +9563,7 @@ export namespace Prisma {
     vendor_id?: StringFilter<"Order"> | string
     buyer_id?: StringFilter<"Order"> | string
     status?: EnumOrderStatusFilter<"Order"> | $Enums.OrderStatus
+    status_reason?: StringNullableFilter<"Order"> | string | null
     total?: FloatFilter<"Order"> | number
     address_id?: StringNullableFilter<"Order"> | string | null
     created_at?: DateTimeFilter<"Order"> | Date | string
@@ -9562,6 +9579,7 @@ export namespace Prisma {
     vendor_id?: SortOrder
     buyer_id?: SortOrder
     status?: SortOrder
+    status_reason?: SortOrderInput | SortOrder
     total?: SortOrder
     address_id?: SortOrderInput | SortOrder
     created_at?: SortOrder
@@ -9582,6 +9600,7 @@ export namespace Prisma {
     vendor_id?: StringWithAggregatesFilter<"Order"> | string
     buyer_id?: StringWithAggregatesFilter<"Order"> | string
     status?: EnumOrderStatusWithAggregatesFilter<"Order"> | $Enums.OrderStatus
+    status_reason?: StringNullableWithAggregatesFilter<"Order"> | string | null
     total?: FloatWithAggregatesFilter<"Order"> | number
     address_id?: StringNullableWithAggregatesFilter<"Order"> | string | null
     created_at?: DateTimeWithAggregatesFilter<"Order"> | Date | string
@@ -9917,6 +9936,7 @@ export namespace Prisma {
     vendor_id: string
     buyer_id: string
     status?: $Enums.OrderStatus
+    status_reason?: string | null
     total: number
     created_at?: Date | string
     updated_at?: Date | string
@@ -9931,6 +9951,7 @@ export namespace Prisma {
     vendor_id: string
     buyer_id: string
     status?: $Enums.OrderStatus
+    status_reason?: string | null
     total: number
     address_id?: string | null
     created_at?: Date | string
@@ -9945,6 +9966,7 @@ export namespace Prisma {
     vendor_id?: StringFieldUpdateOperationsInput | string
     buyer_id?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
+    status_reason?: NullableStringFieldUpdateOperationsInput | string | null
     total?: FloatFieldUpdateOperationsInput | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -9959,6 +9981,7 @@ export namespace Prisma {
     vendor_id?: StringFieldUpdateOperationsInput | string
     buyer_id?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
+    status_reason?: NullableStringFieldUpdateOperationsInput | string | null
     total?: FloatFieldUpdateOperationsInput | number
     address_id?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -9973,6 +9996,7 @@ export namespace Prisma {
     vendor_id: string
     buyer_id: string
     status?: $Enums.OrderStatus
+    status_reason?: string | null
     total: number
     address_id?: string | null
     created_at?: Date | string
@@ -9985,6 +10009,7 @@ export namespace Prisma {
     vendor_id?: StringFieldUpdateOperationsInput | string
     buyer_id?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
+    status_reason?: NullableStringFieldUpdateOperationsInput | string | null
     total?: FloatFieldUpdateOperationsInput | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -9996,6 +10021,7 @@ export namespace Prisma {
     vendor_id?: StringFieldUpdateOperationsInput | string
     buyer_id?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
+    status_reason?: NullableStringFieldUpdateOperationsInput | string | null
     total?: FloatFieldUpdateOperationsInput | number
     address_id?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10397,6 +10423,7 @@ export namespace Prisma {
     vendor_id?: SortOrder
     buyer_id?: SortOrder
     status?: SortOrder
+    status_reason?: SortOrder
     total?: SortOrder
     address_id?: SortOrder
     created_at?: SortOrder
@@ -10413,6 +10440,7 @@ export namespace Prisma {
     vendor_id?: SortOrder
     buyer_id?: SortOrder
     status?: SortOrder
+    status_reason?: SortOrder
     total?: SortOrder
     address_id?: SortOrder
     created_at?: SortOrder
@@ -10425,6 +10453,7 @@ export namespace Prisma {
     vendor_id?: SortOrder
     buyer_id?: SortOrder
     status?: SortOrder
+    status_reason?: SortOrder
     total?: SortOrder
     address_id?: SortOrder
     created_at?: SortOrder
@@ -11147,6 +11176,7 @@ export namespace Prisma {
     vendor_id: string
     buyer_id: string
     status?: $Enums.OrderStatus
+    status_reason?: string | null
     total: number
     created_at?: Date | string
     updated_at?: Date | string
@@ -11160,6 +11190,7 @@ export namespace Prisma {
     vendor_id: string
     buyer_id: string
     status?: $Enums.OrderStatus
+    status_reason?: string | null
     total: number
     created_at?: Date | string
     updated_at?: Date | string
@@ -11225,6 +11256,7 @@ export namespace Prisma {
     vendor_id?: StringFilter<"Order"> | string
     buyer_id?: StringFilter<"Order"> | string
     status?: EnumOrderStatusFilter<"Order"> | $Enums.OrderStatus
+    status_reason?: StringNullableFilter<"Order"> | string | null
     total?: FloatFilter<"Order"> | number
     address_id?: StringNullableFilter<"Order"> | string | null
     created_at?: DateTimeFilter<"Order"> | Date | string
@@ -11266,6 +11298,7 @@ export namespace Prisma {
     vendor_id: string
     buyer_id: string
     status?: $Enums.OrderStatus
+    status_reason?: string | null
     total: number
     created_at?: Date | string
     updated_at?: Date | string
@@ -11279,6 +11312,7 @@ export namespace Prisma {
     vendor_id: string
     buyer_id: string
     status?: $Enums.OrderStatus
+    status_reason?: string | null
     total: number
     address_id?: string | null
     created_at?: Date | string
@@ -11308,6 +11342,7 @@ export namespace Prisma {
     vendor_id?: StringFieldUpdateOperationsInput | string
     buyer_id?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
+    status_reason?: NullableStringFieldUpdateOperationsInput | string | null
     total?: FloatFieldUpdateOperationsInput | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -11321,6 +11356,7 @@ export namespace Prisma {
     vendor_id?: StringFieldUpdateOperationsInput | string
     buyer_id?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
+    status_reason?: NullableStringFieldUpdateOperationsInput | string | null
     total?: FloatFieldUpdateOperationsInput | number
     address_id?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -11487,6 +11523,7 @@ export namespace Prisma {
     vendor_id: string
     buyer_id: string
     status?: $Enums.OrderStatus
+    status_reason?: string | null
     total: number
     created_at?: Date | string
     updated_at?: Date | string
@@ -11500,6 +11537,7 @@ export namespace Prisma {
     vendor_id: string
     buyer_id: string
     status?: $Enums.OrderStatus
+    status_reason?: string | null
     total: number
     address_id?: string | null
     created_at?: Date | string
@@ -11529,6 +11567,7 @@ export namespace Prisma {
     vendor_id?: StringFieldUpdateOperationsInput | string
     buyer_id?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
+    status_reason?: NullableStringFieldUpdateOperationsInput | string | null
     total?: FloatFieldUpdateOperationsInput | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -11542,6 +11581,7 @@ export namespace Prisma {
     vendor_id?: StringFieldUpdateOperationsInput | string
     buyer_id?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
+    status_reason?: NullableStringFieldUpdateOperationsInput | string | null
     total?: FloatFieldUpdateOperationsInput | number
     address_id?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -11653,6 +11693,7 @@ export namespace Prisma {
     vendor_id: string
     buyer_id: string
     status?: $Enums.OrderStatus
+    status_reason?: string | null
     total: number
     created_at?: Date | string
     updated_at?: Date | string
@@ -11664,6 +11705,7 @@ export namespace Prisma {
     vendor_id?: StringFieldUpdateOperationsInput | string
     buyer_id?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
+    status_reason?: NullableStringFieldUpdateOperationsInput | string | null
     total?: FloatFieldUpdateOperationsInput | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -11677,6 +11719,7 @@ export namespace Prisma {
     vendor_id?: StringFieldUpdateOperationsInput | string
     buyer_id?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
+    status_reason?: NullableStringFieldUpdateOperationsInput | string | null
     total?: FloatFieldUpdateOperationsInput | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -11690,6 +11733,7 @@ export namespace Prisma {
     vendor_id?: StringFieldUpdateOperationsInput | string
     buyer_id?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
+    status_reason?: NullableStringFieldUpdateOperationsInput | string | null
     total?: FloatFieldUpdateOperationsInput | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
