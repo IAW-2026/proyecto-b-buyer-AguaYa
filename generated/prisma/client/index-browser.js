@@ -146,7 +146,6 @@ exports.Prisma.ClaimScalarFieldEnum = {
 
 exports.Prisma.OrderScalarFieldEnum = {
   order_id: 'order_id',
-  externalId: 'externalId',
   vendor_id: 'vendor_id',
   buyer_id: 'buyer_id',
   status: 'status',

@@ -43,7 +43,6 @@ async function main() {
 	// Crear un pedido para buyer1 con dos items
 	const order1 = await prisma.order.create({
 		data: {
-			externalId: 'ext_1001',
 			vendor_id: 'vendor_1',
 			buyer_id: buyer1.buyer_id,
 			total: 49.99,
@@ -98,7 +97,6 @@ async function main() {
 
 	await prisma.order.create({
 		data: {
-			externalId: 'ext_1002',
 			vendor_id: 'vendor_2',
 			buyer_id: buyer2.buyer_id,
 			total: 15.0,

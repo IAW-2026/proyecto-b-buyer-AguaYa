@@ -33,7 +33,6 @@ export async function addToCart(productId: string, quantity: number) {
         if (!order) {
             order = await tx.order.create({
                 data: {
-                    externalId: crypto.randomUUID(),
                     vendor_id: product.vendorId,
                     buyer_id: buyer.buyer_id,
                     total: 0,
