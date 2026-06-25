@@ -20,3 +20,16 @@ export async function createAddress(buyerId: string, street: string, city: strin
         data: { buyer_id: buyerId, street, city, zip },
     });
 }
+
+export async function updateAddress(addressId: string, data: { street?: string; city?: string; zip?: string }) {
+    return prisma.address.update({
+        where: { id: addressId },
+        data,
+    });
+}
+
+export async function deleteAddress(addressId: string) {
+    return prisma.address.delete({
+        where: { id: addressId },
+    });
+}

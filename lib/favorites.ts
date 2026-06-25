@@ -17,6 +17,12 @@ export async function getFavoritesByBuyerId(buyerId: string) {
   });
 }
 
+export async function addFavorite(buyerId: string, vendorId: string) {
+  return prisma.favorite.create({
+    data: { buyer_id: buyerId, vendor_id: vendorId },
+  });
+}
+
 export async function deleteFavorite(buyerId: string, vendorId: string) {
   return prisma.favorite.delete({
     where: {

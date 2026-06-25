@@ -59,6 +59,13 @@ export async function deleteBuyer(buyerId: string) {
   });
 }
 
+export async function updateBuyer(buyerId: string, data: { mail?: string; name?: string; phone_numbers?: string }) {
+  return prisma.buyer.update({
+    where: { buyer_id: buyerId },
+    data,
+  });
+}
+
 export async function createBuyerIfNotExists(userId: string, mail: string, name: string) {
   await prisma.buyer.upsert({
     where: { user_id: userId },

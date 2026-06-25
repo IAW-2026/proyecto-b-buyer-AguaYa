@@ -103,6 +103,25 @@ export async function getOrdersByBuyerId(buyerId: string) {
   });
 }
 
+export async function createOrder(data: {
+  vendor_id: string
+  buyer_id: string
+  total: number
+  address_id?: string
+  items?: { product_id: string; product_name: string; product_price: number; quantity: number }[]
+}) {
+  return prisma.order.create({
+    data: {
+      vendor_id: data.vendor_id,
+      buyer_id: data.buyer_id,
+      total: data.total,
+      address_id: data.address_id,
+      items: data.items ? { create: data.items } : undefined,
+    },
+    include: { items: true },
+  })
+}
+
 export async function assignAddressToOrder(orderId: string, addressId: string) {
   const order = await prisma.order.findUnique({
     where: { order_id: orderId },
