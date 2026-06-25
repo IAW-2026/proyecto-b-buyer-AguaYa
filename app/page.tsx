@@ -49,7 +49,7 @@ export default async function Home() {
         <div className="w-full max-w-4xl">
           <Suspense fallback={<div>Cargando vendedores...</div>}>
             <div className="grid grid-cols-3 gap-4 p-4">
-            {vendors.map((vendor: Vendor) => (
+            {vendors.filter(v => v.productCount > 0).map((vendor: Vendor) => (
               <VendorCard key={vendor.id} vendor={vendor} />
             ))}
             </div>

@@ -2,6 +2,7 @@ export type Vendor = {
   id: string
   name: string
   address: string
+  productCount: number
 }
 
 interface VendorResponse {
@@ -12,6 +13,7 @@ interface VendorResponse {
   image: string;
   isActive: boolean;
   clerkUserId: string;
+  productCount: number
 }
 
 interface VendorsListResponse {
@@ -25,18 +27,18 @@ interface VendorDetailResponse {
 }
 
 const mockVendors: Vendor[] = [
-    {id:"1", name:"AquaSur Distribuciones", address:"Buenos Aires"},
-    {id:"2", name:"Manantial Azul", address:"Bahia Blanca"},
-    {id:"3", name:"Agua Cristal", address:"Buenos Aires"},
-    {id:"4", name:"Bidones del Puerto", address:"Punta Alta"},
-    {id:"5", name:"Hidrovita", address:"Bahia Blanca"},
-    {id:"6", name:"Aguas del Atlántico", address:"Mar del Plata"},
-    {id:"7", name:"Fuente Clara", address:"Rosario"},
-    {id:"8", name:"AquaVida", address:"Córdoba"},
-    {id:"9", name:"Manantiales Andinos", address:"Mendoza"},
-    {id:"10", name:"Agua Pura Express", address:"Buenos Aires"},
-    {id:"11", name:"Bidones del Sur", address:"Punta Alta"},
-    {id:"12", name:"Distribuidora Oasis", address:"Bahia Blanca"},
+    {id:"1", name:"AquaSur Distribuciones", address:"Buenos Aires", productCount: 0},
+    {id:"2", name:"Manantial Azul", address:"Bahia Blanca", productCount: 5},
+    {id:"3", name:"Agua Cristal", address:"Buenos Aires", productCount: 0},
+    {id:"4", name:"Bidones del Puerto", address:"Punta Alta", productCount: 3},
+    {id:"5", name:"Hidrovita", address:"Bahia Blanca", productCount: 0},
+    {id:"6", name:"Aguas del Atlántico", address:"Mar del Plata", productCount: 8},
+    {id:"7", name:"Fuente Clara", address:"Rosario", productCount: 2},
+    {id:"8", name:"AquaVida", address:"Córdoba", productCount: 0},
+    {id:"9", name:"Manantiales Andinos", address:"Mendoza", productCount: 6},
+    {id:"10", name:"Agua Pura Express", address:"Buenos Aires", productCount: 0},
+    {id:"11", name:"Bidones del Sur", address:"Punta Alta", productCount: 4},
+    {id:"12", name:"Distribuidora Oasis", address:"Bahia Blanca", productCount: 0},
 ]
 
 export async function getVendors(): Promise<Vendor[]> {
