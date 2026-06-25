@@ -125,7 +125,8 @@ exports.Prisma.BuyerScalarFieldEnum = {
   buyer_id: 'buyer_id',
   mail: 'mail',
   phone_numbers: 'phone_numbers',
-  name: 'name'
+  name: 'name',
+  is_active: 'is_active'
 };
 
 exports.Prisma.AddressScalarFieldEnum = {

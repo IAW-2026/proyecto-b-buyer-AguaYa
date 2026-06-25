@@ -32,6 +32,7 @@ model Buyer {
   addresses Address[]
   name String
   favorites Favorite[]
+  is_active Boolean @default(true)
 }
 
 model Address { //agregar a doc

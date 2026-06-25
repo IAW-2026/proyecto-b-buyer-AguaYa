@@ -1460,6 +1460,7 @@ export namespace Prisma {
     mail: string | null
     phone_numbers: string | null
     name: string | null
+    is_active: boolean | null
   }
 
   export type BuyerMaxAggregateOutputType = {
@@ -1468,6 +1469,7 @@ export namespace Prisma {
     mail: string | null
     phone_numbers: string | null
     name: string | null
+    is_active: boolean | null
   }
 
   export type BuyerCountAggregateOutputType = {
@@ -1476,6 +1478,7 @@ export namespace Prisma {
     mail: number
     phone_numbers: number
     name: number
+    is_active: number
     _all: number
   }
 
@@ -1486,6 +1489,7 @@ export namespace Prisma {
     mail?: true
     phone_numbers?: true
     name?: true
+    is_active?: true
   }
 
   export type BuyerMaxAggregateInputType = {
@@ -1494,6 +1498,7 @@ export namespace Prisma {
     mail?: true
     phone_numbers?: true
     name?: true
+    is_active?: true
   }
 
   export type BuyerCountAggregateInputType = {
@@ -1502,6 +1507,7 @@ export namespace Prisma {
     mail?: true
     phone_numbers?: true
     name?: true
+    is_active?: true
     _all?: true
   }
 
@@ -1583,6 +1589,7 @@ export namespace Prisma {
     mail: string
     phone_numbers: string | null
     name: string
+    is_active: boolean
     _count: BuyerCountAggregateOutputType | null
     _min: BuyerMinAggregateOutputType | null
     _max: BuyerMaxAggregateOutputType | null
@@ -1608,6 +1615,7 @@ export namespace Prisma {
     mail?: boolean
     phone_numbers?: boolean
     name?: boolean
+    is_active?: boolean
     addresses?: boolean | Buyer$addressesArgs<ExtArgs>
     favorites?: boolean | Buyer$favoritesArgs<ExtArgs>
     _count?: boolean | BuyerCountOutputTypeDefaultArgs<ExtArgs>
@@ -1619,6 +1627,7 @@ export namespace Prisma {
     mail?: boolean
     phone_numbers?: boolean
     name?: boolean
+    is_active?: boolean
   }, ExtArgs["result"]["buyer"]>
 
   export type BuyerSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -1627,6 +1636,7 @@ export namespace Prisma {
     mail?: boolean
     phone_numbers?: boolean
     name?: boolean
+    is_active?: boolean
   }, ExtArgs["result"]["buyer"]>
 
   export type BuyerSelectScalar = {
@@ -1635,9 +1645,10 @@ export namespace Prisma {
     mail?: boolean
     phone_numbers?: boolean
     name?: boolean
+    is_active?: boolean
   }
 
-  export type BuyerOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"user_id" | "buyer_id" | "mail" | "phone_numbers" | "name", ExtArgs["result"]["buyer"]>
+  export type BuyerOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"user_id" | "buyer_id" | "mail" | "phone_numbers" | "name" | "is_active", ExtArgs["result"]["buyer"]>
   export type BuyerInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     addresses?: boolean | Buyer$addressesArgs<ExtArgs>
     favorites?: boolean | Buyer$favoritesArgs<ExtArgs>
@@ -1658,6 +1669,7 @@ export namespace Prisma {
       mail: string
       phone_numbers: string | null
       name: string
+      is_active: boolean
     }, ExtArgs["result"]["buyer"]>
     composites: {}
   }
@@ -2088,6 +2100,7 @@ export namespace Prisma {
     readonly mail: FieldRef<"Buyer", 'String'>
     readonly phone_numbers: FieldRef<"Buyer", 'String'>
     readonly name: FieldRef<"Buyer", 'String'>
+    readonly is_active: FieldRef<"Buyer", 'Boolean'>
   }
     
 
@@ -7982,7 +7995,8 @@ export namespace Prisma {
     buyer_id: 'buyer_id',
     mail: 'mail',
     phone_numbers: 'phone_numbers',
-    name: 'name'
+    name: 'name',
+    is_active: 'is_active'
   };
 
   export type BuyerScalarFieldEnum = (typeof BuyerScalarFieldEnum)[keyof typeof BuyerScalarFieldEnum]
@@ -8088,6 +8102,13 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Boolean'
+   */
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+  /**
    * Reference to a field of type 'OrderStatus'
    */
   export type EnumOrderStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'OrderStatus'>
@@ -8155,6 +8176,7 @@ export namespace Prisma {
     mail?: StringFilter<"Buyer"> | string
     phone_numbers?: StringNullableFilter<"Buyer"> | string | null
     name?: StringFilter<"Buyer"> | string
+    is_active?: BoolFilter<"Buyer"> | boolean
     addresses?: AddressListRelationFilter
     favorites?: FavoriteListRelationFilter
   }
@@ -8165,6 +8187,7 @@ export namespace Prisma {
     mail?: SortOrder
     phone_numbers?: SortOrderInput | SortOrder
     name?: SortOrder
+    is_active?: SortOrder
     addresses?: AddressOrderByRelationAggregateInput
     favorites?: FavoriteOrderByRelationAggregateInput
   }
@@ -8178,6 +8201,7 @@ export namespace Prisma {
     NOT?: BuyerWhereInput | BuyerWhereInput[]
     phone_numbers?: StringNullableFilter<"Buyer"> | string | null
     name?: StringFilter<"Buyer"> | string
+    is_active?: BoolFilter<"Buyer"> | boolean
     addresses?: AddressListRelationFilter
     favorites?: FavoriteListRelationFilter
   }, "buyer_id" | "user_id" | "mail">
@@ -8188,6 +8212,7 @@ export namespace Prisma {
     mail?: SortOrder
     phone_numbers?: SortOrderInput | SortOrder
     name?: SortOrder
+    is_active?: SortOrder
     _count?: BuyerCountOrderByAggregateInput
     _max?: BuyerMaxOrderByAggregateInput
     _min?: BuyerMinOrderByAggregateInput
@@ -8202,6 +8227,7 @@ export namespace Prisma {
     mail?: StringWithAggregatesFilter<"Buyer"> | string
     phone_numbers?: StringNullableWithAggregatesFilter<"Buyer"> | string | null
     name?: StringWithAggregatesFilter<"Buyer"> | string
+    is_active?: BoolWithAggregatesFilter<"Buyer"> | boolean
   }
 
   export type AddressWhereInput = {
@@ -8498,6 +8524,7 @@ export namespace Prisma {
     mail: string
     phone_numbers?: string | null
     name: string
+    is_active?: boolean
     addresses?: AddressCreateNestedManyWithoutBuyerInput
     favorites?: FavoriteCreateNestedManyWithoutBuyerInput
   }
@@ -8508,6 +8535,7 @@ export namespace Prisma {
     mail: string
     phone_numbers?: string | null
     name: string
+    is_active?: boolean
     addresses?: AddressUncheckedCreateNestedManyWithoutBuyerInput
     favorites?: FavoriteUncheckedCreateNestedManyWithoutBuyerInput
   }
@@ -8518,6 +8546,7 @@ export namespace Prisma {
     mail?: StringFieldUpdateOperationsInput | string
     phone_numbers?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
+    is_active?: BoolFieldUpdateOperationsInput | boolean
     addresses?: AddressUpdateManyWithoutBuyerNestedInput
     favorites?: FavoriteUpdateManyWithoutBuyerNestedInput
   }
@@ -8528,6 +8557,7 @@ export namespace Prisma {
     mail?: StringFieldUpdateOperationsInput | string
     phone_numbers?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
+    is_active?: BoolFieldUpdateOperationsInput | boolean
     addresses?: AddressUncheckedUpdateManyWithoutBuyerNestedInput
     favorites?: FavoriteUncheckedUpdateManyWithoutBuyerNestedInput
   }
@@ -8538,6 +8568,7 @@ export namespace Prisma {
     mail: string
     phone_numbers?: string | null
     name: string
+    is_active?: boolean
   }
 
   export type BuyerUpdateManyMutationInput = {
@@ -8546,6 +8577,7 @@ export namespace Prisma {
     mail?: StringFieldUpdateOperationsInput | string
     phone_numbers?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
+    is_active?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type BuyerUncheckedUpdateManyInput = {
@@ -8554,6 +8586,7 @@ export namespace Prisma {
     mail?: StringFieldUpdateOperationsInput | string
     phone_numbers?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
+    is_active?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type AddressCreateInput = {
@@ -8877,6 +8910,11 @@ export namespace Prisma {
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
   export type AddressListRelationFilter = {
     every?: AddressWhereInput
     some?: AddressWhereInput
@@ -8908,6 +8946,7 @@ export namespace Prisma {
     mail?: SortOrder
     phone_numbers?: SortOrder
     name?: SortOrder
+    is_active?: SortOrder
   }
 
   export type BuyerMaxOrderByAggregateInput = {
@@ -8916,6 +8955,7 @@ export namespace Prisma {
     mail?: SortOrder
     phone_numbers?: SortOrder
     name?: SortOrder
+    is_active?: SortOrder
   }
 
   export type BuyerMinOrderByAggregateInput = {
@@ -8924,6 +8964,7 @@ export namespace Prisma {
     mail?: SortOrder
     phone_numbers?: SortOrder
     name?: SortOrder
+    is_active?: SortOrder
   }
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
@@ -8960,6 +9001,14 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedStringNullableFilter<$PrismaModel>
     _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type OrderListRelationFilter = {
@@ -9275,6 +9324,10 @@ export namespace Prisma {
     set?: string | null
   }
 
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
+  }
+
   export type AddressUpdateManyWithoutBuyerNestedInput = {
     create?: XOR<AddressCreateWithoutBuyerInput, AddressUncheckedCreateWithoutBuyerInput> | AddressCreateWithoutBuyerInput[] | AddressUncheckedCreateWithoutBuyerInput[]
     connectOrCreate?: AddressCreateOrConnectWithoutBuyerInput | AddressCreateOrConnectWithoutBuyerInput[]
@@ -9525,6 +9578,11 @@ export namespace Prisma {
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
   export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -9579,6 +9637,14 @@ export namespace Prisma {
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type NestedEnumOrderStatusFilter<$PrismaModel = never> = {
@@ -9803,6 +9869,7 @@ export namespace Prisma {
     mail: string
     phone_numbers?: string | null
     name: string
+    is_active?: boolean
     favorites?: FavoriteCreateNestedManyWithoutBuyerInput
   }
 
@@ -9812,6 +9879,7 @@ export namespace Prisma {
     mail: string
     phone_numbers?: string | null
     name: string
+    is_active?: boolean
     favorites?: FavoriteUncheckedCreateNestedManyWithoutBuyerInput
   }
 
@@ -9869,6 +9937,7 @@ export namespace Prisma {
     mail?: StringFieldUpdateOperationsInput | string
     phone_numbers?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
+    is_active?: BoolFieldUpdateOperationsInput | boolean
     favorites?: FavoriteUpdateManyWithoutBuyerNestedInput
   }
 
@@ -9878,6 +9947,7 @@ export namespace Prisma {
     mail?: StringFieldUpdateOperationsInput | string
     phone_numbers?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
+    is_active?: BoolFieldUpdateOperationsInput | boolean
     favorites?: FavoriteUncheckedUpdateManyWithoutBuyerNestedInput
   }
 
@@ -10057,6 +10127,7 @@ export namespace Prisma {
     mail: string
     phone_numbers?: string | null
     name: string
+    is_active?: boolean
     addresses?: AddressCreateNestedManyWithoutBuyerInput
   }
 
@@ -10066,6 +10137,7 @@ export namespace Prisma {
     mail: string
     phone_numbers?: string | null
     name: string
+    is_active?: boolean
     addresses?: AddressUncheckedCreateNestedManyWithoutBuyerInput
   }
 
@@ -10091,6 +10163,7 @@ export namespace Prisma {
     mail?: StringFieldUpdateOperationsInput | string
     phone_numbers?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
+    is_active?: BoolFieldUpdateOperationsInput | boolean
     addresses?: AddressUpdateManyWithoutBuyerNestedInput
   }
 
@@ -10100,6 +10173,7 @@ export namespace Prisma {
     mail?: StringFieldUpdateOperationsInput | string
     phone_numbers?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
+    is_active?: BoolFieldUpdateOperationsInput | boolean
     addresses?: AddressUncheckedUpdateManyWithoutBuyerNestedInput
   }
 
