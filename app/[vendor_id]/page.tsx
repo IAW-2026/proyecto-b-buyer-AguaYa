@@ -8,6 +8,9 @@ import { getFavoriteByIDs } from "@/lib/favorites";
 import { getBuyerByUserId } from "@/lib/buyers";
 import { auth } from '@clerk/nextjs/server';
 import Link from "next/link";
+import Image from 'next/image';
+
+const DEFAULT_IMAGE = "/vendedordefault.png";
 type VendorPageProps = {
   params: Promise<{ vendor_id: string }>;
 };
@@ -41,6 +44,15 @@ export default async function VendorPage({ params }: VendorPageProps) {
         </div>
       </nav>
       <div className="max-w-4xl mx-auto px-6 pt-6 pb-2 flex flex-col gap-3 items-start">
+        <div className="relative w-full h-64 mb-2">
+          <Image
+            src={vendor.imageUrl ?? DEFAULT_IMAGE}
+            alt={vendor.name}
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            className="rounded-lg object-contain"
+          />
+        </div>
         <h1 className="text-2xl font-bold">{vendor.name}</h1>
       </div>
       <Suspense fallback= {<div>Cargando productos...</div>}>
