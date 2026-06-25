@@ -47,6 +47,7 @@ model Order {
   order_id      String      @id @default(cuid())
   vendor_id     String
   buyer_id      String
+  buyer_user_id String
   status        OrderStatus @default(PENDING)
   status_reason String?
   total         Float

@@ -26,14 +26,14 @@ export async function POST(req: NextRequest) {
     }
     try {
         const body = await req.json()
-        const { vendor_id, buyer_id, total, address_id, items } = body
-        if (!vendor_id || !buyer_id || total === undefined) {
+        const { vendor_id, buyer_id, buyer_user_id, total, address_id, items } = body
+        if (!vendor_id || !buyer_id || !buyer_user_id || total === undefined) {
             return NextResponse.json(
-                { error: "vendor_id, buyer_id y total son requeridos" },
+                { error: "vendor_id, buyer_id, buyer_user_id y total son requeridos" },
                 { status: 400 }
             )
         }
-        const order = await createOrder({ vendor_id, buyer_id, total, address_id, items })
+        const order = await createOrder({ vendor_id, buyer_id, buyer_user_id, total, address_id, items })
         return NextResponse.json({ order }, { status: 201 })
     } catch {
         return NextResponse.json({ error: "Error interno del servidor" }, { status: 500 })

@@ -44,6 +44,7 @@ async function main() {
 		data: {
 			vendor_id: 'vendor_1',
 			buyer_id: buyer1.buyer_id,
+			buyer_user_id: buyer1.user_id,
 			total: 49.99,
 			address_id: address1.id,
 			items: {
@@ -88,6 +89,7 @@ async function main() {
 		data: {
 			vendor_id: 'vendor_2',
 			buyer_id: buyer2.buyer_id,
+			buyer_user_id: buyer2.user_id,
 			total: 15.0,
 			address_id: buyer2.addresses[0].id,
 			items: { create: [{ product_id: 'prod_3', product_name: 'Galletas', product_price: 15.0, quantity: 1 }] }

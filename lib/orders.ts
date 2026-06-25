@@ -101,6 +101,7 @@ export async function getOrdersByBuyerId(buyerId: string) {
 export async function createOrder(data: {
   vendor_id: string
   buyer_id: string
+  buyer_user_id: string
   total: number
   address_id?: string
   items?: { product_id: string; product_name: string; product_price: number; quantity: number }[]
@@ -109,6 +110,7 @@ export async function createOrder(data: {
     data: {
       vendor_id: data.vendor_id,
       buyer_id: data.buyer_id,
+      buyer_user_id: data.buyer_user_id,
       total: data.total,
       address_id: data.address_id,
       items: data.items ? { create: data.items } : undefined,

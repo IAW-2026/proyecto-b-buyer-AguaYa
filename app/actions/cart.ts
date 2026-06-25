@@ -35,6 +35,7 @@ export async function addToCart(productId: string, quantity: number) {
                 data: {
                     vendor_id: product.vendorId,
                     buyer_id: buyer.buyer_id,
+                    buyer_user_id: buyer.user_id,
                     total: 0,
                 },
             });

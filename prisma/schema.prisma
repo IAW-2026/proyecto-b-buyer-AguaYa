@@ -45,16 +45,17 @@ model Address { //agregar a doc
 }
 model Order {
   order_id         String      @id @default(cuid())
-  vendor_id   String
-  buyer_id    String 
+  vendor_id        String
+  buyer_id         String
+  buyer_user_id    String
   status           OrderStatus @default(PENDING)
   status_reason    String?
   total            Float
-  address_id String?
-  created_at  DateTime    @default(now())
-  updated_at  DateTime    @updatedAt
-  items      OrderItem[]
-  address Address ?@relation(fields: [address_id], references : [id])
+  address_id       String?
+  created_at       DateTime    @default(now())
+  updated_at       DateTime    @updatedAt
+  items            OrderItem[]
+  address          Address?    @relation(fields: [address_id], references: [id])
 }
 
 model OrderItem { //relaciona order con products, potencialmente ayuda tener atributos adicionales por si el producto se pierde de la db de seller
