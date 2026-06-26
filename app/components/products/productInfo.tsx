@@ -1,3 +1,5 @@
+"use client"
+
 import {Product} from "@/lib/external_api_calls/products";
 
 export default function ProductInfo({product}:{product: Product}){
