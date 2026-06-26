@@ -2,10 +2,9 @@ import 'dotenv/config'
 import { fakerES as faker } from '@faker-js/faker'
 import { PrismaClient } from '../generated/prisma/client/index.js'
 import { PrismaNeon } from '@prisma/adapter-neon'
-import { getVendors, mockVendors } from '../lib/external_api_calls/vendors'
-import { getProducts, mockProducts } from '../lib/external_api_calls/products'
 import type { Vendor } from '../lib/external_api_calls/vendors'
 import type { Product } from '../lib/external_api_calls/products'
+import { seedVendors, seedProducts } from './seed-data'
 
 const CLERK_API = 'https://api.clerk.com/v1/users'
 const CLERK_SECRET = process.env.CLERK_SECRET_KEY!
@@ -124,22 +123,11 @@ async function main() {
   console.log('🌱 Starting seed...')
   const start = Date.now()
 
-  // 1. Fetch vendors and products
-  console.log('📦 Fetching vendors and products...')
-  let vendors: Vendor[]
-  let products: Product[]
-  let usingMock = false
-  try {
-    vendors = await getVendors()
-    products = await getProducts()
-  } catch (err) {
-    console.warn('   ⚠️ External API failed, falling back to mock data')
-    console.warn(`   ${err instanceof Error ? err.message : err}`)
-    vendors = mockVendors
-    products = mockProducts
-    usingMock = true
-  }
-  console.log(`   ✅ ${vendors.length} vendors, ${products.length} products${usingMock ? ' (mock)' : ''}`)
+  // 1. Load vendors and products from seed data
+  console.log('📦 Loading seed data...')
+  const vendors: Vendor[] = seedVendors
+  const products: Product[] = seedProducts
+  console.log(`   ✅ ${vendors.length} vendors, ${products.length} products`)
 
   const productsByVendor = new Map<string, Product[]>()
   for (const p of products) {
