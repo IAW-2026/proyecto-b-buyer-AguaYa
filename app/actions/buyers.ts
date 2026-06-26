@@ -6,7 +6,6 @@ import { redirect } from "next/navigation";
 import {prisma} from "@/lib/prisma";
 export async function deleteBuyerAction(buyerId: string) {
     await deleteBuyer(buyerId);
-    return { ok: true }
 }
 
 export async function createUserAction(){

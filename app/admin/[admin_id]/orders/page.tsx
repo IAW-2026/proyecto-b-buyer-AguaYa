@@ -1,7 +1,6 @@
 import { getAllOrders } from '@/lib/orders'
 import Link from 'next/link'
 import { deleteOrderAction } from '@/app/actions/orders'
-import { DeleteRowButton } from '@/app/components/admin/deleteRowButton'
 
 export default async function AdminOrdersPage() {
   const orders = await getAllOrders()
@@ -53,7 +52,9 @@ export default async function AdminOrdersPage() {
                       {new Date(order.created_at).toLocaleDateString('es-AR')}
                     </td>
                     <td className="py-2 px-3">
-                      <DeleteRowButton action={() => deleteOrderAction(order.order_id)} />
+                      <form action={deleteOrderAction.bind(null, order.order_id)}>
+                        <button type="submit" className="text-red-500 hover:text-red-700 text-sm cursor-pointer">🗑️</button>
+                      </form>
                     </td>
                   </tr>
                 ))}

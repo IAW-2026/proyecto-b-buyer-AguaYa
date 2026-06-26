@@ -20,5 +20,4 @@ export async function addFavorite(vendorId: string, buyerId?: string) {
 
 export async function deleteFavoriteAction(vendorId: string, buyerId: string) {
   await deleteFavorite(buyerId, vendorId);
-  return { ok: true }
 }

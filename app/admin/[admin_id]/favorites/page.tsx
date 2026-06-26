@@ -2,7 +2,6 @@ import { getAllFavorites } from '@/lib/favorites'
 import { getVendors } from '@/lib/external_api_calls/vendors'
 import Link from 'next/link'
 import { deleteFavoriteAction } from '@/app/actions/favorites'
-import { DeleteRowButton } from '@/app/components/admin/deleteRowButton'
 
 export default async function AdminFavoritesPage() {
   const [favorites, vendors] = await Promise.all([
@@ -46,7 +45,9 @@ export default async function AdminFavoritesPage() {
                       <td className="py-2 px-3 font-mono text-xs">{favorite.vendor_id}</td>
                       <td className="py-2 px-3">{vendor.name}</td>
                       <td className="py-2 px-3">
-                        <DeleteRowButton action={() => deleteFavoriteAction(favorite.vendor_id, favorite.buyer_id)} />
+                        <form action={deleteFavoriteAction.bind(null, favorite.vendor_id, favorite.buyer_id)}>
+                          <button type="submit" className="text-red-500 hover:text-red-700 text-sm cursor-pointer">🗑️</button>
+                        </form>
                       </td>
                     </tr>
                   )

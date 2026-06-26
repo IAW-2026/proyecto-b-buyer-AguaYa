@@ -1,7 +1,6 @@
 import { getAllBuyers } from '@/lib/buyers'
 import Link from 'next/link'
 import { deleteBuyerAction } from '@/app/actions/buyers'
-import { DeleteRowButton } from '@/app/components/admin/deleteRowButton'
 
 export default async function AdminBuyersPage() {
   const buyers = await getAllBuyers()
@@ -47,7 +46,9 @@ export default async function AdminBuyersPage() {
                       )}
                     </td>
                     <td className="py-2 px-3">
-                      <DeleteRowButton action={() => deleteBuyerAction(buyer.buyer_id)} />
+                      <form action={deleteBuyerAction.bind(null, buyer.buyer_id)}>
+                        <button type="submit" className="text-red-500 hover:text-red-700 text-sm cursor-pointer">🗑️</button>
+                      </form>
                     </td>
                   </tr>
                 ))}
