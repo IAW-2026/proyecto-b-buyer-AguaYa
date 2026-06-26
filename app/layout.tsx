@@ -5,6 +5,7 @@ import './globals.css'
 import { Logo } from "@/app/components/ui/logo"
 import { SearchBar } from "./components/search/searchBar";
 import { DarkModeToggle } from './components/ui/darkModeToggle'
+import { UserMenuDropdown } from './components/ui/userMenuDropdown'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -54,6 +55,7 @@ export default function RootLayout({
                 </SignUpButton>
               </Show>
               <Show when="signed-in">
+                <UserMenuDropdown />
                 <UserButton />
               </Show>
             </div>
