@@ -15,17 +15,17 @@ export function ProductCatalog({ products }: { products: Product[] }) {
     let items = q
       ? products.filter(
           (p) =>
-            p.name.toLowerCase().includes(q) ||
-            p.description.toLowerCase().includes(q),
+            (p.name?.toLowerCase() ?? '').includes(q) ||
+            (p.description?.toLowerCase() ?? '').includes(q),
         )
       : [...products]
 
     items.sort((a, b) => {
       switch (sort) {
-        case "name-asc": return a.name.localeCompare(b.name)
-        case "name-desc": return b.name.localeCompare(a.name)
-        case "price-asc": return a.price - b.price
-        case "price-desc": return b.price - a.price
+        case "name-asc": return (a.name ?? '').localeCompare(b.name ?? '')
+        case "name-desc": return (b.name ?? '').localeCompare(a.name ?? '')
+        case "price-asc": return (a.price ?? 0) - (b.price ?? 0)
+        case "price-desc": return (b.price ?? 0) - (a.price ?? 0)
         default: return 0
       }
     })

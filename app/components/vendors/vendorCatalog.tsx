@@ -15,16 +15,16 @@ export function VendorCatalog({ vendors }: { vendors: Vendor[] }) {
     let items = q
       ? vendors.filter(
           (v) =>
-            v.name.toLowerCase().includes(q) ||
-            v.address.toLowerCase().includes(q),
+            (v.name?.toLowerCase() ?? '').includes(q) ||
+            (v.address?.toLowerCase() ?? '').includes(q),
         )
       : [...vendors]
 
     items.sort((a, b) => {
       switch (sort) {
-        case "name-asc": return a.name.localeCompare(b.name)
-        case "name-desc": return b.name.localeCompare(a.name)
-        case "address": return a.address.localeCompare(b.address)
+        case "name-asc": return (a.name ?? '').localeCompare(b.name ?? '')
+        case "name-desc": return (b.name ?? '').localeCompare(a.name ?? '')
+        case "address": return (a.address ?? '').localeCompare(b.address ?? '')
         default: return 0
       }
     })
