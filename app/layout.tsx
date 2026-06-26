@@ -3,7 +3,7 @@ import { ClerkProvider, Show, SignInButton, SignUpButton, UserButton } from '@cl
 import { Geist, Geist_Mono } from 'next/font/google'
 import './globals.css'
 import { Logo } from "@/app/components/ui/logo"
-import { SearchBar } from "./components/search/searchBar";
+import Link from "next/link";
 import { DarkModeToggle } from './components/ui/darkModeToggle'
 import { UserMenuDropdown } from './components/ui/userMenuDropdown'
 
@@ -36,10 +36,21 @@ export default function RootLayout({
             <div className="flex-shrink-0">
               <Logo/>
             </div>
-            {/* SearchBar - Centro */}
-            <div className="flex-1 max-w-md">
-              <SearchBar />
-            </div>
+            {/* Navegacion - Centro */}
+            <nav className="flex items-center gap-3">
+              <Link
+                href="/"
+                className="bg-[#4287f5] text-white rounded-full font-medium text-sm sm:text-base h-10 sm:h-12 px-6 sm:px-8 flex items-center justify-center hover:bg-blue-600 transition-colors"
+              >
+                Productos
+              </Link>
+              <Link
+                href="/vendors"
+                className="bg-[#4287f5] text-white rounded-full font-medium text-sm sm:text-base h-10 sm:h-12 px-6 sm:px-8 flex items-center justify-center hover:bg-blue-600 transition-colors"
+              >
+                Vendedores
+              </Link>
+            </nav>
             {/* Botones - Derecha */}
             <div className="flex items-center gap-4 flex-shrink-0">
               <Show when="signed-out">
