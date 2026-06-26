@@ -44,7 +44,7 @@ function mapRawVendor(raw: VendorResponse): Vendor {
   }
 }
 
-const mockVendors: Vendor[] = [
+export const mockVendors: Vendor[] = [
     {id:"1", name:"AquaSur Distribuciones", description:"Distribuidora de agua en Buenos Aires", address:"Buenos Aires", productCount: 0},
     {id:"2", name:"Manantial Azul", description:"Agua de manantial de calidad", address:"Bahia Blanca", productCount: 5},
     {id:"3", name:"Agua Cristal", description:"Agua cristalina para tu hogar", address:"Buenos Aires", productCount: 0},

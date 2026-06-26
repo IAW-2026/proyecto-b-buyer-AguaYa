@@ -29,7 +29,7 @@ function isValidUrl(url: string | undefined): boolean {
   try { new URL(url); return true; } catch { return false; }
 }
 
-const mockProducts: Product[] = [
+export const mockProducts: Product[] = [
     {id:"1", vendorId:"1", name:"Bidón de Agua Mineral 20 L", description:"Agua mineral natural de manantial, ideal para consumo diario en hogar y oficina.", price:100, stock:10, imageUrl:"https://res.cloudinary.com/deqelupbf/image/upload/f_auto,q_auto/png-transparent-bottled-water-graphy-water-bottle-plastic-bottle-drinking-water-lid-running-product-thumbnail_akhot7"},
     {id:"2", vendorId:"1", name:"Bidón de Agua Purificada 12 L", description:"Agua purificada mediante ósmosis inversa, liviana y práctica para espacios reducidos.", price:200, stock:20, imageUrl:"https://res.cloudinary.com/deqelupbf/image/upload/f_auto,q_auto/png-clipart-drinking-water-water-cooler-bottled-water-mineral-water-water-glass-plastic-bottle_hwrwt9"},
 
