@@ -13,7 +13,7 @@ export async function updateBuyerProfileAction(name: string, phone: string) {
 
   return updateBuyer(buyer.buyer_id, {
     name,
-    phone_numbers: phone || null,
+    phone_numbers: phone || undefined,
   })
 }
 
