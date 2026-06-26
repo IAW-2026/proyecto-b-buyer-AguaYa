@@ -28,16 +28,9 @@ interface VendorDetailResponse {
   vendor: VendorResponse
 }
 
-import { ALLOWED_IMAGE_HOSTNAMES } from "../image-config";
-
-function isAllowedImageUrl(url: string | undefined): boolean {
+function isValidUrl(url: string | undefined): boolean {
   if (!url) return false;
-  try {
-    const parsed = new URL(url);
-    return ALLOWED_IMAGE_HOSTNAMES.includes(parsed.hostname);
-  } catch {
-    return false;
-  }
+  try { new URL(url); return true; } catch { return false; }
 }
 
 function mapRawVendor(raw: VendorResponse): Vendor {
@@ -47,7 +40,7 @@ function mapRawVendor(raw: VendorResponse): Vendor {
     description: raw.description,
     address: raw.address,
     productCount: raw.productCount,
-    imageUrl: isAllowedImageUrl(raw.image) ? raw.image : undefined,
+    imageUrl: isValidUrl(raw.image) ? raw.image : undefined,
   }
 }
 

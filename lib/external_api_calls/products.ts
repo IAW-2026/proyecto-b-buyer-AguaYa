@@ -24,16 +24,9 @@ interface RawProductsResponse {
 }
 
 const BASE_URL = 'https://proyecto-b-seller-agua-ya.vercel.app/api'
-import { ALLOWED_IMAGE_HOSTNAMES } from "../image-config";
-
-function isAllowedImageUrl(url: string | undefined): boolean {
+function isValidUrl(url: string | undefined): boolean {
   if (!url) return false;
-  try {
-    const parsed = new URL(url);
-    return ALLOWED_IMAGE_HOSTNAMES.includes(parsed.hostname);
-  } catch {
-    return false;
-  }
+  try { new URL(url); return true; } catch { return false; }
 }
 
 const mockProducts: Product[] = [
@@ -84,7 +77,7 @@ function mapRawProduct(raw: RawProduct): Product {
     description: raw.description,
     price: raw.price,
     stock: raw.stock,
-    imageUrl: isAllowedImageUrl(raw.image) ? raw.image : undefined,
+    imageUrl: isValidUrl(raw.image) ? raw.image : undefined,
   }
 }
 
