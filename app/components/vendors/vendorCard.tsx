@@ -1,3 +1,5 @@
+"use client"
+
 import Link from 'next/link';
 import VendorInfo from './vendorInfo';
 import { Vendor } from '@/lib/external_api_calls/vendors';

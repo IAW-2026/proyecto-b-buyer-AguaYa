@@ -1,8 +1,8 @@
 import { auth } from '@clerk/nextjs/server';
 import { clerkClient} from "@clerk/nextjs/server";
 import { createBuyerIfNotExists } from "@/lib/buyers";
-import { getProducts, Product } from "@/lib/external_api_calls/products";
-import ProductCard from "@/app/components/products/productCard";
+import { getProducts } from "@/lib/external_api_calls/products";
+import { ProductCatalog } from "@/app/components/products/productCatalog";
 
 export default async function Home() {
   const { userId } = await auth();
@@ -19,11 +19,7 @@ export default async function Home() {
   return (
     <div className="flex justify-center p-4">
       <div className="w-full max-w-4xl">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {products.map((product: Product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-        </div>
+        <ProductCatalog products={products} />
       </div>
     </div>
   );

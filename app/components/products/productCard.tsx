@@ -1,12 +1,13 @@
+"use client"
+
 import { Product } from "@/lib/external_api_calls/products";
 import ProductInfo from "./productInfo";
 import Link from 'next/link';
 import Image from 'next/image';
 import { AddToCartButton } from '../cart/addToCartButton';
-import { Suspense } from "react";
 const DEFAULT_IMAGE = "/botelladefecto.jpg";
 
-export default async function ProductCard({ product }: { product: Product }) {
+export default function ProductCard({ product }: { product: Product }) {
   return (
     <div>
       <div className="relative w-full h-48">
