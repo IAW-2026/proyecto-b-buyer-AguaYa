@@ -1,10 +1,10 @@
-// app/admin/[admin_id]/buyers/page.tsx
 import { getAllBuyers } from '@/lib/buyers'
-import { AdminBuyerCard } from '@/app/components/buyers/adminBuyerCard';
-import Link from 'next/link';
+import Link from 'next/link'
+import { deleteBuyerAction } from '@/app/actions/buyers'
+import { DeleteRowButton } from '@/app/components/admin/deleteRowButton'
 
 export default async function AdminBuyersPage() {
-  const buyers = await getAllBuyers();
+  const buyers = await getAllBuyers()
 
   return (
     <div>
@@ -20,13 +20,42 @@ export default async function AdminBuyersPage() {
         {buyers.length === 0 ? (
           <p className="text-gray-500">No hay compradores registrados.</p>
         ) : (
-          <div className="flex flex-col gap-4">
-            {buyers.map((buyer) => (
-              <AdminBuyerCard key={buyer.buyer_id} buyer={buyer} />
-            ))}
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm text-left border-collapse">
+              <thead>
+                <tr className="border-b border-gray-300">
+                  <th className="py-2 px-3 font-semibold text-gray-600">Buyer ID</th>
+                  <th className="py-2 px-3 font-semibold text-gray-600">Nombre</th>
+                  <th className="py-2 px-3 font-semibold text-gray-600">Email</th>
+                  <th className="py-2 px-3 font-semibold text-gray-600">Tel</th>
+                  <th className="py-2 px-3 font-semibold text-gray-600">Activo</th>
+                  <th className="py-2 px-3 font-semibold text-gray-600">Acción</th>
+                </tr>
+              </thead>
+              <tbody>
+                {buyers.map((buyer) => (
+                  <tr key={buyer.buyer_id} className="border-b border-gray-200 hover:bg-gray-50">
+                    <td className="py-2 px-3 font-mono text-xs">{buyer.buyer_id}</td>
+                    <td className="py-2 px-3">{buyer.name}</td>
+                    <td className="py-2 px-3 text-xs">{buyer.mail}</td>
+                    <td className="py-2 px-3 text-xs text-gray-500">{buyer.phone_numbers ?? "—"}</td>
+                    <td className="py-2 px-3">
+                      {buyer.is_active ? (
+                        <span className="text-green-600 text-xs font-medium">✅ Sí</span>
+                      ) : (
+                        <span className="text-red-500 text-xs font-medium">❌ No</span>
+                      )}
+                    </td>
+                    <td className="py-2 px-3">
+                      <DeleteRowButton action={() => deleteBuyerAction(buyer.buyer_id)} />
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         )}
       </main>
     </div>
-  );
+  )
 }

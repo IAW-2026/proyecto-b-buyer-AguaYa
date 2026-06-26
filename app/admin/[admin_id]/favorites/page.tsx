@@ -1,14 +1,16 @@
 import { getAllFavorites } from '@/lib/favorites'
 import { getVendors } from '@/lib/external_api_calls/vendors'
-import { FavoriteCard } from '@/app/components/favorites/favoriteCard';
-import Link from 'next/link';
+import Link from 'next/link'
+import { deleteFavoriteAction } from '@/app/actions/favorites'
+import { DeleteRowButton } from '@/app/components/admin/deleteRowButton'
+
 export default async function AdminFavoritesPage() {
   const [favorites, vendors] = await Promise.all([
     getAllFavorites(),
     getVendors(),
-  ]);
+  ])
 
-  const vendorMap = new Map(vendors.map((v) => [v.id, v]));
+  const vendorMap = new Map(vendors.map((v) => [v.id, v]))
 
   return (
     <div>
@@ -24,21 +26,36 @@ export default async function AdminFavoritesPage() {
         {favorites.length === 0 ? (
           <p className="text-gray-500">No hay favoritos registrados.</p>
         ) : (
-        <div className="flex flex-col gap-4">
-          {favorites.map((favorite) => {
-            const vendor = vendorMap.get(favorite.vendor_id);
-            if (!vendor) return null;
-            return (
-              <FavoriteCard
-                key={`${favorite.buyer_id}-${favorite.vendor_id}`}
-                vendor={vendor}
-                buyerId={favorite.buyer_id}
-              />
-            );
-          })}
-        </div>
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm text-left border-collapse">
+              <thead>
+                <tr className="border-b border-gray-300">
+                  <th className="py-2 px-3 font-semibold text-gray-600">Buyer ID</th>
+                  <th className="py-2 px-3 font-semibold text-gray-600">Vendor ID</th>
+                  <th className="py-2 px-3 font-semibold text-gray-600">Vendor Name</th>
+                  <th className="py-2 px-3 font-semibold text-gray-600">Acción</th>
+                </tr>
+              </thead>
+              <tbody>
+                {favorites.map((favorite) => {
+                  const vendor = vendorMap.get(favorite.vendor_id)
+                  if (!vendor) return null
+                  return (
+                    <tr key={`${favorite.buyer_id}-${favorite.vendor_id}`} className="border-b border-gray-200 hover:bg-gray-50">
+                      <td className="py-2 px-3 font-mono text-xs">{favorite.buyer_id}</td>
+                      <td className="py-2 px-3 font-mono text-xs">{favorite.vendor_id}</td>
+                      <td className="py-2 px-3">{vendor.name}</td>
+                      <td className="py-2 px-3">
+                        <DeleteRowButton action={() => deleteFavoriteAction(favorite.vendor_id, favorite.buyer_id)} />
+                      </td>
+                    </tr>
+                  )
+                })}
+              </tbody>
+            </table>
+          </div>
         )}
       </main>
     </div>
-  );
+  )
 }
