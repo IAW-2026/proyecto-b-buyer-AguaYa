@@ -9,7 +9,7 @@ import type { Product } from '../lib/external_api_calls/products'
 
 const CLERK_API = 'https://api.clerk.com/v1/users'
 const CLERK_SECRET = process.env.CLERK_SECRET_KEY!
-const SEED_PASSWORD = 'SeedTest123!'
+const SEED_PASSWORD = 'iawuser#'
 const BUYER_COUNT = 20
 
 const connectionString = process.env.DATABASE_URL!
