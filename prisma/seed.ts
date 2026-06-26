@@ -145,7 +145,7 @@ async function main() {
   for (let i = 0; i < BUYER_COUNT; i++) {
     const firstName = faker.person.firstName()
     const lastName = faker.person.lastName()
-    const email = `${faker.internet.userName({ firstName, lastName }).toLowerCase()}+clerk_test@iaw.com`
+    const email = `${faker.internet.username({ firstName, lastName }).toLowerCase()}+clerk_test@iaw.com`
     const name = `${firstName} ${lastName}`
     const phone = faker.phone.number({ style: 'international' })
     const progress = `[${i + 1}/${BUYER_COUNT}]`
