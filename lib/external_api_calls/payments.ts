@@ -33,6 +33,7 @@ export async function confirmPayment(orderId : string ){
                     id: buyer?.buyer_id,
                     name: buyer?.name,
                     email: buyer?.mail,
+                    phone: buyer?.phone_numbers,
                     address: address?.street + ' ' + address?.city + ' ' + address?.zip
                 },
                 seller: {
