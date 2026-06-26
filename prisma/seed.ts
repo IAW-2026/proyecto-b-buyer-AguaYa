@@ -12,6 +12,30 @@ const CLERK_SECRET = process.env.CLERK_SECRET_KEY!
 const SEED_PASSWORD = 'iawuser#'
 const BUYER_COUNT = 20
 
+const SEED_ADDRESSES = [
+  { street: "Alem 1882" },
+  { street: "Alem 780" },
+  { street: "San Martín 350" },
+  { street: "Belgrano 650" },
+  { street: "Av. Colón 500" },
+  { street: "Av. Alem 3200" },
+  { street: "Rondeau 1500" },
+  { street: "12 de Octubre 2500" },
+  { street: "Vieytes 1200" },
+  { street: "Av. Cabrera 3500" },
+  { street: "Saavedra 1800" },
+  { street: "Darragueira 2500" },
+  { street: "Indiada 2000" },
+  { street: "Av. Juan B. Justo 1000" },
+  { street: "Oliver 1500" },
+  { street: "Sixto Laspiur 3000" },
+  { street: "Av. Alem 4500" },
+  { street: "Av. Cerri 750" },
+  { street: "Brown 1000" },
+  { street: "Brandsen 800" },
+  { street: "Av. Alem 200" },
+]
+
 const connectionString = process.env.DATABASE_URL!
 const prisma = new PrismaClient({ adapter: new PrismaNeon({ connectionString }) })
 
@@ -169,23 +193,18 @@ async function main() {
 
   // 5. Create addresses
   console.log('📍 Creating addresses...')
-  let addressCount = 0
   const addressRows: { street: string; city: string; zip: string; buyer_id: string }[] = []
 
-  for (const buyer of buyerRecords) {
-    const addrCount = faker.number.int({ min: 1, max: 2 })
-    for (let a = 0; a < addrCount; a++) {
-      addressRows.push({
-        street: faker.location.streetAddress(),
-        city: faker.location.city(),
-        zip: faker.location.zipCode('####'),
-        buyer_id: buyer.buyer_id,
-      })
-    }
-    addressCount += addrCount
+  for (let i = 0; i < buyerRecords.length; i++) {
+    addressRows.push({
+      street: SEED_ADDRESSES[i].street,
+      city: "Bahía Blanca",
+      zip: "8000",
+      buyer_id: buyerRecords[i].buyer_id,
+    })
   }
   await prisma.address.createMany({ data: addressRows })
-  console.log(`   ✅ ${addressCount} addresses created`)
+  console.log(`   ✅ ${addressRows.length} addresses created`)
 
   // 6. Create favorites
   console.log('⭐ Creating favorites...')
@@ -261,7 +280,7 @@ async function main() {
   const elapsed = ((Date.now() - start) / 1000).toFixed(1)
   console.log(`\n🎉 Seed completed in ${elapsed}s`)
   console.log(`   ${BUYER_COUNT} buyers`)
-  console.log(`   ${addressCount} addresses`)
+  console.log(`   ${BUYER_COUNT} addresses`)
   console.log(`   ${favCount} favorites`)
   console.log(`   ${orderCount} orders`)
   console.log(`   ${itemCount} order items`)
